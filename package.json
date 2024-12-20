@@ -1,14 +1,10 @@
 {
-  "homepage": "http://Bustudents.gitub.io/Bu-students",
   "name": "bu-students",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-   " predeploy":"npm run build",
- "deploy": "npm run build && gh-pages -d out"
-,    "build": "next build",
-    "export": "next export",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
