@@ -1,0 +1,316 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #05050A;
+    
+    }
+.HN {
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(5, 5, 10, 0.73) 30%,
+        rgba(3, 3, 5, 0.84) 60%,
+        rgba(5, 5, 10, 1) 90%
+    ),
+    url("https://firebasestorage.googleapis.com/v0/b/bu-students.appspot.com/o/WhatsApp%20Image%202024-12-16%20at%2021.40.56_876657f6.jpg?alt=media&token=40cee486-5088-4f0d-8df8-c1ddd8bc8204");
+background-size:100% ;
+
+background-repeat: no-repeat;
+}
+/* Prevent horizontal overflow */
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  width: 100%;
+height: 100%;
+}
+
+body {
+  max-width: 100vw; /* Limit body width to viewport width */
+max-height: 100%;
+}
+
+* {
+  box-sizing: border-box; /* Ensure padding/margin don’t increase element width */
+}
+
+/* Fix elements with unintentional large widths */
+img, video, iframe {
+  max-width: 100%;
+  height:100%;
+}
+
+.container {
+  max-width: 100%; /* Ensure custom containers don't overflow */
+  overflow: hidden; /* Hide any internal overflow */
+}
+
+
+.icon-button {
+    /* Add styles for your button */
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.025); /* White layer with 50% opacity */
+    backdrop-filter: blur(10px); /* Apply the blur effect */
+    z-index: 1;
+    pointer-events: none; /* Ensures the layer doesn't interfere with clicks */
+   
+}
+  
+.list {
+  position: fixed;
+  top: 50px; /* Adjust position as needed */
+  right: 20px;
+  width: 200px;
+  z-index: 2;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.slide-in {
+  animation: slideIn 0.2s ease-in-out forwards;
+}
+
+.slide-out {
+  animation: slideOut 0.1s ease-in-out forwards;
+}
+
+@keyframes slideIn {
+  from {
+      transform: translateX(20px);
+      opacity: 0;
+   
+    }
+  to {
+      transform: translateX(0);
+      opacity: 1;
+  }
+}
+
+@keyframes slideOut {
+  from {
+      transform: translateX(0);
+      opacity: 1;
+  }
+  to {
+      transform: translateX(20px);
+      opacity: 0;
+      filter: blur(0px);
+    }
+}
+
+  
+
+
+
+
+
+  
+  .listitem{
+    background-color: rgba(29, 29, 29, 0.412); /* White layer with 50% opacity */
+    backdrop-filter: blur(7px);
+transition: ease-in-out 0.15s;
+position: relative;right: 0px;
+cursor: pointer;
+}
+
+
+
+.listitem:hover{
+position: relative;right: 50px
+}
+.stat{
+ 
+  background: linear-gradient(190deg, #FF0000, #fe8d8d); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  }
+.th{background: linear-gradient(110deg, #eeff00, #ffffff); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+  .vertical-line {
+
+    margin-top: 10px;
+ margin-right: 40px;  
+ border: none;
+    width: 2.5px;
+    height: 40px;
+    background-color:white;
+
+
+  }
+ 
+.scroll{
+
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 40%),
+   url("/assests/component 1.png");
+   background-position: top right;
+   background-repeat: no-repeat; /* Prevents the image from repeating */
+
+   z-index: 1;
+   position: -webkit-sticky;
+   position: sticky;
+  }
+ 
+  .scroll3{
+
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 40%),
+     url("/assests/Frame 4.png");
+    
+     background-repeat: no-repeat; /* Prevents the image from repeating */
+  
+     background-position: top right;
+     position: -webkit-sticky;
+     position: sticky;
+    }
+
+  .scroll2{
+
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 40%),
+     url("/assests/triangle.png");
+    
+     background-repeat: no-repeat; /* Prevents the image from repeating */
+  
+     background-position: top left;
+     position: -webkit-sticky;
+     position: sticky;
+ 
+    }
+  
+    .low{background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 50%),
+      url("/assests/Group 10.png" );
+      background-repeat: no-repeat;
+      z-index: 10; width:fit-content;
+    background-position:top left;
+    background-size:auto;
+    }
+    
+
+.image-container  {
+ box-shadow: #05050A;
+ 
+  /* Adjust to your image size */
+  background-image: 
+    linear-gradient(to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(5, 5, 10, 0.321) 30%,
+        rgba(3, 3, 5, 0.84) 60%,
+        rgba(5, 5, 10, 0.986) 100%), /* Gradient overlay */
+    url("/assests/4181325198_4a3ac4237b_z.jpg"); /* Path to your image */
+background-position: center;
+    background-size: cover; /* Ensures the image covers the container */
+  border-radius: 20px; /* Optional: Adds rounded corners */
+  box-shadow: 30px 20px 40px rgba(0, 0, 0, 0.627) 
+}
+
+
+.image-container2  {
+  box-shadow: #05050A;
+  
+   ; /* Adjust to your image size */
+   background-image: 
+     linear-gradient(to bottom,
+         rgba(0, 0, 0, 0) 0%,
+         rgba(5, 5, 10, 0.321) 30%,
+         rgba(3, 3, 5, 0.84) 60%,
+         rgba(5, 5, 10, 0.986) 100%), /* Gradient overlay */
+     url("/assests/photo_2024-12-17_04-19-47.jpg");background-position: center; /* Path to your image */
+ 
+     background-size: cover; /* Ensures the image covers the container */
+   border-radius: 20px; /* Optional: Adds rounded corners */
+   box-shadow: 30px 20px 40px rgba(0, 0, 0, 0.627)
+  }
+
+
+
+
+.stickyElement {
+
+  top: 0;
+  z-index: 10;
+  background-color: rgba(255, 255, 255, 0.8); /* Optional: background for the sticky element */
+  padding: 20px;
+}
+
+.Buss{color: transparent; -webkit-text-stroke: 1px #FA0000;}
+.card{ box-shadow: 30px 20px 40px rgba(0, 0, 0, 0.627)}
+.eight{ -webkit-text-fill-color:#ffffff ;}
+
+@media (min-width: 300px) and (max-width: 1100px) {
+  /* Add your styles here */
+  .HN {
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.75) 0%,
+        rgba(5, 5, 10, 0.468) 20%,
+        rgba(3, 3, 5, 0.203) 100%,
+        rgba(5, 5, 10, 1) 100%
+    ),
+    url("https://firebasestorage.googleapis.com/v0/b/bu-students.appspot.com/o/WhatsApp%20Image%202024-12-16%20at%2021.40.56_876657f6.jpg?alt=media&token=40cee486-5088-4f0d-8df8-c1ddd8bc8204");
+background-size:100% ;
+z-index: 5 ;
+
+background-repeat: no-repeat;
+}
+
+.scroll{
+
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 40%);
+  
+   background-position: top right;
+   background-repeat: no-repeat; /* Prevents the image from repeating */
+
+   z-index: 1;
+   position: -webkit-sticky;
+   position: sticky;
+  }
+
+
+  .scroll3{
+
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 40%);
+    
+     background-repeat: no-repeat; /* Prevents the image from repeating */
+  
+     background-position: top right;
+     position: -webkit-sticky;
+     position: sticky;
+    }
+
+  .scroll2{
+
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 40%);
+
+    
+     background-repeat: no-repeat; /* Prevents the image from repeating */
+  
+     background-position: top left;
+     position: -webkit-sticky;
+     position: sticky;
+ 
+    }
+    .low{background: radial-gradient(circle, rgba(255, 255, 255, 0.074) 0%, rgba(255, 255, 255, 0) 50%),
+      url("/assests/Group 10.png" );
+      background-repeat: no-repeat;
+      z-index: 10; width:fit-content;
+    background-position:top left;
+    background-size:cover;
+    }
+    
+}
