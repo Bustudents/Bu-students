@@ -89,7 +89,7 @@ export default function ListWithOverlay() {
               >
                 Resources
                 {menuState.isSubMenuVisible && (
-                  <ul className="absolute top-[-7px] left-[-100px] bg-gray-800 text-white rounded-lg p-3 shadow-lg">
+                  <ul className="absolute top-[-7px] left-[-100px]  text-white rounded-lg p-3 ">
                     <li className="p-2 hover:bg-red-700 rounded">
                       <a
                         href="https://drive.google.com/drive/folders/11_fAFjM-RTU1qP5i0ZEDZx_k9P1u0v_U"

@@ -77,7 +77,7 @@ img, video, iframe {
   right: 20px;
   width: 200px;
   z-index: 2;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
 }
 
 .slide-in {
@@ -122,7 +122,7 @@ img, video, iframe {
   .listitem{
     background-color: rgba(29, 29, 29, 0.412); /* White layer with 50% opacity */
     backdrop-filter: blur(7px);
-transition: ease-in-out 0.15s;
+transition: ease-in-out 0.20s;
 position: relative;right: 0px;
 cursor: pointer;
 }
@@ -249,7 +249,13 @@ background-position: center;
 }
 
 .Buss{color: transparent; -webkit-text-stroke: 1px #FA0000;}
-.card{ box-shadow: 30px 20px 40px rgba(0, 0, 0, 0.627)}
+.card{ box-shadow: 30px 20px 40px rgba(0, 0, 0, 0.627);
+  transition: 5ms;
+
+}
+
+
+
 .eight{ -webkit-text-fill-color:#ffffff ;}
 
 @media (min-width: 300px) and (max-width: 1100px) {

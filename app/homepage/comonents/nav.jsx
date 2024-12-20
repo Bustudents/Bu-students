@@ -44,7 +44,7 @@ const Nav = () => {
     <div className="2xl:pt-7 xs:pt-10 relative 2xl:bottom-0 xs:bottom-[100px] 2xl:flex-row  flex items-center justify-between">
       {/* Logo Section */}
       <div className="flex 2xl:text-[24px] xs:text-[16px] font-extrabold ml-10">
-        <h1 className="text-white xs:mb-5 2xl:mb-0 xs:mt-3 2xl:mt-0  2xl:tracking-normal flex 2xl:ml-0 xs:ml-[-40px]">Bu-students</h1>
+        <h1 className="text-white xs:mb-5 2xl:mb-0 xs:mt-3 2xl:mt-0  2xl:tracking-normal flex 2xl:ml-0 xs:ml-[-30px]">Bu-students</h1>
       </div>
 
       {/* Navigation Section */}
@@ -70,9 +70,9 @@ const Nav = () => {
               duration-300 ease-in-out text-white border-2 rounded-full 2xl:left-0 xs:left-10
               items-center mr-0`}
             >
-              <h3 className="2xl:text-[16px] xs:text-[10px] xs:w-[50px] 2xl:w-full  font-extrabold text-white mr-1   ">sign out</h3>
+              <h3 className="2xl:text-[16px] xs:text-[10px] xs:w-[50px] 2xl:w-full  font-extrabold text-white xs:mr-1 2xl:mr-4   ">sign out</h3>
               <Image
-            className="2xl:h-3 2xl:w-3 xs:h-2 xs:w-2"
+            className="h-3 w-3 "
                src="/assests/Vector (2).png"
                 alt="Sign out icon"
                 width={3} // Replace with actual size
@@ -87,7 +87,7 @@ const Nav = () => {
               items-center 2xl:mr-24 xs:mr-0`}
             >
               <Link href={"/signin"}>
-                <h3 className="2xl:text-[16px]  xs:text-[14px]    xs:w-[50px] 2xl:w-full font-extrabold text-white mr-1">sign in</h3>
+                <h3 className="2xl:text-[16px]  xs:text-[14px]    xs:w-[50px] 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-4 ">sign in</h3>
               </Link>
               <Image
                 className="w-3 h-3 "
