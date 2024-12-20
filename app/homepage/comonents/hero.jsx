@@ -4,7 +4,7 @@ export const Hero = ({stat}) => {
   return (
    <div>
    <div     className=" 2xl:flex xs:hidden  z-5  text-white text-[64px] pt-40 font-sans font-extrabold flex-col items-center justify-start ">
-  <div key={stat.id}   className="flex flex-col justify-start">  <div className=" flex row  "><h2 className="mr-4">Faculty</h2> <h2 className="text-[#FA0000]">Business</h2> </div>   <h2>administration</h2></div>
+  <div key={stat.id}   className="flex flex-col justify-start">  <div className=" flex row  "><h2 className="mr-4">Faculty of</h2> <h2 className="text-[#FA0000]">Business</h2> </div>   <h2>administration</h2></div>
 
     </div>
 <div className="2xl:pt-44 flex flex-col xs:pt-[150px]  justify-center">

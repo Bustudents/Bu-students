@@ -121,9 +121,9 @@ export default function ListWithOverlay() {
                 )}
               </ListItem>
 
-              <ListItem>
-                <Link href={"/courseoutline"} target="_blank">Course outline</Link>
-              </ListItem>
+              <Link href={"/courseoutline"} target="_blank">  <ListItem>
+              Course outline
+              </ListItem></Link>
  
               <Link href="/calnder" target="_blank">
                 <ListItem>Calendar</ListItem>
