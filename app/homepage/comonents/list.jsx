@@ -78,7 +78,7 @@ export default function ListWithOverlay() {
           >
             <button
               onClick={toggleList}
-              className="text-xl hover:border-red text-[30px] border solid border-white p-3 pb-1 pt-1 mb-5 ml-28 hover:scale-125 transition-all duration-200 ease-in-out"
+              className="text-xl hover:border-red text-[30px] border solid border-white p-3 pb-1 pt-1 mb-5 ml-28 hover:scale-125 transition-all duration-100 ease-in-out"
             >
               X
             </button>
@@ -122,10 +122,10 @@ export default function ListWithOverlay() {
               </ListItem>
 
               <ListItem>
-                <Link href={"/courseoutline"}>Course outline</Link>
+                <Link href={"/courseoutline"} target="_blank">Course outline</Link>
               </ListItem>
-
-              <Link href="/calnder">
+ 
+              <Link href="/calnder" target="_blank">
                 <ListItem>Calendar</ListItem>
               </Link>
             </ul>

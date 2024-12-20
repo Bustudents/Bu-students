@@ -79,7 +79,7 @@ const Mohmed = () => {
             transition={{ duration: 0.4, delay: 0.16 }}
           >
             <div className="text-white flex flex-col justify-center items-center xs:mr-5 2xl:mr-32 xs:mt-10">
-              <p className="text-center leading-tight font-extrabold 2xl:w-[600px] 2xl:min-w-0 xs:min-w-[300px] xs:w-auto low 2xl:pt-16 xs:pt-8 w-full 2xl:text-[45px] xs:text-[23px] ml-5 xs:mr-14">
+              <p className="text-center leading-tight font-extrabold 2xl:w-[580px] 2xl:min-w-0 xs:min-w-[300px] xs:w-auto low 2xl:pt-16 xs:pt-8 w-full 2xl:text-[45px] xs:text-[23px] ml-5 xs:mr-14">
                 In the world of business, the people who are most successful are
                 those who are doing what they love
               </p>

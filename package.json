@@ -1,11 +1,9 @@
-{"homepage": "http//bustudents.github.io/bu-students",
+{
   "name": "bu-students",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "deploy": "gh-pages -d ",
-    "predeploy":" npm run build ",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
