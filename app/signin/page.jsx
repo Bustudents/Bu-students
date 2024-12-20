@@ -137,11 +137,12 @@ const SignInPage = () => {
           </button>
         </div>
         <p className="mt-4 text-sm text-center text-gray-400">
-          Don't have an account?{" "}
-          <a href="/signup" className="text-indigo-500 hover:underline">
-            Sign up
-          </a>
-        </p>
+  {`Don't have an account? `}
+  <a href="/signup" className="text-indigo-500 hover:underline">
+    Sign up
+  </a>
+</p>
+
       </div>
     </div>
   );

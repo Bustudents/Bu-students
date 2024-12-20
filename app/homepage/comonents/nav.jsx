@@ -1,6 +1,8 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image"; // Import Next.js Image component
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import style from "../style";
@@ -69,11 +71,17 @@ const Nav = () => {
               items-center mr-24`}
             >
               <h3 className="2xl:text-[16px] xs:text-[10px] xs:w-[50px] 2xl:w-full  font-extrabold text-white mr-2   ">sign out</h3>
-              <img src="/assests/Vector (2).png " className="2xl:h-3 2xl:w-3 xs:h-2 xs:w-2" />
+              <Image
+            className="2xl:h-3 2xl:w-3 xs:h-2 xs:w-2"
+               src="/assests/Vector (2).png"
+                alt="Sign out icon"
+                width={3} // Replace with actual size
+                height={4} // Replace with actual size
+              />
             </button>
           ) : (
             <button
-              className={`hover:border-red-700 2xl:flex hover:scale-110 px-5 py-2 
+              className={`hover:border-red-700 2xl:flex hover:scale-110  px-5 py-2 
               ${style.row} border-solid p-3 border-white transition-all 
               duration-300 ease-in-out text-white border-2 rounded-full
               items-center mr-24`}
@@ -81,7 +89,13 @@ const Nav = () => {
               <Link href={"/signin"}>
                 <h3 className="2xl:text-[16px]  xs:text-[14px]   xs:w-[50px] 2xl:w-full font-extrabold text-white mr-3">sign in</h3>
               </Link>
-              <img src="/assests/Vector (2).png" className="2xl:h-3 2xl:w-3 xs:h-2 xs:w-2" />
+              <Image
+                className="2xl:h-3 2xl:w-3 xs:h-2 xs:w-2"
+                src="/assests/Vector (2).png"
+                alt="Sign in icon"
+                width={5} // Replace with actual size
+                height={5} // Replace with actual size
+              />
             </button>
           )}
 

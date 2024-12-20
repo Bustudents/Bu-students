@@ -1,7 +1,6 @@
-"use client"
-
 import { useState, memo } from "react";
 import Link from "next/link";
+
 // Memoize the list items to avoid unnecessary re-renders
 const ListItem = memo(({ children, ...props }) => (
   <li
@@ -11,6 +10,9 @@ const ListItem = memo(({ children, ...props }) => (
     {children}
   </li>
 ));
+
+// Explicitly set the displayName for debugging purposes
+ListItem.displayName = "ListItem";
 
 export default function ListWithOverlay() {
   // Combine all states into one state object to reduce re-renders
@@ -81,7 +83,6 @@ export default function ListWithOverlay() {
               X
             </button>
             <ul>
-             
               <ListItem
                 onMouseEnter={toggleSubMenu}
                 onMouseLeave={toggleSubMenu}
@@ -119,14 +120,14 @@ export default function ListWithOverlay() {
                   </ul>
                 )}
               </ListItem>
-                  
-              <ListItem><Link href={"/courseoutline"} >Course outline</Link></ListItem>
+
+              <ListItem>
+                <Link href={"/courseoutline"}>Course outline</Link>
+              </ListItem>
 
               <Link href="/calnder">
                 <ListItem>Calendar</ListItem>
               </Link>
-
-          
             </ul>
           </div>
         </>

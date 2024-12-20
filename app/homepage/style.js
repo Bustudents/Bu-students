@@ -1,5 +1,6 @@
-export default{
-    row:"flex row "
-    
-    
-    }
+const style = {
+    row: "flex row"
+  };
+  
+  export default style;
+  
