@@ -1,7 +1,7 @@
 // app/page.js
 import { collection, getDocs, query, where, limit, Timestamp } from 'firebase/firestore';
 import { db } from './firebase.config';
-import ContentDisplay from '../comonents/contentdisplay';
+import ContentDisplay from '../comonents/contentdisplay' ;
 import HomeContent from '../comonents/homecontent';
 import Hero from '../comonents/hero';
 import Nav from '../comonents/nav';
