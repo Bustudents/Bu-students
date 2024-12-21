@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image"; // Import Next.js Image component
+import Image from "next/image"; 
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import style from "../style";
@@ -11,34 +11,39 @@ import { useRouter } from "next/navigation";
 
 const Nav = () => {
   const [user, setUser] = useState(null);
-  const router = useRouter(); // Initialize Next.js router
+  const [loading, setLoading] = useState(true);  // Add loading state
+  const router = useRouter();
 
-  // Monitor auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false); // Set loading to false after auth state changes
       console.log(currentUser);
     });
 
-    return () => unsubscribe(); // Clean up subscription
+    return () => unsubscribe();
   }, []);
 
-  // Handle sign-out
   const handleSignOut = async () => {
     try {
       await signOut(auth);
       console.log("User signed out");
-      router.push("/signin"); // Redirect to sign-in page after sign-out
+      router.push("/signin");
     } catch (error) {
       console.error("Error signing out:", error.message);
     }
   };
 
-  // Scroll to footer
   const scrollToFooter = () => {
     const footerElement = document.getElementById("footer");
     footerElement?.scrollIntoView({ behavior: "smooth" });
   };
+
+  if (loading) {
+    return (
+      <div>Loading...</div>  // Show loading screen while the auth state is being checked
+    );
+  }
 
   return (
     <div className="2xl:pt-7 xs:pt-10 relative 2xl:bottom-0 xs:bottom-[100px] 2xl:flex-row  flex items-center justify-between">
@@ -70,13 +75,13 @@ const Nav = () => {
               duration-300 ease-in-out text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
               items-center 2xl:mr-24 xs:mr-0`}
             >
-              <h3 className="2xl:text-[16px] xs:text-[14px] xs:w-[50px] 2xl:w-full  font-extrabold text-white xs:mr-1 2xl:mr-4   ">sign out</h3>
+              <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-[50px] 2xl:w-full  font-extrabold text-white xs:mr-1 2xl:mr-4   ">sign out</h3>
               <Image
-            className="h-3 w-3 "
-               src="/assests/Vector (2).png"
+                className="h-3 w-3 "
+                src="/assests/Vector (2).png"
                 alt="Sign out icon"
-                width={3} // Replace with actual size
-                height={4} // Replace with actual size
+                width={3}
+                height={4}
               />
             </button>
           ) : (
@@ -93,8 +98,8 @@ const Nav = () => {
                 className="w-3 h-3 "
                 src="/assests/Vector (2).png"
                 alt="Sign in icon"
-                width={5} // Replace with actual size
-                height={5} // Replace with actual size
+                width={5}
+                height={5}
               />
             </button>
           )}
