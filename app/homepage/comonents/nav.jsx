@@ -70,7 +70,7 @@ const Nav = () => {
               duration-300 ease-in-out text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
               items-center 2xl:mr-24 xs:mr-0`}
             >
-              <h3 className="2xl:text-[16px] xs:text-[10px] xs:w-[50px] 2xl:w-full  font-extrabold text-white xs:mr-1 2xl:mr-4   ">sign out</h3>
+              <h3 className="2xl:text-[16px] xs:text-[14px] xs:w-[50px] 2xl:w-full  font-extrabold text-white xs:mr-1 2xl:mr-4   ">sign out</h3>
               <Image
             className="h-3 w-3 "
                src="/assests/Vector (2).png"
