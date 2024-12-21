@@ -85,7 +85,7 @@ const Calendar = () => {
         <button onClick={() => changeMonth(-1)} className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg">
           Previous
         </button>
-        <h2 className="text-2xl font-bold">
+        <h2 className="2xl:text-2xl xs:text-xm font-bold">
           {new Date(date.year, date.month).toLocaleString("default", { month: "long" })} {date.year}
         </h2>
         <button onClick={() => changeMonth(1)} className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg">
