@@ -44,32 +44,50 @@ const Calendar = () => {
       const [eventYear, eventMonth] = event.date.split("-").map(Number);
       return eventYear === date.year && eventMonth === date.month + 1; // Match year and month
     });
-
+  
     // Empty slots for days before the first day of the month
     for (let i = 0; i < firstDayOfMonth; i++) {
       days.push(<div key={`empty-${i}`} className="text-transparent">0</div>);
     }
-
+  
     // Actual days of the month
     for (let day = 1; day <= daysInMonth; day++) {
       const dateString = `${date.year}-${String(date.month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
       const event = currentMonthEvents.find((event) => event.date === dateString);
-
+  
+      // Determine styles based on conditions
+      let eventStyle = "bg-gray-800 hover:bg-gray-700 text-white"; // Default style
+  
+      if (event) {
+        const eventDate = new Date(event.date);
+        const today = new Date();
+        const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+  
+        if (event.assignment) {
+          if (daysUntilDue <= 3) {
+            eventStyle = "hover:bg-orange-600 bg-orange-500 text-white"; // Red-orange for assignments due in 3 days or less
+          } else {
+            eventStyle = "bg-white hover:bg-gray-300 text-black"; // White for assignments not due soon
+          }
+        } else {
+          eventStyle = "bg-red-600 hover:bg-red-700 text-white"; // Red for non-assignments
+        }
+      }
+  
       days.push(
         <div
           key={day}
-          className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer transition-all ${
-            event ? "bg-red-600 hover:bg-red-700" : "bg-gray-800 hover:bg-gray-700"
-          } text-white`}
+          className={`flex flex-col items-center justify-center p-2 rounded-lg cursor-pointer transition-all ${eventStyle}`}
         >
-          <span className="2xl:text-[19px] xs:text-[12px] ">{day}</span>
-          {event && <span className="2xl:text-xs xs:text-[9px]  mt-1 font-extrabold">{event.title}</span>}
+          <span className="2xl:text-[19px] xs:text-[12px]">{day}</span>
+          {event && <span className="2xl:text-xs xs:text-[9px] mt-1 font-extrabold">{event.title}</span>}
         </div>
       );
     }
-
+  
     return days;
   };
+  
 
   if (loading) {
     return (
