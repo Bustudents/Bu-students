@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "firebase": "^10.12.5",
+    "firebase-admin": "^13.0.2",
     "framer-motion": "^11.3.30",
     "git": "^0.1.5",
     "lenis": "^1.1.11",

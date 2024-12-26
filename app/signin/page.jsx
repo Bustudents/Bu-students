@@ -9,6 +9,7 @@ const SignInPage = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const router = useRouter(); // Initialize Next.js router
 
   // Handle email/password sign-in
@@ -28,12 +29,13 @@ const SignInPage = () => {
       router.push("/"); 
     } catch (err) {
       console.error("Error signing in:", err.message);
-      setError(err.message);
+      setError("email or password is incorrect");
+      setIsLoading(false)
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
+    <div className={`min-h-screen flex items-center ${isLoading?"opacity-50":"opacity-100"}  justify-center bg-gray-900 text-white`}>
       <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>
         {error && (
@@ -74,7 +76,8 @@ const SignInPage = () => {
             />
           </div>
           <button
-            type="submit"
+            onClick={()=>{error?"":setIsLoading(true)}}
+           type="submit"
             className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 rounded font-semibold transition"
           >
             Sign In

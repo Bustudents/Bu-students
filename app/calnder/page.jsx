@@ -63,14 +63,22 @@ const Calendar = () => {
             <div className="relative group">
               {/* Bullet Points */}
               <ul className="flex flex-col items-center space-y-1">
-                {dayEvents.map((event, index) => (
-                  <li
-                    key={index}
-                    className={`w-3 h-3 rounded-full ${
-                      event.assignment ? " bg-yellow-500" : "bg-red-600"
-                    }`}
-                  ></li>
-                ))}
+                {dayEvents.map((event, index) => {
+                  const eventDate = new Date(event.date);
+                  const today = new Date();
+                  const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+                  const circleColor =
+                    daysUntilDue <= 3 && daysUntilDue >= 0
+                      ? "bg-yellow-500"
+                      : event.important? "bg-red-600" : "bg-white";
+  
+                  return (
+                    <li
+                      key={index}
+                      className={`w-3 h-3 rounded-full ${circleColor}`}
+                    ></li>
+                  );
+                })}
               </ul>
               {/* Tooltip */}
               <div className="absolute top-8 left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
@@ -80,9 +88,16 @@ const Calendar = () => {
                     className="flex items-center space-x-2 border-b border-gray-200 pb-1 last:border-b-0 last:pb-0"
                   >
                     <span
-                      className={`w-3 h-3 rounded-full ${
-                        event.assignment ? "bg-orange-500" : "bg-red-600"
-                      }`}
+             className={`w-3 h-3 rounded-full ${
+      (() => {
+        const eventDate = new Date(event.date);
+        const today = new Date();
+        const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
+        return daysUntilDue <= 3 && daysUntilDue >= 0
+          ? "bg-yellow-500"
+          :  event.important? "bg-red-600" : " bg-gray-400";
+      })()
+    }`}
                     ></span>
                     <span className="font-bold">{event.title}</span>
                   </div>
@@ -96,7 +111,6 @@ const Calendar = () => {
   
     return days;
   };
-  
   
 
   if (loading) {

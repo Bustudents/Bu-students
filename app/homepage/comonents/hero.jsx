@@ -34,7 +34,7 @@ export const Hero = ({stat}) => {
    <hr className="vertical-line "/>
    <div className="flex items-center z-5 justify-center flex-col ">
    <div className=" flex flex-row m-5 justify-center items-center mb-1">
-   <h1 className=" stat mr-2 text-[20px] font-extrabold 2xl:text-[20px] xs:text-[15px]"> {stat.master} +</h1>
+   <h1 className=" stat mr-2 text-[20px] font-extrabold 2xl:text-[20px] xs:text-[14px]"> {stat.master} +</h1>
    
    
    <img src=" /assests/tabler_certificate.png" />
