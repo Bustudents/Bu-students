@@ -84,9 +84,9 @@ const Mohmed = () => {
                 those who are doing what they love
               </p>
               <div className="flex justify-center items-center mt-4 2xl:mr-0 xs:mr-7 font-bold 2xl:text-[20px] xs:text-[10px] tracking-widest">
-                <p>Mr. Mohmed Sliuman</p>
+                <p>Mr. Mohamed Suliman</p>
                 <hr className="vertical-line mx-4" />
-                <p>Faculty Register</p>
+                <p>Faculty Registrar</p>
               </div>
             </div>
           </motion.div>

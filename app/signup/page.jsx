@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 
 const SignUpPage = () => {
   const [email, setEmail] = useState("");
+  const [confirmEmail, setConfirmEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [name, setName] = useState("");
@@ -13,18 +14,51 @@ const SignUpPage = () => {
   const [isGraduate, setIsGraduate] = useState(false);
   const [currentPosition, setCurrentPosition] = useState("");
   const [location, setLocation] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState({});
   const [successMessage, setSuccessMessage] = useState("");
 
   const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
+    setError({});
     setSuccessMessage("");
 
+    const errors = {};
+    if (!email.match(/^\S+@\S+\.\S+$/)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (email !== confirmEmail) {
+      errors.confirmEmail = "Email addresses do not match.";
+    }
+    if (!password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/)) {
+      errors.password =
+        "Password must be at least 8 characters, include an uppercase letter, a lowercase letter, and a number.";
+    }
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      errors.confirmPassword = "Passwords do not match.";
+    }
+    if (!name.trim()) {
+      errors.name = "Name is required.";
+    }
+    if (!gender) {
+      errors.gender = "Gender is required.";
+    }
+    if (!batchNumber.trim()) {
+      errors.batchNumber = "Batch number is required.";
+    }
+    if (!specialization.trim()) {
+      errors.specialization = "Specialization is required.";
+    }
+    if (isGraduate && !currentPosition.trim()) {
+      errors.currentPosition = "Current position is required for graduates.";
+    }
+    if (!location.trim()) {
+      errors.location = "Location is required.";
+    }
+
+    if (Object.keys(errors).length > 0) {
+      setError(errors);
       return;
     }
 
@@ -54,19 +88,9 @@ const SignUpPage = () => {
       }
 
       setSuccessMessage("Account created successfully!");
-      setEmail("");
-      setPassword("");
-      setConfirmPassword("");
-      setName("");
-      setGender("");
-      setBatchNumber("");
-      setSpecialization("");
-      setIsGraduate(false);
-      setCurrentPosition("");
-      setLocation("");
       router.push("/signin");
     } catch (err) {
-      setError(err.message);
+      setError({ general: err.message });
     }
   };
 
@@ -74,8 +98,10 @@ const SignUpPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white">
       <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
-        {error && (
-          <p className="mb-4 text-sm text-red-500 text-center">{error}</p>
+        {error.general && (
+          <p className="mb-4 text-sm text-red-500 text-center">
+            {error.general}
+          </p>
         )}
         {successMessage && (
           <p className="mb-4 text-sm text-green-500 text-center">
@@ -96,6 +122,9 @@ const SignUpPage = () => {
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Enter your name"
             />
+            {error.name && (
+              <p className="text-sm text-red-500 mt-1">{error.name}</p>
+            )}
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium">
@@ -109,38 +138,29 @@ const SignUpPage = () => {
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Enter your email"
+              onPaste={(e) => e.preventDefault()}
             />
+            {error.email && (
+              <p className="text-sm text-red-500 mt-1">{error.email}</p>
+            )}
           </div>
           <div>
-            <label htmlFor="password" className="block text-sm font-medium">
-              Password
+            <label htmlFor="confirmEmail" className="block text-sm font-medium">
+              Confirm Email
             </label>
             <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              type="email"
+              id="confirmEmail"
+              value={confirmEmail}
+              onChange={(e) => setConfirmEmail(e.target.value)}
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
-              placeholder="Enter your password"
+              placeholder="Re-enter your email"
+              onPaste={(e) => e.preventDefault()}
             />
-          </div>
-          <div>
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium"
-            >
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-              className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
-              placeholder="Confirm your password"
-            />
+            {error.confirmEmail && (
+              <p className="text-sm text-red-500 mt-1">{error.confirmEmail}</p>
+            )}
           </div>
           <div>
             <label htmlFor="gender" className="block text-sm font-medium">
@@ -153,11 +173,14 @@ const SignUpPage = () => {
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
             >
-              <option value="">Select Gender</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              
+              <option value="">Select your gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            
             </select>
+            {error.gender && (
+              <p className="text-sm text-red-500 mt-1">{error.gender}</p>
+            )}
           </div>
           <div>
             <label htmlFor="batchNumber" className="block text-sm font-medium">
@@ -172,91 +195,99 @@ const SignUpPage = () => {
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Enter your batch number"
             />
+            {error.batchNumber && (
+              <p className="text-sm text-red-500 mt-1">{error.batchNumber}</p>
+            )}
           </div>
           <div>
             <label
               htmlFor="specialization"
               className="block text-sm font-medium"
             >
-              Specialization (optional)
+              Specialization
             </label>
-            <select
+            <input
+              type="text"
               id="specialization"
               value={specialization}
               onChange={(e) => setSpecialization(e.target.value)}
+              required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
-            >
-              <option value="">Select Specialization</option>
-              <option value="Finance">Finance</option>
-              <option value="Accounting">Accounting</option>
-              <option value="Marketing">Marketing</option>
-              <option value="Management">Management</option>
-            </select>
+              placeholder="Enter your specialization"
+            />
+            {error.specialization && (
+              <p className="text-sm text-red-500 mt-1">
+                {error.specialization}
+              </p>
+            )}
           </div>
           <div>
             <label className="block text-sm font-medium">
               Are you a graduate?
             </label>
-            <div className="flex items-center space-x-4">
-              <label className="flex items-center">
+            <div className="flex items-center space-x-4 mt-1">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
                   value={true}
                   checked={isGraduate === true}
                   onChange={() => setIsGraduate(true)}
-                  className="form-radio"
+                  className="form-radio text-indigo-600"
                 />
                 <span className="ml-2">Yes</span>
               </label>
-              <label className="flex items-center">
+              <label className="inline-flex items-center">
                 <input
                   type="radio"
                   value={false}
                   checked={isGraduate === false}
                   onChange={() => setIsGraduate(false)}
-                  className="form-radio"
+                  className="form-radio text-indigo-600"
                 />
                 <span className="ml-2">No</span>
               </label>
             </div>
           </div>
           {isGraduate && (
-            <>
-              <div>
-                <label
-                  htmlFor="currentPosition"
-                  className="block text-sm font-medium"
-                >
-                  Current Position (optional)
-                </label>
-                <input
-                  type="text"
-                  id="currentPosition"
-                  value={currentPosition}
-                  onChange={(e) => setCurrentPosition(e.target.value)}
-                  className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
-                  placeholder="Enter your current position"
-                />
-              </div>
-              <div>
-                <label htmlFor="location" className="block text-sm font-medium">
-                  Location (optional)
-                </label>
-                <input
-                  type="text"
-                  id="location"
-                  value={location}
-                  onChange={(e) => setLocation(e.target.value)}
-                  className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
-                  placeholder="Enter your location"
-                />
-              </div>
-            </>
+            <div>
+              <label
+                htmlFor="currentPosition"
+                className="block text-sm font-medium"
+              >
+                Current Position
+              </label>
+              <input
+                type="text"
+                id="currentPosition"
+                value={currentPosition}
+                onChange={(e) => setCurrentPosition(e.target.value)}
+                className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
+                placeholder="Enter your current position"
+              />
+              {error.currentPosition && (
+                <p className="text-sm text-red-500 mt-1">
+                  {error.currentPosition}
+                </p>
+              )}
+            </div>
           )}
-          <p className="text-sm text-gray-400 mt-2">
-            Providing more information helps us create a better community and
-            enhances your profile!
-          </p>
+          <div>
+            <label htmlFor="location" className="block text-sm font-medium">
+              Location
+            </label>
+            <input
+              type="text"
+              id="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+              className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
+              placeholder="Enter your location"
+            />
+            {error.location && (
+              <p className="text-sm text-red-500 mt-1">{error.location}</p>
+            )}
+          </div>
           <button
             type="submit"
             className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 rounded font-semibold transition"
