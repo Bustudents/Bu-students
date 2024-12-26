@@ -212,7 +212,7 @@ position: relative;right: 50px
         rgba(5, 5, 10, 0.321) 30%,
         rgba(3, 3, 5, 0.84) 60%,
         rgba(5, 5, 10, 0.986) 100%), /* Gradient overlay */
-    url("/assests/4181325198_4a3ac4237b_z.jpg"); /* Path to your image */
+    url("/assests/uni.jpg"); /* Path to your image */
 background-position: center;
     background-size: cover; /* Ensures the image covers the container */
   border-radius: 20px; /* Optional: Adds rounded corners */
