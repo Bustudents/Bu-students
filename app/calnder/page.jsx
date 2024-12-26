@@ -81,7 +81,7 @@ const Calendar = () => {
                 })}
               </ul>
               {/* Tooltip */}
-              <div className="absolute top-8 left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
+              <div className="absolute 2xl:ml-0 xs:ml-3 top-8 left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
                 {dayEvents.map((event, index) => (
                   <div
                     key={index}
