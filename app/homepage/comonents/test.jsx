@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
 function useParallax(scrollYProgress, start, end) {
-  return useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [start, 0, 0, end]);
+  return useTransform(scrollYProgress, [0, 0.5, 0.9, 1], [start, 0, 0, end]);
 }
 
 function Section({ id, title, text, isEarlyVisible }) {
@@ -12,13 +12,13 @@ function Section({ id, title, text, isEarlyVisible }) {
   const { scrollYProgress } = useScroll({ target: ref });
 
   // Create transforms using the custom hook
-  const fade = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
+  const fade = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const titleY = useParallax(scrollYProgress, 150, -150);
   const titleZ = useParallax(scrollYProgress, 30, 60);
-  const imageY = useParallax(scrollYProgress, 0, 150);
-  const imageX = useParallax(scrollYProgress, 500, -500);
-  const textY = useParallax(scrollYProgress, 300, -300);
-  const textX = useParallax(scrollYProgress, 400, -400);
+  const imageY = useParallax(scrollYProgress, 0, 100);
+  const imageX = useParallax(scrollYProgress, 300, -300);
+  const textY = useParallax(scrollYProgress, 200, -200);
+  const textX = useParallax(scrollYProgress, 300, -300);
   const textZ = useParallax(scrollYProgress, 20, 40);
 
   return (
@@ -27,7 +27,7 @@ function Section({ id, title, text, isEarlyVisible }) {
       style={{
         scrollSnapAlign: "start",
         scrollSnapType: "y mandatory",
-        height: "150vh",
+        height: "120vh", // Reduced height for less spacing
       }}
       className="flex flex-col justify-center items-center relative overflow-hidden bg-gradient-to-b"
     >
@@ -38,9 +38,10 @@ function Section({ id, title, text, isEarlyVisible }) {
             y: imageY,
             x: imageX,
             opacity: fade,
-            perspective: "800px", // Creating a sense of depth
-            transformStyle: "preserve-3d", // Enable 3D space
+            perspective: "800px",
+            transformStyle: "preserve-3d",
           }}
+          transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
           className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] overflow-hidden shadow-2xl rounded-xl mb-8 lg:mb-0"
         >
           <motion.img
@@ -48,7 +49,7 @@ function Section({ id, title, text, isEarlyVisible }) {
             alt={title}
             className="top-0 rounded-2xl left-0 w-full h-full object-cover"
             style={{
-              transform: "rotateY(10deg)", // Slight rotation to enhance 3D effect
+              transform: "rotateY(10deg)",
             }}
           />
         </motion.div>
@@ -58,10 +59,10 @@ function Section({ id, title, text, isEarlyVisible }) {
           <motion.h2
             style={{
               y: titleY,
-              zIndex: titleZ, // Adding depth to title
+              zIndex: titleZ,
               opacity: fade,
-              transition: isEarlyVisible ? "opacity 0.5s ease-in-out" : "none",
             }}
+            transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
             className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500 mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-wider uppercase shadow-2xl"
           >
             {title}
@@ -69,11 +70,11 @@ function Section({ id, title, text, isEarlyVisible }) {
           <motion.p
             style={{
               x: textX,
-              y: textY, // Adjust Y-axis movement for mobile
-              zIndex: textZ, // Adding depth to text
+              y: textY,
+              zIndex: textZ,
               opacity: fade,
-              transform: "rotateX(10deg)", // Slight rotation to add depth
             }}
+            transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
             className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-100 font-bold sm:text-[17px] lg:text-[37px] flex items-end justify-center h-full max-w-xl transition-all"
           >
             {text}
