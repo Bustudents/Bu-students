@@ -1,25 +1,25 @@
 "use client";
+
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-function useParallax(value, start, end) {
-  return useTransform(value, [0, 0.3, 0.7, 1], [start, 0, 0, end]);
+function useParallax(scrollYProgress, start, end) {
+  return useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [start, 0, 0, end]);
 }
 
 function Section({ id, title, text, isEarlyVisible }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref });
 
+  // Create transforms using the custom hook
   const fade = useTransform(scrollYProgress, [0, 0.1, 0.9, 1], [0, 1, 1, 0]);
-
-  // Animation values adjusted for better responsiveness
   const titleY = useParallax(scrollYProgress, 150, -150);
-  const titleZ = useParallax(scrollYProgress, 30, 60); // Less depth on mobile
+  const titleZ = useParallax(scrollYProgress, 30, 60);
   const imageY = useParallax(scrollYProgress, 0, 150);
-  const imageX = useParallax(scrollYProgress, 500, -500); // Adjust for smaller screens
-  const textY = useParallax(scrollYProgress, 300, -300); // Adjust for smaller screens
+  const imageX = useParallax(scrollYProgress, 500, -500);
+  const textY = useParallax(scrollYProgress, 300, -300);
   const textX = useParallax(scrollYProgress, 400, -400);
-  const textZ = useParallax(scrollYProgress, 20, 40); // Less depth on mobile
+  const textZ = useParallax(scrollYProgress, 20, 40);
 
   return (
     <section
@@ -62,7 +62,7 @@ function Section({ id, title, text, isEarlyVisible }) {
               opacity: fade,
               transition: isEarlyVisible ? "opacity 0.5s ease-in-out" : "none",
             }}
-            className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500 mb-6 text-4xl  sm:text-5xl lg:text-6xl font-extrabold tracking-wider uppercase shadow-2xl"
+            className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500 mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-wider uppercase shadow-2xl"
           >
             {title}
           </motion.h2>
@@ -86,8 +86,7 @@ function Section({ id, title, text, isEarlyVisible }) {
 
 export default function Sc() {
   const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, (value) => (value *1.5));
-
+  const scaleX = useTransform(scrollYProgress, (value) => value * 1.5);
 
   const sections = [
     {
@@ -125,7 +124,7 @@ export default function Sc() {
 
       {/* Scroll progress bar */}
       <motion.div
- className={`fixed left-0 right-0 h-[5px] bg-[#FA0000] bottom-10 ${scaleX.get() >1.5 ? "hidden" : ""}`}
+        className={`fixed left-0 right-0 h-[5px] bg-[#FA0000] bottom-10 ${scaleX.get() > 1.5 ? "hidden" : ""}`}
         style={{ scaleX }}
       />
     </>
