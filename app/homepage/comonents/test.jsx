@@ -12,7 +12,8 @@ function Section({ id, title, text, isEarlyVisible }) {
   const { scrollYProgress } = useScroll({ target: ref });
 
   // Create transforms using the custom hook
-  const fade = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const fade = useTransform(scrollYProgress, [0, 0.1, 0.8, 1], [0, 1, 1, 0]);
+
   const titleY = useParallax(scrollYProgress, 150, -150);
   const titleZ = useParallax(scrollYProgress, 30, 60);
   const imageY = useParallax(scrollYProgress, 0, 100);
@@ -23,11 +24,12 @@ function Section({ id, title, text, isEarlyVisible }) {
 
   return (
     <section
-      ref={ref}
+     
+    ref={ref}
       style={{
         scrollSnapAlign: "start",
         scrollSnapType: "y mandatory",
-        height: "120vh", // Reduced height for less spacing
+        height: "170vh", // Reduced height for less spacing
       }}
       className="flex flex-col justify-center items-center relative overflow-hidden bg-gradient-to-b"
     >
