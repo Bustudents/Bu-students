@@ -37,6 +37,14 @@ body {
 * {
   box-sizing: border-box;
 }
+html {
+  touch-action: manipulation;
+  -ms-touch-action: manipulation;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -webkit-text-size-adjust: none;
+}
+
 
 /* Prevent overflow on flex/grid items */
 .container {

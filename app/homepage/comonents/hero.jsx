@@ -9,11 +9,11 @@ export const Hero = ({stat}) => {
     </div>
 <div className="2xl:pt-44 flex flex-col xs:pt-[150px]  justify-center">
 
-<div className="2xl:hidden items-center justify-start xs:visible flex flex-col  pt-20 text-[40px] font-extrabold"><div>faculty of</div> <div className=" Buss  ">
+<div className="2xl:hidden   xs:ml-10 lg:ml-0 items-center justify-start xs:visible flex flex-col  pt-20 text-[40px] font-extrabold"><div>faculty of</div> <div className=" Buss  ">
   Business 
 </div>
  <div>administration</div></div>
-<div className="flex  z-5 flex-row justify-center items-center  xs:scale-75 2xl:scale-100 2xl:pt-0 xs:pt-10  ">
+<div className="flex  xs:ml-12 lg:ml-0 z-5 flex-row justify-center items-center  xs:scale-75 2xl:scale-100 2xl:pt-0 xs:pt-10  ">
  <div  className="flex items-center justify-center flex-col 2xl:mr-5 xs:mr-0">
  <div  className=" flex flex-row m-5 justify-center items-center mb-1 flex-shrink">
  <h1 className=" stat mr-2 font-extrabold text-[20px] 2xl:text-[20px] xs:text-[15px]"> {stat.Batches } </h1>
