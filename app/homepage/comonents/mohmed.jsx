@@ -53,7 +53,7 @@ const Mohmed = () => {
         initial="hiddenDown"
         animate={inView === true ? "visible" : inView}
         variants={variants}
-        transition={{ duration: 0.5, delay: 0.16 }}
+        transition={{ duration: 0.7, delay: 0.16 }}
         className="h-screen w-screen flex items-center justify-center will-change"
       >
         <div className="flex flex-col items-center justify-center 2xl:flex-row 2xl:pt-[230px] xs:pt-0">
@@ -64,7 +64,7 @@ const Mohmed = () => {
             variants={variants}
             initial="hiddenDown"
             animate={inView === true ? "visible" : inView}
-            transition={{ duration: 0.5, delay: 0.16 }}
+            transition={{ duration: 0.7, delay: 0.16 }}
           >
             {/* Placeholder for lazy-loaded image */}
          
@@ -76,7 +76,7 @@ const Mohmed = () => {
             variants={variants}
             initial="hiddenDown"
             animate={inView === true ? "visible" : inView}
-            transition={{ duration: 0.4, delay: 0.16 }}
+            transition={{ duration: 0.7, delay: 0.16 }}
           >
             <div className="text-white flex flex-col justify-center items-center xs:mr-5 2xl:mr-32 xs:mt-10">
               <p className="text-center leading-tight font-extrabold 2xl:w-[580px] 2xl:min-w-0 xs:min-w-[300px] xs:w-auto low 2xl:pt-16 xs:pt-8 w-full 2xl:text-[45px] xs:text-[23px] ml-5 xs:mr-14">
