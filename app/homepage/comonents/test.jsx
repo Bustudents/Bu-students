@@ -29,9 +29,9 @@ function Section({ id, title, text, isEarlyVisible }) {
       style={{
         scrollSnapAlign: "start",
         scrollSnapType: "y mandatory",
-        height: "170vh", // Reduced height for less spacing
+        height: "235vh", // Reduced height for less spacing
       }}
-      className="flex flex-col justify-center items-center relative overflow-hidden bg-gradient-to-b"
+      className="flex flex-col mt-[-400px] justify-center items-center relative overflow-hidden bg-gradient-to-b"
     >
       <div className="flex flex-col lg:flex-row justify-center items-center text-center lg:text-left">
         {/* Image with 3D effect */}
@@ -89,7 +89,9 @@ function Section({ id, title, text, isEarlyVisible }) {
 
 export default function Sc() {
   const { scrollYProgress } = useScroll();
-  const scaleX = useTransform(scrollYProgress, (value) => value * 1.5);
+  const scaleX = useTransform(scrollYProgress, (value) => Math.min(value, 0.8));
+  const opacity = useTransform(scaleX, (value) => (value === 0.8 ? 0 : 1));
+  
 
   const sections = [
     {
@@ -127,8 +129,8 @@ export default function Sc() {
 
       {/* Scroll progress bar */}
       <motion.div
-        className={`fixed left-0 right-0 h-[5px] bg-[#FA0000] bottom-10 ${scaleX.get() > 1.5 ? "hidden" : ""}`}
-        style={{ scaleX }}
+        className={`fixed left-0 right-0 h-[5px] bg-[#FA0000] bottom-10 `}
+        style={{ scaleX,opacity }}
       />
     </>
   );
