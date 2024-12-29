@@ -1,96 +1,59 @@
 "use client";
-import { motion } from "framer-motion";
-import { useEffect, useState, useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useEffect, useState } from "react";
 
 const Section = () => {
-  const [inView, setInView] = useState(false);
-  const sectionRef = useRef(null);
-  const previousY = useRef(0);
+  const { scrollYProgress } = useScroll();
+  
+  // Track scroll to animate the gallery
+  const galleryRef = useRef(null);
+  const [items, setItems] = useState([]);
 
-  const variants = {
-    visible: { opacity: 1, y: 0 },
-    hiddenDown: { opacity: 0, y: 50 },
-    hiddenUp: { opacity: 0, y: -50 },
-  };
+  // Translate gallery horizontally based on scroll
+  const translateX = useTransform(scrollYProgress, [0, 1], ["0%", `-${items.length - 1}00vw`]);
+
+  // Progress bar animation
+  const scaleX = useTransform(scrollYProgress, [0, 1], [0, 1]);
+
+  // Parallax effect for titles
+  const segmentLength = 1 / items.length;
+  const titleOffsets = items.map((_, i) => {
+    return useTransform(scrollYProgress, [i * segmentLength, (i + 1) * segmentLength], [200, -200]);
+  });
 
   useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        const currentY = entry.boundingClientRect.y;
-
-        if (entry.isIntersecting) {
-          setInView(true);
-        } else {
-          if (currentY < previousY.current) {
-            // Scrolling down
-            setInView("hiddenDown");
-          } else {
-            // Scrolling up
-            setInView("hiddenUp");
-          }
-        }
-
-        previousY.current = currentY;
-      },
-      { threshold: 0.05 }
-    );
-
-    observer.observe(section);
-
-    return () => {
-      observer.disconnect();
-    };
+    if (galleryRef.current) {
+      const galleryItems = galleryRef.current.querySelectorAll("li");
+      setItems(galleryItems);
+    }
   }, []);
 
   return (
     <div>
-      <motion.section
-        ref={sectionRef}
-        initial="hiddenDown"
-        animate={inView === true ? "visible" : inView}
-        variants={variants}
-        transition={{ duration: 0.5, delay: 0.16 }}
-        className="h-screen w-screen flex items-center justify-center relative bottom-28 xs:ml-5 2xl:ml-0 will-change"
-      >
-        <div className="flex flex-col items-center justify-center flex-shrink 2xl:flex-row pt-[230px]">
-          {/* Image Section */}
-          <motion.div
-            className="mr-28"
-            variants={variants}
-            initial="hiddenDown"
-            animate={inView === true ? "visible" : inView}
-            transition={{ duration: 0.5, delay: 0.16 }}
-          >
-            <div className="image-container 2xl:w-[440px] 2xl:h-[440px] xs:h-[280px] xs:w-[280px]">
-             
-            </div>
-          </motion.div>
+      <motion.section className="h-screen w-screen flex items-center justify-center relative bottom-28 xs:ml-5 2xl:ml-0 will-change">
+        <motion.ul ref={galleryRef} className="flex overflow-hidden">
+          {/* Render gallery items */}
+          {items.map((_, index) => (
+            <motion.li
+              key={index}
+              className="w-screen flex-shrink-0"
+              style={{
+                transform: titleOffsets[index] && `translateX(${titleOffsets[index]}px)`,
+              }}
+            >
+              <div className="h-full w-full bg-gray-300">
+                {/* Image or content */}
+                <h2 className="text-white text-3xl font-bold">Item {index + 1}</h2>
+              </div>
+            </motion.li>
+          ))}
+        </motion.ul>
 
-          {/* Text Section */}
-          <motion.div
-            className="w-full 2xl:w-1/2 pl-4"
-            variants={variants}
-            initial="hiddenDown"
-            animate={inView === true ? "visible" : inView}
-            transition={{ duration: 0.4, delay: 0.16 }}
-          >
-            <div className="text-white flex flex-col relative right-7 2xl:mt-0 xs:mt-10">
-              <h1 className="2xl:text-[45px] xs:text-[30px] font-black tracking-tight ml-5 mb-5">
-                Vision
-              </h1>
-              <p className="leading-tight font-extrabold 2xl:w-[525px] 2xl:mr-0 xs:mr-5 xs:w-auto 2xl:text-[45px] xs:text-[23px] ml-5">
-                The <span className="text-[#FA0000]">primary</span> <br />
-                purpose of founding this faculty was to provide{" "}
-                <span className="text-[#FA0000]">high quality</span> education
-                in business-related disciplines.
-              </p>
-            </div>
-          </motion.div>
-        </div>
+        {/* Progress Bar */}
+        <motion.div
+          className="progress fixed top-0 left-0 w-full h-1 bg-red-500"
+          style={{ scaleX }}
+        />
       </motion.section>
     </div>
   );

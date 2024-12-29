@@ -19,22 +19,29 @@ const SignUpPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
 
-  const handleSubmit = async (e) => {
 
+  
+  const handleSubmit = async (e) => {
+setIsLoading(true)
     e.preventDefault();
+
+    // Set loading state immediately
+ 
     setError(null);
     setSuccessMessage("");
-
+  
     if (password !== confirmPassword) {
       setError("Passwords do not match");
+      setIsLoading(false); // Stop loading on validation error
       return;
     }
+  
     if (email !== confirmEmail) {
-      setError("email do not match");
+      setError("Emails do not match");
+      setIsLoading(false); // Stop loading on validation error
       return;
     }
-    
-
+  
     const userData = {
       email,
       name,
@@ -46,7 +53,7 @@ const SignUpPage = () => {
       currentPosition: isGraduate ? currentPosition : "",
       location,
     };
-
+  
     try {
       const response = await fetch("/api/signup", {
         method: "POST",
@@ -55,20 +62,19 @@ const SignUpPage = () => {
         },
         body: JSON.stringify(userData),
       });
-
+  
       if (!response.ok) {
-        throw new Error("email already in use");
-      setIsLoading(false)
+        // Parse server error for better details
+        const errorData = await response.json();
+        throw new Error(errorData.message || "An error occurred during signup");
       }
-
-
-
+  
+      // Success handling
       setSuccessMessage("Account created successfully!");
       setEmail("");
+      setConfirmEmail("");
       setPassword("");
       setConfirmPassword("");
-    setConfirmEmail("");
-
       setName("");
       setGender("");
       setBatchNumber("");
@@ -79,11 +85,19 @@ const SignUpPage = () => {
       router.push("/signin");
     } catch (err) {
       setError(err.message);
+      setIsLoading(false); // Stop loading on error
+    } finally {
+      // Ensure loading stops regardless of success or failure
+      if (!error) {
+        setIsLoading(false); // Stop loading when successful
+      }
     }
   };
+  
 
   return (
-    <div className={`min-h-screen flex items-center justify-center    op ${isLoading?"opacity-50":"opacity-100"} bg-gray-900 text-white`}>
+    <div className={`min-h-screen flex items-center justify-center ${  isLoading? "opacity-50" :isLoading || error ? "opacity-100": isLoading? "opacity-50" : "opacity-100"
+    } bg-gray-900 text-white`}>
       <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Sign Up</h2>
    
@@ -111,6 +125,7 @@ const SignUpPage = () => {
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              onPaste={(e) => e.preventDefault()}              
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Enter your email"
@@ -130,6 +145,7 @@ const SignUpPage = () => {
               id="confirmEmail"
               value={confirmEmail}
               onChange={(e) => setConfirmEmail(e.target.value)}
+              onPaste={(e) => e.preventDefault()}
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Confirm your email"
@@ -146,6 +162,7 @@ const SignUpPage = () => {
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              onPaste={(e) => e.preventDefault()}
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Enter your password"
@@ -163,6 +180,7 @@ const SignUpPage = () => {
               id="confirmPassword"
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
+              onPaste={(e) => e.preventDefault()}
               required
               className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
               placeholder="Confirm your password"
@@ -186,25 +204,32 @@ const SignUpPage = () => {
             </select>
           </div>
           <div>
-            <label htmlFor="batchNumber" className="block text-sm font-medium">
-              Batch Number
-            </label>
-            <input
-              type="text"
-              id="batchNumber"
-              value={batchNumber}
-              onChange={(e) => setBatchNumber(e.target.value)}
-              required
-              className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
-              placeholder="Enter your batch number"
-            />
+          <label htmlFor="batchNumber" className="block text-sm font-medium">
+  Batch Number
+</label>
+<select
+  id="batchNumber"
+  value={batchNumber}
+  onChange={(e) => setBatchNumber(e.target.value)}
+  required
+  className="w-full mt-1 p-2 border border-gray-700 rounded bg-gray-900 focus:ring focus:ring-indigo-500 focus:outline-none"
+>
+<option value="">select a batch number</option>
+
+  {Array.from({ length: 19 }, (_, i) => 19 - i).map((number) => (
+    <option key={number} value={number}>
+      {number}
+    </option>
+  ))}
+</select>
+
           </div>
           <div>
             <label
               htmlFor="specialization"
               className="block text-sm font-medium"
             >
-              Specialization (optional)
+              Specialization
             </label>
             <select
               id="specialization"
@@ -292,15 +317,18 @@ const SignUpPage = () => {
             {successMessage}
           </p>
         )}
-          <button
-           onClick={()=>{error?setIsLoading(true):setIsLoading(false)}}
-           type="submit"
-            className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 rounded font-semibold transition"
-          
-          >
-            Sign Up
-          </button>
-        </form>
+            <button
+    type="submit"
+    disabled={isLoading} // Disable button when loading
+    className={`w-full py-2 ${
+      isLoading
+        ? "bg-gray-500 cursor-not-allowed"
+        : "bg-indigo-600 hover:bg-indigo-500"
+    } rounded font-semibold transition`}
+  >
+    {isLoading ? "Submitting..." : "Sign Up"}
+  </button>
+</form>
       </div>
     </div>
   );

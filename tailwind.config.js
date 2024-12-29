@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+     boxShadow: {
+        'glow': '0 0 10px rgba(255, 0, 0, 0.8), 0 0 20px rgba(255, 0, 0, 0.6), 0 0 30px rgba(255, 0, 0, 0.4)',
+      },
       screens: {
         '2xs': '100px',
         'xs': '300px', // Extra small screens
@@ -37,6 +40,11 @@ module.exports = {
     },
   },
   plugins: [],
-};
+
+  corePlugins: {
+    preflight: true,}
+
+  }
+;
 
   

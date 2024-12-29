@@ -17,6 +17,7 @@ const SignInPage = () => {
     e.preventDefault();
     setError(null);
     setSuccessMessage("");
+    setIsLoading(true); // Set loading state
 
     try {
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
@@ -25,17 +26,18 @@ const SignInPage = () => {
       // Clear the fields
       setEmail("");
       setPassword("");
+      setIsLoading(false); // Stop loading
       // Redirect to homepage
-      router.push("/"); 
+      router.push("/");
     } catch (err) {
       console.error("Error signing in:", err.message);
-      setError("email or password is incorrect");
-      setIsLoading(false)
+      setError("Email or password is incorrect");
+      setIsLoading(false); // Stop loading on error
     }
   };
 
   return (
-    <div className={`min-h-screen flex items-center ${isLoading?"opacity-50":"opacity-100"}  justify-center bg-gray-900 text-white`}>
+    <div className={`min-h-screen flex items-center ${isLoading ? "opacity-50" : "opacity-100"} justify-center bg-gray-900 text-white`}>
       <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>
         {error && (
@@ -76,11 +78,11 @@ const SignInPage = () => {
             />
           </div>
           <button
-            onClick={()=>{error?"":setIsLoading(true)}}
-           type="submit"
-            className="w-full py-2 bg-indigo-600 hover:bg-indigo-500 rounded font-semibold transition"
+            type="submit"
+            disabled={isLoading} // Disable button during loading
+            className={`w-full py-2 ${isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500"} rounded font-semibold transition`}
           >
-            Sign In
+            {isLoading ? "Signing In..." : "Sign In"}
           </button>
         </form>
         <p className="mt-4 text-sm text-center text-gray-400">

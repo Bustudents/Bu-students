@@ -1,5 +1,5 @@
 
-
+import Sc from "./homepage/comonents/test"
 
 import { Homepage } from "./homepage/firebase/homepage";
 import Calendar from "./calnder/page";
