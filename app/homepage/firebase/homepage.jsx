@@ -7,7 +7,7 @@ import Nav from "../comonents/nav";
 import Page from "./fetch";
 import Scroll from "../comonents/show";
 import ScrollSection from "../comonents/show";
-import Section from "../comonents/show";
+
 import Mohmed from "../comonents/mohmed";
 import { Card } from "../comonents/card";
 import { Foot } from "../comonents/foot";
