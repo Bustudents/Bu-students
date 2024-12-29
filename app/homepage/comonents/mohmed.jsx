@@ -47,7 +47,7 @@ const Mohmed = () => {
   }, []);
 
   return (
-    <div className="2xl:ml-5 xs:ml-0">
+    <div className="2xl:ml-5 xs:ml-20">
       <motion.section
         ref={sectionRef}
         initial="hiddenDown"

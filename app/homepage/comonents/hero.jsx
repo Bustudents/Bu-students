@@ -3,13 +3,13 @@ import Nav from "./nav"
 export const Hero = ({stat}) => {
   return (
    <div>
-   <div     className=" 2xl:flex xs:hidden  z-5  text-white text-[64px] pt-40 font-sans font-extrabold flex-col items-center justify-start ">
+   <div     className=" 2xl:flex xs:hidden  overflow-x-hidden z-5  text-white text-[64px] pt-40 font-sans font-extrabold flex-col items-center justify-start ">
   <div key={stat.id}   className="flex flex-col justify-start">  <div className=" flex row  "><h2 className="mr-4">Faculty of</h2> <h2 className="text-[#FA0000]">Business</h2> </div>   <h2>administration</h2></div>
 
     </div>
 <div className="2xl:pt-44 flex flex-col xs:pt-[150px]  justify-center">
 
-<div className="2xl:hidden xs:visible flex flex-col  pt-20 text-[40px] font-extrabold"><div>faculty of</div> <div className=" Buss  ">
+<div className="2xl:hidden items-center justify-start xs:visible flex flex-col  pt-20 text-[40px] font-extrabold"><div>faculty of</div> <div className=" Buss  ">
   Business 
 </div>
  <div>administration</div></div>

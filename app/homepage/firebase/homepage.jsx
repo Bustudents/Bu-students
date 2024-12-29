@@ -23,17 +23,17 @@ export async function Homepage() {
   const data = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
   return (
-    <div className="flex flex-col  component-scrollbar ">
+    <div className="flex flex-col  items-center justify-center component-scrollbar ">
 <Link href={"/si"}/>
 
       {/* Main Hero Section */}
-      <div className="HN flex flex-col relative    xs:top-16 2xl:top-0 xs:mt-5 2xl:mt-0 xs:ml-5 xs:mr-5 2xl:ml-0 2xl:mr-0 xs:bg-center 2xl:bg-top xs:h-[calc(100vw-100px)] 2xl:w-screen 2xl:h-screen">
+      <div className="HN flex flex-col relative     xs:top-16 2xl:top-0 xs:mt-5 2xl:mt-0 xs:ml-5 xs:mr-5 2xl:ml-0 2xl:mr-0 xs:bg-center 2xl:bg-top xs:h-[calc(100vw-100px)] 2xl:w-screen 2xl:h-screen">
          <Page />
 
         {/* Section Component */}
         
       
-<div className=" component-scrollbar flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
+<div className=" component-scrollbar  flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
         {/* Mohmed Component */}
         <div className="scroll2    mr-5 2xl:mt-[-25px] xs:mt-5 xs:pt-[50px] 2xl:pt-0 ">
           <Mohmed />
