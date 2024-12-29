@@ -3,6 +3,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+// Custom hook for parallax transformations
 function useParallax(scrollYProgress, start, end) {
   return useTransform(scrollYProgress, [0, 0.3, 0.7, 1], [start, 0, 0, end]);
 }
@@ -38,8 +39,8 @@ function Section({ id, title, text, isEarlyVisible }) {
             y: imageY,
             x: imageX,
             opacity: fade,
-            perspective: "800px", // Creating a sense of depth
-            transformStyle: "preserve-3d", // Enable 3D space
+            perspective: "800px",
+            transformStyle: "preserve-3d",
           }}
           className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] overflow-hidden shadow-2xl rounded-xl mb-8 lg:mb-0"
         >
@@ -48,7 +49,7 @@ function Section({ id, title, text, isEarlyVisible }) {
             alt={title}
             className="top-0 rounded-2xl left-0 w-full h-full object-cover"
             style={{
-              transform: "rotateY(10deg)", // Slight rotation to enhance 3D effect
+              transform: "rotateY(10deg)",
             }}
           />
         </motion.div>
@@ -58,7 +59,7 @@ function Section({ id, title, text, isEarlyVisible }) {
           <motion.h2
             style={{
               y: titleY,
-              zIndex: titleZ, // Adding depth to title
+              zIndex: titleZ,
               opacity: fade,
               transition: isEarlyVisible ? "opacity 0.5s ease-in-out" : "none",
             }}
@@ -69,10 +70,10 @@ function Section({ id, title, text, isEarlyVisible }) {
           <motion.p
             style={{
               x: textX,
-              y: textY, // Adjust Y-axis movement for mobile
-              zIndex: textZ, // Adding depth to text
+              y: textY,
+              zIndex: textZ,
               opacity: fade,
-              transform: "rotateX(10deg)", // Slight rotation to add depth
+              transform: "rotateX(10deg)",
             }}
             className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-100 font-bold sm:text-[17px] lg:text-[37px] flex items-end justify-center h-full max-w-xl transition-all"
           >
@@ -124,7 +125,9 @@ export default function Sc() {
 
       {/* Scroll progress bar */}
       <motion.div
-        className={`fixed left-0 right-0 h-[5px] bg-[#FA0000] bottom-10 ${scaleX.get() > 1.5 ? "hidden" : ""}`}
+        className={`fixed left-0 right-0 h-[5px] bg-[#FA0000] bottom-10 ${
+          scaleX.get() > 1.5 ? "hidden" : ""
+        }`}
         style={{ scaleX }}
       />
     </>
