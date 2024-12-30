@@ -1,4 +1,4 @@
-import { useState, memo } from "react";
+import { useState, memo, useEffect } from "react";
 import Link from "next/link";
 
 // Memoize the list items to avoid unnecessary re-renders
@@ -11,39 +11,45 @@ const ListItem = memo(({ children, ...props }) => (
   </li>
 ));
 
-// Explicitly set the displayName for debugging purposes
 ListItem.displayName = "ListItem";
 
 export default function ListWithOverlay() {
-  // Combine all states into one state object to reduce re-renders
   const [menuState, setMenuState] = useState({
     isListVisible: false,
     isAnimating: false,
     isSubMenuVisible: false,
   });
 
+  // Handle list visibility with animation logic
   const toggleList = () => {
-    setMenuState((prevState) => {
-      if (prevState.isListVisible) {
-        // Start the slide-out animation
-        return { ...prevState, isAnimating: true };
-      } else {
-        // Show the list immediately when opening
-        return { ...prevState, isListVisible: true, isAnimating: false };
-      }
-    });
-
-    // If list is visible, hide it after animation
     if (menuState.isListVisible) {
-      setTimeout(() => {
-        setMenuState((prevState) => ({
-          ...prevState,
-          isAnimating: false,
-          isListVisible: false,
-        }));
-      }, 500); // Animation duration
+      setMenuState((prevState) => ({
+        ...prevState,
+        isAnimating: true, // Start the slide-out animation
+      }));
+    } else {
+      setMenuState((prevState) => ({
+        ...prevState,
+        isListVisible: true, // Show the list immediately
+        isAnimating: false, // Disable animation
+      }));
     }
   };
+
+  // Use effect to reset the list visibility after animation ends
+  useEffect(() => {
+    if (menuState.isAnimating) {
+      const timer = setTimeout(() => {
+        setMenuState((prevState) => ({
+          ...prevState,
+          isListVisible: false, // Hide the list after animation
+          isAnimating: false,   // Reset animation state
+        }));
+      }, 500); // Duration of the animation
+
+      return () => clearTimeout(timer);
+    }
+  }, [menuState.isAnimating]);
 
   const toggleSubMenu = () => {
     setMenuState((prevState) => ({
@@ -121,10 +127,10 @@ export default function ListWithOverlay() {
                 )}
               </ListItem>
 
-              <Link href={"/courseoutline"} target="_blank">  <ListItem>
-              Course outline
-              </ListItem></Link>
- 
+              <Link href={"/courseoutline"} target="_blank">
+                <ListItem>Course outline</ListItem>
+              </Link>
+
               <Link href="/calnder" target="_blank">
                 <ListItem>Calendar</ListItem>
               </Link>
