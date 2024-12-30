@@ -11,8 +11,11 @@ overflow-x: hidden;
 
 @media (pointer: coarse) {
   body {
+ 
     overflow-x: hidden;
+ 
   }
+
 }
 
 
