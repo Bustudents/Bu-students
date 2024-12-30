@@ -33,7 +33,7 @@ export async function Homepage() {
         {/* Section Component */}
         
       
-<div className=" component-scrollbar  flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
+<div className="  overflow-x-visible ml-10  flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
         {/* Mohmed Component */}
         <div className="scroll2   flex justify-center items-center xs:ml-8 2xl:ml-0  mr-5 2xl:mt-[-25px] xs:mt-5 xs:pt-[50px] 2xl:pt-0 ">
           <Mohmed />

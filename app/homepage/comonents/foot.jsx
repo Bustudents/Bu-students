@@ -3,7 +3,7 @@
 export const Foot = () => {
   return (
     
-    <footer className=" text-white py-8" id="footer mb-[300px] perspective-[500px]  ">
+    <footer className=" text-white py-8" id="footer">
     <div className="container mx-auto px-4">
       <div className="flex flex-col lg:flex-row justify-betweens items-center">
         {/* About Us Section */}
