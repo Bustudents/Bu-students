@@ -13,6 +13,7 @@ module.exports = {
       screens: {
         '2xs': '100px',
         'xs': '300px', // Extra small screens
+        '2xs': '350px', // Extra small screens
         '2xl': '1136px', // Add larger screens
         '3xl': '1920px', // Add an even larger screen size
      

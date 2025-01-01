@@ -29,9 +29,9 @@ function Section({ id, title, text, isEarlyVisible }) {
       style={{
         scrollSnapAlign: "start",
         scrollSnapType: "y mandatory",
-        height: "235vh", // Reduced height for less spacing
+        height: "210vh", // Reduced height for less spacing
       }}
-      className="flex flex-col mt-[-400px] justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
+      className="flex flex-col mt-[-700px] justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
     >
       <div className="flex flex-col lg:flex-row justify-center items-center text-center lg:text-left">
         {/* Image with 3D effect */}
@@ -77,7 +77,7 @@ function Section({ id, title, text, isEarlyVisible }) {
               opacity: fade,
             }}
             transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
-            className="text-transparent  z-10 w-full xs:max-w-[380px]  lg:max-w-[520px] bg-clip-text   bg-gradient-to-r from-gray-400 to-gray-100 text-[24px] sm:text-[40px] lg:text-[35px] font-bold flex items-end justify-center h-full max-w-xl transition-all"
+            className="text-transparent  xs:max-w-96  lg:max-w-[520px] bg-clip-text bg-gradient-to-r from-gray-400 to-gray-100 font-bold sm:text-[17px] lg:text-[37px] flex items-end justify-center h-full max-w-xl transition-all"
           >
             {text}
           </motion.p>

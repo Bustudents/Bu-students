@@ -6,7 +6,7 @@ import Calendar from "./calnder/page";
 export default function Home() {
 
   return (
-    <main >
+    <main  className="flex flex-col items-center justify-center  mr-10">
 
 <Homepage  />
     </main>

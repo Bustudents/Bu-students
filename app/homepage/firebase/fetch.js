@@ -34,7 +34,7 @@ export default async function Page() {
     const homepageContent = homepageSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 
     return (
-      <div>
+      <div className='xs:max-w-fit  2xl:max-w-full  xs:mr-0 xs:p-0   '>
         <Nav />
         {activeContent && activeContent.length > 0 ? (
           <div>

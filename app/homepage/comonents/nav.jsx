@@ -46,10 +46,10 @@ const Nav = () => {
   }
 
   return (
-    <div className="2xl:pt-7 xs:pt-10 relative 2xl:bottom-0  xs:bottom-[100px] 2xl:flex-row  flex items-center justify-between">
+    <div className="2xl:pt-7 xs:pt-10 relative 2xl:bottom-0  mr-0 xs:bottom-[100px] 2xl:flex-row  flex items-center justify-between">
       {/* Logo Section */}
       <div className="flex 2xl:text-[24px] xs:text-[14px] font-extrabold ml-10">
-      <h1 className="text-white xs:mb-5 2xl:mb-0 xs:mt-3 2xl:mt-0 2xl:tracking-normal flex 2xl:ml-0 xs:ml-[47px]">Bu-students</h1>
+      <h1 className="text-white xs:mb-5 2xl:mb-0 xs:mt-3 2xl:mt-0 2xl:tracking-normal flex ml-7 ">Bu-students</h1>
 
       </div>
 

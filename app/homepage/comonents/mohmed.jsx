@@ -47,19 +47,19 @@ const Mohmed = () => {
   }, []);
 
   return (
-    <div className="2xl:ml-5 xs:ml-20">
+    <div className="2xl:ml-5 xs:ml-0 2xl:pl-0 xs:pl-8  max-w-full  ">
       <motion.section
         ref={sectionRef}
         initial="hiddenDown"
         animate={inView === true ? "visible" : inView}
         variants={variants}
         transition={{ duration: 0.7, delay: 0.16 }}
-        className="h-screen w-screen flex items-center justify-center will-change"
+        className="flex items-center justify-center will-change"
       >
-        <div className="flex flex-col items-center justify-center 2xl:flex-row 2xl:pt-[230px] xs:pt-0">
+        <div className="flex flex-col items-center max-w-full justify-center 2xl:flex-row 2xl:pt-[230px] xs:pt-0">
           {/* Image Section */}
           <motion.div
-            className="image-container2 mr-10 2xl:w-[440px] 2xl:h-[440px] xs:h-[280px] xs:w-[280px] xs:order-1 2xl:order-2"
+            className="image-container2  2xl:w-[440px] 2xl:h-[440px] xs:h-[280px] xs:w-[280px] xs:order-1 2xl:order-2"
           
             variants={variants}
             initial="hiddenDown"
@@ -78,14 +78,14 @@ const Mohmed = () => {
             animate={inView === true ? "visible" : inView}
             transition={{ duration: 0.7, delay: 0.16 }}
           >
-            <div className="text-white flex flex-col justify-center items-center xs:mr-5 2xl:mr-32 xs:mt-10">
-              <p className="text-center leading-tight font-extrabold 2xl:w-[580px] 2xl:min-w-0 xs:min-w-[300px] xs:w-auto low 2xl:pt-16 xs:pt-8 w-full 2xl:text-[45px] xs:text-[23px] ml-5 xs:mr-14">
+            <div className="text-white flex w-full flex-col justify-center items-center xs:mr-0 2xl:mr-56 xs:mt-10">
+              <p className="text-center  leading-tight font-extrabold 2xl:w-[580px] 2xl:mx-0 xs:mx-5 2xl:min-w-0 xs:min-w-[300px] xs:w-min low 2xl:pt-16 xs:pt-8 w-full 2xl:text-[45px] xs:text-[23px] ">
                 In the world of business, the people who are most successful are
                 those who are doing what they love
               </p>
-              <div className="flex justify-center items-center mt-4 2xl:mr-0 xs:mr-7 font-bold 2xl:text-[20px] xs:text-[10px] tracking-widest">
+              <div className="flex justify-center  items-center mt-4 2xl:mr-0  text-[#FA0000] font-bold 2xl:text-[20px] xs:text-[10px] tracking-widest">
                 <p>Mr. Mohamed Suliman</p>
-                <hr className="vertical-line mx-4" />
+                <hr className="vertical-line mx-4 " />
                 <p>Faculty Registrar</p>
               </div>
             </div>

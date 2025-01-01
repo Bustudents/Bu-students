@@ -59,10 +59,10 @@ export default function ListWithOverlay() {
   };
 
   return (
-    <div>
+    <div className="mr-0">
       <button
         onClick={toggleList}
-        className="text-[30px] text-white hover:scale-125 transition-all duration-200 ease-in-out"
+        className="text-[30px] text-white mr-0 hover:scale-125 transition-all duration-200 ease-in-out"
       >
         ☰
       </button>

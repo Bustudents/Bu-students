@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "firebase": "^10.12.5",
     "firebase-admin": "^13.0.2",
     "framer-motion": "^11.3.30",
