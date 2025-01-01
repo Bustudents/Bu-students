@@ -156,7 +156,7 @@ const Calendar = () => {
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-white border border-gray-300 rounded-full"></div>
-            <span>Assignments not due soon</span>
+            <span>Assignments </span>
           </div>
           <div className="flex items-center space-x-2">
             <div className="w-4 h-4 bg-red-600 rounded-full"></div>
