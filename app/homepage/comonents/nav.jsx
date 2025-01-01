@@ -86,15 +86,15 @@ const Nav = () => {
               />
             </button>
           ) : (
-            <Link href={"/signin"}>
+            <Link href={"/signin"} >
             <button
               className={`hover:border-red-700 2xl:flex hover:scale-110  px-5 py-2 
               ${style.row} border-solid p-3 border-white transition-all 
               duration-300 ease-in-out text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
-              items-center 2xl:mr-24 xs:mr-0`}
+              items-center 2xl:mr-24 xs:mr-0 xs:p-3 2xl:p-4`}
             >
              
-                <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-[50px] 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-4 ">sign in</h3>
+                <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-[50px] 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2 ">sign in</h3>
             
               <Image
                 className="w-3 h-3 "
