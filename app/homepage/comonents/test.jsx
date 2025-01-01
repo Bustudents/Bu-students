@@ -65,7 +65,7 @@ function Section({ id, title, text, isEarlyVisible }) {
               opacity: fade,
             }}
             transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
-            className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500 mb-6 text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-wider uppercase shadow-2xl"
+            className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500  text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-wider uppercase shadow-2xl"
           >
             {title}
           </motion.h2>
@@ -77,7 +77,7 @@ function Section({ id, title, text, isEarlyVisible }) {
               opacity: fade,
             }}
             transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
-            className="text-transparent  xs:max-w-96  lg:max-w-[520px] bg-clip-text bg-gradient-to-r from-gray-400 to-gray-100 font-bold sm:text-[17px] lg:text-[37px] flex items-end justify-center h-full max-w-xl transition-all"
+            className="text-transparent   xs:max-w-[350px]  lg:max-w-[520px] bg-clip-text bg-gradient-to-r mb-2 from-gray-400 to-gray-100 font-bold  text-[22px] sm:text-[40px] lg:text-[37px] flex items-end justify-center h-full max-w-xl transition-all"
           >
             {text}
           </motion.p>
