@@ -40,7 +40,7 @@ export async function Homepage() {
         </div>
 
         {/* Influencing Academia Section */}
-        <div className="scroll3 2xl:mt-0 xs:mt-10 xs:max-w-max 2xl:max-w-none   flex 2xl:ml-0 flex-col items-center justify-center">
+        <div className="scroll3 2xl:mt-0 xs:mt-32  xs:max-w-max 2xl:max-w-none   flex 2xl:ml-0 flex-col items-center justify-center">
           <div className="flex flex-col justify-center items-center max-w-full  2xl:pt-[250px] xs:pt-[20px] h-fit w-fit 2xl:mt-7 2xl:ml-72 ">
             <h1 className="text-white relative  xs:right-[30px]  2xl:right-[200px]   font-extrabold 2xl:text-[40px] mb-14 xs:text-[20px] 2xl:mb-20  xs:mb-52 xs:ml-24 2xl:ml-20  ">
               Influencing Academia
