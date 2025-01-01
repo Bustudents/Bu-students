@@ -29,7 +29,7 @@ function Section({ id, title, text, isEarlyVisible }) {
       style={{
         scrollSnapAlign: "start",
         scrollSnapType: "y mandatory",
-        height: "210vh", // Reduced height for less spacing
+        height: "215vh", // Reduced height for less spacing
       }}
       className="flex flex-col mt-[-700px] justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
     >
