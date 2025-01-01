@@ -78,7 +78,7 @@ const Nav = () => {
             >
               <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-[50px] 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-4   ">sign out</h3>
               <Image
-                className="h-3 w-3 "
+                className="h-2 w-3 pr-1 xs:scale-105 2xl:scale-150 "
                 src="/assests/Vector (2).png"
                 alt="Sign out icon"
                 width={3}
