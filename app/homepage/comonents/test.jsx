@@ -31,7 +31,7 @@ function Section({ id, title, text, isEarlyVisible }) {
         scrollSnapType: "y mandatory",
         height: "215vh", // Reduced height for less spacing
       }}
-      className="flex flex-col mt-[-700px] justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
+      className="flex flex-col 2xl:mt-[-600px] xs:mt-[-700] justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
     >
       <div className="flex flex-col lg:flex-row justify-center items-center text-center lg:text-left">
         {/* Image with 3D effect */}
