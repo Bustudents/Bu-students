@@ -27,7 +27,7 @@ export async function Homepage() {
 <Link href={"/si"}/>
 
       {/* Main Hero Section */}
-      <div className="HN flex flex-col relative max-w-[calc(100vw+30px)]   xs:top-16 2xl:top-0 xs:mt-5 2xl:mt-0  2xl:ml-0 2xl:mr-0 xs:bg-center 2xl:bg-top xs:h-[calc(100vw-100px)] 2xl:w-screen 2xl:h-screen">
+      <div className="HN flex flex-col relative w-[calc(100vw+40px)]   xs:top-16 2xl:top-0 xs:mt-5 2xl:mt-0  2xl:ml-0 2xl:mr-0 xs:bg-center 2xl:bg-top xs:h-[calc(100vw-100px)] 2xl:w-screen 2xl:h-screen">
          <Page />
 
         {/* Section Component */}
