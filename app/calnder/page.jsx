@@ -62,7 +62,7 @@ const Calendar = () => {
           {dayEvents.length > 0 && (
             <div className="relative group">
               {/* Bullet Points */}
-              <ul className="flex flex-col items-center space-y-1">
+              <ul className="flex flex-col items-center space-y-1 z-10">
                 {dayEvents.map((event, index) => {
                   const eventDate = new Date(event.date);
                   const today = new Date();
@@ -81,14 +81,14 @@ const Calendar = () => {
                 })}
               </ul>
               {/* Tooltip */}
-              <div className="absolute 2xl:ml-0 xs:ml-3 top-8 left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
+              <div className="absolute 2xl:ml-0 xs:ml-3 z-20 top-8 left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
                 {dayEvents.map((event, index) => (
                   <div
                     key={index}
                     className="flex items-center space-x-2 border-b border-gray-200 pb-1 last:border-b-0 last:pb-0"
                   >
                     <span
-             className={`w-3 h-3 rounded-full ${
+             className={`w-3 h-3 rounded-full z-20 ${
       (() => {
         const eventDate = new Date(event.date);
         const today = new Date();
