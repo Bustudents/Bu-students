@@ -17,9 +17,7 @@ overflow-x: hidden;
     url("https://firebasestorage.googleapis.com/v0/b/bu-students.appspot.com/o/WhatsApp%20Image%202024-12-16%20at%2021.40.56_876657f6.jpg?alt=media&token=40cee486-5088-4f0d-8df8-c1ddd8bc8204");
 background-size:100% ;
 
-* {
-  outline: 1px solid red;
-}
+
 background-repeat: no-repeat;
 }
 /* Prevent horizontal overflow */
