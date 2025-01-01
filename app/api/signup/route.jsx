@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { db, auth } from "../../homepage/firebase/firebase.configzzz"; // Combine imports
+import { db, auth } from "../../homepage/firebase/firebase.config"; // Combine imports
 import { doc, setDoc } from "firebase/firestore"; // Import Firestore modular functions
 
 export async function POST(request) {
