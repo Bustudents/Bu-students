@@ -97,7 +97,7 @@ const Nav = () => {
                 <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-[50px] 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2 ">sign in</h3>
             
               <Image
-                className="w-3 h-3 "
+                className=" h-2 w-3 pr-1 xs:scale-1 2xl:scale-150 "
                 src="/assests/Vector (2).png"
                 alt="Sign in icon"
                 width={5}
