@@ -125,14 +125,14 @@ const Calendar = () => {
     <div className="bg-gray-900 min-h-screen flex flex-col items-center p-5 text-white">
       {/* Calendar Header */}
       <div className="flex justify-between items-center w-full max-w-xl mb-4">
-        <button onClick={() => changeMonth(-1)} className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg">
-          Previous
+        <button onClick={() => changeMonth(-1)} className="px-4 py-2  text-white font-bold bg-red-600 hover:bg-red-700 rounded-lg">
+        ←
         </button>
         <h2 className="2xl:text-2xl xs:text-[20px] font-bold">
           {new Date(date.year, date.month).toLocaleString("default", { month: "long" })} {date.year}
         </h2>
-        <button onClick={() => changeMonth(1)} className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg">
-          Next
+        <button onClick={() => changeMonth(1)} className="px-4 py-2 text-white font-bold bg-red-600 hover:bg-red-700 rounded-lg">
+        →
         </button>
       </div>
   
