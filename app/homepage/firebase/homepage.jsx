@@ -45,7 +45,7 @@ export async function Homepage() {
             <h1 className="text-white relative  xs:right-[30px]  2xl:right-[200px]   font-extrabold 2xl:text-[40px] mb-14 xs:text-[20px] 2xl:mb-20  xs:mb-52 xs:ml-24 2xl:ml-20  ">
               Influencing Academia
             </h1>
-            <div className=" hav  flex justify-center max-w-screen-xs  lg:ml-0 items-center flex-nowrap mb-20 h-[300px] w-[400px]  2xl:flex-row xs:flex-col ">
+            <div className=" hav  flex justify-center max-w-screen-xs 2xl:mr-28 xs:mr-0  lg:ml-0 items-center flex-nowrap mb-20 h-[300px] w-[400px]  2xl:flex-row xs:flex-col ">
               {list.map((item, index) => (
                 <Card key={index} img={item.img} text1={item.text1} text2={item.text2} />
               ))}
