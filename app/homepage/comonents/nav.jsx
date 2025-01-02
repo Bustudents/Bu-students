@@ -71,24 +71,24 @@ const Nav = () => {
           {user ? (
             <button
               onClick={handleSignOut}
-              className={`hover:border-red-700   2xl:flex hover:scale-110  butto px-0  pr-[-10px]
+              className={`hover:border-red-700   2xl:flex hover:scale-110  butto px-0  
               ${style.row} border-solid p-3 border-white 
             text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
-              items-center 2xl:mr-24 xs:mr-0 2xl:pl-5 xs:pl-3`}
+              items-center 2xl:mr-24 xs:mr-0 2xl:pl-5 xs:pl-3 xs:p-3  2xl:p-3`}
             >
-              <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3   ">sign out 💔</h3>
+              <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3   ">sign out &nbsp;💔</h3>
              
             </button>
           ) : (
             <Link href={"/signin"} >
             <button
-              className={`hover:border-red-700   2xl:flex hover:scale-110  butto px-0  pr-[-10px]
+              className={`hover:border-red-700   2xl:flex hover:scale-110  butto px-0 
                 ${style.row} border-solid p-3 border-white 
               text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
-                items-center 2xl:mr-24 xs:mr-0 2xl:pl-3 xs:pl-1`}
+                items-center 2xl:mr-24 xs:mr-0 2xl:pl-4 xs:pl-2 xs:p-3  2xl:p-3`}
             >
              
-                <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2 ">sign in ❤️</h3>
+                <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2   ">sign in &nbsp;❤️</h3>
          
             </button>  </Link>
           )}

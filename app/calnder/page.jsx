@@ -68,7 +68,7 @@ const Calendar = () => {
                   const today = new Date();
                   const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
                   const circleColor =
-                    daysUntilDue <= 3 && daysUntilDue >= 0
+                    daysUntilDue <= 3 && daysUntilDue >= 0&&event.assignment
                       ? "bg-yellow-500"
                       : event.important? "bg-red-600" : "bg-white";
   
@@ -93,7 +93,7 @@ const Calendar = () => {
         const eventDate = new Date(event.date);
         const today = new Date();
         const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
-        return daysUntilDue <= 3 && daysUntilDue >= 0
+        return daysUntilDue <= 3 && daysUntilDue >= 0 &&event.assignment
           ? "bg-yellow-500"
           :  event.important? "bg-red-600" : " bg-gray-400";
       })()
