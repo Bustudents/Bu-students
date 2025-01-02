@@ -1,4 +1,30 @@
+"use client"
+import React, { useState, useEffect } from 'react';
+
 export const Card = (props) => {
+  const [overlayText, setOverlayText] = useState('Coming Soon');
+  const [mouseMoveCounter, setMouseMoveCounter] = useState(0);
+
+  useEffect(() => {
+    // Mouse move event listener
+    const handleMouseMove = () => {
+      setMouseMoveCounter(prevCount => prevCount + 1);
+
+      // If mouse moves too much (e.g., 50 moves), change the overlay text
+      if (mouseMoveCounter > 230) {
+        setOverlayText('Without Touch');
+      }
+    };
+
+    // Attach mousemove event listener to the document
+    document.addEventListener('mousemove', handleMouseMove);
+
+    // Cleanup the event listener when component unmounts
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, [mouseMoveCounter]);
+
   return (
     <div className="card ml-6 2xl:mr-48 xs:mr-0 xs:scale-75 2xl:scale-100 flex flex-col items-center w-full h-full p-6 rounded-3xl bg-gradient-to-br from-gray-950 via-gray-900 to-black shadow-lg mb-10 relative group">
       
@@ -21,8 +47,8 @@ export const Card = (props) => {
       </div>
 
       {/* Overlay */}
-      <div className="overlay absolute rounded-3xl inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white font-bold text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-        Coming Soon
+      <div className={ `overlay absolute ${overlayText=="Without Touch"?"text-red-600":"text-white"}  rounded-3xl inset-0 flex items-center justify-center bg-black bg-opacity-60 text-white font-bold text-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300`}>
+        {overlayText}
       </div>
     </div>
   );

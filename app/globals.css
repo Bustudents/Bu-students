@@ -383,3 +383,6 @@ background-repeat: no-repeat;
     background: none; /* Removes the background image and gradient */
   }
 }
+.butto{transition: 0.4s;}
+.riddle:hover{.u{color: red;}}
+.can:hover{.you{color:red;}}

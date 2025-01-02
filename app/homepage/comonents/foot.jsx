@@ -23,8 +23,8 @@ export const Foot = () => {
         </div>
       </div>
       {/* Copyright */}
-      <div className="mt-8 border-t border-gray-700 pt-4 text-center text-gray-500">
-        &copy; {new Date().getFullYear()} Bu-students. All rights reserved.
+      <div className="mt-8 border-t border-gray-700 pt-4 text-center text-gray-500  ">
+      <span  className=" can " > &copy;<span className="you text-[#05050A]">an</span></span> {new Date().getFullYear()} Bu-students. All rights reserved.
       </div>
     </div>
   </footer>
