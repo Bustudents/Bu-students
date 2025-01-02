@@ -76,7 +76,7 @@ const Nav = () => {
             text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
               items-center 2xl:mr-24 xs:mr-0 2xl:pl-5 xs:pl-3 xs:p-3  2xl:p-3`}
             >
-              <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3   ">sign out &nbsp;💔</h3>
+              <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3   ">&nbsp;sign out&nbsp;</h3>
              
             </button>
           ) : (
@@ -88,7 +88,7 @@ const Nav = () => {
                 items-center 2xl:mr-24 xs:mr-0 2xl:pl-4 xs:pl-2 xs:p-3  2xl:p-3`}
             >
              
-                <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2   ">sign in &nbsp;❤️</h3>
+                <h3 className="2xl:text-[16px]  xs:text-[12px]    xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2   ">&nbsp;sign in&nbsp;</h3>
          
             </button>  </Link>
           )}
