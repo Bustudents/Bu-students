@@ -25,13 +25,22 @@ export default function ListWithOverlay() {
     if (menuState.isListVisible) {
       setMenuState((prevState) => ({
         ...prevState,
-        isAnimating: true, // Start the slide-out animation
+        isAnimating: true,
       }));
+  
+      // Delay hiding the list until after the animation
+      setTimeout(() => {
+        setMenuState((prevState) => ({
+          ...prevState,
+          isListVisible: false,
+          isAnimating: false,
+        }));
+      }, 500); // Match this duration to your animation time
     } else {
       setMenuState((prevState) => ({
         ...prevState,
-        isListVisible: true, // Show the list immediately
-        isAnimating: false, // Disable animation
+        isListVisible: true,
+        isAnimating: false,
       }));
     }
   };
@@ -72,16 +81,20 @@ export default function ListWithOverlay() {
           <div className="overlay" onClick={toggleList}></div>
 
           <div
-            className={`list text-white pt-5 font-bold tracking-wide ${
-              menuState.isListVisible && !menuState.isAnimating
-                ? "slide-in"
-                : "slide-out"
-            }`}
-            style={{
-              perspective: "1000px", // Adds 3D effect
-              transformStyle: "preserve-3d", // Ensure child elements are affected by 3D transforms
-            }}
-          >
+  className={`list text-white pt-5 font-bold tracking-wide ${
+    menuState.isAnimating
+      ? "slide-out"
+      : menuState.isListVisible
+      ? "slide-in"
+      : ""
+  }`}
+  style={{
+    perspective: "1000px",
+    transformStyle: "preserve-3d",
+    visibility: menuState.isListVisible || menuState.isAnimating ? "visible" : "hidden",
+  }}
+>
+
             <button
               onClick={toggleList}
               className="text-xl hover:border-red text-[30px] border solid border-white p-3 pb-1 pt-1 mb-5 ml-28 hover:scale-125 transition-all duration-100 ease-in-out"

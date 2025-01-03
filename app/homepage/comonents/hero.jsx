@@ -7,7 +7,7 @@ export const Hero = ({ stat }) => {
   // Check screen size to set rendering condition
   useEffect(() => {
     const checkScreenSize = () => {
-      setIs2XL(window.innerWidth >= 1536); // Tailwind's 2xl breakpoint (1536px)
+      setIs2XL(window.innerWidth >= 900); // Tailwind's 2xl breakpoint (1536px)
     };
 
     checkScreenSize();

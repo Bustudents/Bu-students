@@ -113,7 +113,7 @@ img, video, iframe {
     backdrop-filter: blur(10px); /* Apply the blur effect */
     z-index: 1;
     pointer-events: none; /* Ensures the layer doesn't interfere with clicks */
-   
+    will-change: opacity;
 }
   
 .list {
@@ -122,7 +122,7 @@ img, video, iframe {
   right: 20px;
   width: 200px;
   z-index: 2;
-
+  will-change: transform, opacity;
 }
 
 .slide-in {
@@ -147,14 +147,14 @@ img, video, iframe {
 
 @keyframes slideOut {
   from {
-      transform: translateX(0);
-      opacity: 1;
+    transform: translateX(0);
+    opacity: 1;
   }
   to {
-      transform: translateX(20px);
-      opacity: 0;
-      filter: blur(0px);
-    }
+    transform: translateX(20px);
+    opacity: 0;
+    visibility: hidden; /* Ensures the element is hidden */
+  }
 }
 
   
