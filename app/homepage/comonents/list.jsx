@@ -72,7 +72,7 @@ export default function ListWithOverlay() {
       {(menuState.isListVisible || menuState.isAnimating) && (
         <>
           <div
-            className={`overlay ${!supportsBlur ? "no-blur" : ""}`}
+            className={` ${!supportsBlur ? "no-blur" : "overlay"}`}
             onClick={toggleList}
           ></div>
 
