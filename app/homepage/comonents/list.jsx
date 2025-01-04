@@ -27,7 +27,7 @@ export default function ListWithOverlay() {
         ...prevState,
         isAnimating: true,
       }));
-  
+
       // Delay hiding the list until after the animation
       setTimeout(() => {
         setMenuState((prevState) => ({
@@ -35,7 +35,7 @@ export default function ListWithOverlay() {
           isListVisible: false,
           isAnimating: false,
         }));
-      }, 500); // Match this duration to your animation time
+      }, 200); // Shortened duration to match the animation time
     } else {
       setMenuState((prevState) => ({
         ...prevState,
@@ -54,7 +54,7 @@ export default function ListWithOverlay() {
           isListVisible: false, // Hide the list after animation
           isAnimating: false,   // Reset animation state
         }));
-      }, 500); // Duration of the animation
+      }, 200); // Duration of the animation
 
       return () => clearTimeout(timer);
     }
@@ -81,20 +81,22 @@ export default function ListWithOverlay() {
           <div className="overlay" onClick={toggleList}></div>
 
           <div
-  className={`list text-white pt-5 font-bold tracking-wide ${
-    menuState.isAnimating
-      ? "slide-out"
-      : menuState.isListVisible
-      ? "slide-in"
-      : ""
-  }`}
-  style={{
-    perspective: "1000px",
-    transformStyle: "preserve-3d",
-    visibility: menuState.isListVisible || menuState.isAnimating ? "visible" : "hidden",
-  }}
->
-
+            className={`list text-white pt-5 font-bold tracking-wide ${
+              menuState.isAnimating
+                ? "slide-out"
+                : menuState.isListVisible
+                ? "slide-in"
+                : ""
+            }`}
+            style={{
+              perspective: "1000px",
+              transformStyle: "preserve-3d",
+              visibility:
+                menuState.isListVisible || menuState.isAnimating
+                  ? "visible"
+                  : "hidden",
+            }}
+          >
             <button
               onClick={toggleList}
               className="text-xl hover:border-red text-[30px] border solid border-white p-3 pb-1 pt-1 mb-5 ml-28 hover:scale-125 transition-all duration-100 ease-in-out"
