@@ -42,7 +42,7 @@ export default function ListWithOverlay() {
         isListVisible: true,
         isAnimating: false,
       }));
-    }
+    }   
   };
 
   // Use effect to reset the list visibility after animation ends
