@@ -139,13 +139,18 @@ img, video, iframe {
   z-index: 2;
   will-change: transform, opacity;
 }
+.slide-in, .slide-out {
+  will-change: transform, opacity;
+}
 
 .slide-in {
   animation: slideIn 0.2s ease-in-out forwards;
+  transform: translateX(0);
 }
 
 .slide-out {
   animation: slideOut 0.1s ease-in-out forwards;
+  transform: translateX(-100%);
 }
 
 @keyframes slideIn {
