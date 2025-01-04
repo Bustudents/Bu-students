@@ -125,7 +125,7 @@ img, video, iframe {
 
 @supports not (backdrop-filter: blur(10px)) {
   .overlay {
-      background-color: rgba(0, 0, 0, 0.5); /* Fallback: Stronger semi-transparent background */
+    background-color: rgba(0, 0, 0, 0.849); /* Fallback: Stronger semi-transparent background */
   }
 }
 
