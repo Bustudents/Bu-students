@@ -19,14 +19,6 @@ export default function ListWithOverlay() {
     isAnimating: false,
     isSubMenuVisible: false,
   });
-  const [supportsBlur, setSupportsBlur] = useState(true);
-
-  useEffect(() => {
-    // Check for backdrop-filter support
-    const blurSupport = CSS.supports("backdrop-filter", "blur(10px)") || 
-                        CSS.supports("-webkit-backdrop-filter", "blur(10px)");
-    setSupportsBlur(blurSupport);
-  }, []);
 
   // Handle list visibility with animation logic
   const toggleList = () => {
@@ -35,7 +27,7 @@ export default function ListWithOverlay() {
         ...prevState,
         isAnimating: true,
       }));
-
+  
       // Delay hiding the list until after the animation
       setTimeout(() => {
         setMenuState((prevState) => ({
@@ -52,6 +44,21 @@ export default function ListWithOverlay() {
       }));
     }
   };
+
+  // Use effect to reset the list visibility after animation ends
+  useEffect(() => {
+    if (menuState.isAnimating) {
+      const timer = setTimeout(() => {
+        setMenuState((prevState) => ({
+          ...prevState,
+          isListVisible: false, // Hide the list after animation
+          isAnimating: false,   // Reset animation state
+        }));
+      }, 500); // Duration of the animation
+
+      return () => clearTimeout(timer);
+    }
+  }, [menuState.isAnimating]);
 
   const toggleSubMenu = () => {
     setMenuState((prevState) => ({
@@ -71,28 +78,23 @@ export default function ListWithOverlay() {
 
       {(menuState.isListVisible || menuState.isAnimating) && (
         <>
-          <div
-            className={` ${!supportsBlur ? "no-blur" : "overlay"}`}
-            onClick={toggleList}
-          ></div>
+          <div className="overlay" onClick={toggleList}></div>
 
           <div
-            className={`list text-white pt-5 font-bold tracking-wide ${
-              menuState.isAnimating
-                ? "slide-out"
-                : menuState.isListVisible
-                ? "slide-in"
-                : ""
-            }`}
-            style={{
-              perspective: "1000px",
-              transformStyle: "preserve-3d",
-              visibility:
-                menuState.isListVisible || menuState.isAnimating
-                  ? "visible"
-                  : "hidden",
-            }}
-          >
+  className={`list text-white pt-5 font-bold tracking-wide ${
+    menuState.isAnimating
+      ? "slide-out"
+      : menuState.isListVisible
+      ? "slide-in"
+      : ""
+  }`}
+  style={{
+    perspective: "1000px",
+    transformStyle: "preserve-3d",
+    visibility: menuState.isListVisible || menuState.isAnimating ? "visible" : "hidden",
+  }}
+>
+
             <button
               onClick={toggleList}
               className="text-xl hover:border-red text-[30px] border solid border-white p-3 pb-1 pt-1 mb-5 ml-28 hover:scale-125 transition-all duration-100 ease-in-out"
@@ -106,7 +108,7 @@ export default function ListWithOverlay() {
               >
                 Resources
                 {menuState.isSubMenuVisible && (
-                  <ul className="absolute top-[-7px] left-[-100px] text-white rounded-lg p-3">
+                  <ul className="absolute top-[-7px] left-[-100px]  text-white rounded-lg p-3 ">
                     <li className="p-2 hover:bg-red-700 rounded">
                       <a
                         href="https://drive.google.com/drive/folders/11_fAFjM-RTU1qP5i0ZEDZx_k9P1u0v_U"
