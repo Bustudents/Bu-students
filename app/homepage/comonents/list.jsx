@@ -35,7 +35,7 @@ export default function ListWithOverlay() {
           isListVisible: false,
           isAnimating: false,
         }));
-      }, 200); // Shortened duration to match the animation time
+      }, 300); // Increased duration to match the animation time
     } else {
       setMenuState((prevState) => ({
         ...prevState,
@@ -54,7 +54,7 @@ export default function ListWithOverlay() {
           isListVisible: false, // Hide the list after animation
           isAnimating: false,   // Reset animation state
         }));
-      }, 200); // Duration of the animation
+      }, 300); // Match the animation time for smooth transition
 
       return () => clearTimeout(timer);
     }
@@ -91,10 +91,9 @@ export default function ListWithOverlay() {
             style={{
               perspective: "1000px",
               transformStyle: "preserve-3d",
-              visibility:
-                menuState.isListVisible || menuState.isAnimating
-                  ? "visible"
-                  : "hidden",
+              // Make sure visibility is controlled based on state to prevent flickering
+              visibility: menuState.isListVisible || menuState.isAnimating ? "visible" : "hidden",
+              opacity: menuState.isAnimating ? 0 : 1, // Fade out during animation
             }}
           >
             <button
