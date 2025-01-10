@@ -69,8 +69,8 @@ const Calendar = () => {
                   const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
                   const circleColor =
                     daysUntilDue <= 3 && daysUntilDue >= 0&&event.assignment
-                      ? "bg-yellow-500"
-                      : event.important? "bg-red-600" : "bg-white";
+                      ? "bg-red-500"
+                      : event.important? "bg-[#f09636]" : "bg-white";
   
                   return (
                     <li
@@ -81,7 +81,7 @@ const Calendar = () => {
                 })}
               </ul>
               {/* Tooltip */}
-              <div className="absolute 2xl:ml-0 xs:ml-3 z-20 top-8 left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
+              <div className="absolute 2xl:ml-0 xs:ml-3 z-20 top-8  left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
                 {dayEvents.map((event, index) => (
                   <div
                     key={index}
@@ -95,7 +95,7 @@ const Calendar = () => {
         const daysUntilDue = Math.ceil((eventDate - today) / (1000 * 60 * 60 * 24));
         return daysUntilDue <= 3 && daysUntilDue >= 0 &&event.assignment
           ? "bg-yellow-500"
-          :  event.important? "bg-red-600" : " bg-gray-400";
+          :  event.important? "bg-[#f09636]" : " bg-gray-400";
       })()
     }`}
                     ></span>
@@ -151,15 +151,16 @@ const Calendar = () => {
         <h3 className="text-lg font-bold mb-3">Legend:</h3>
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-yellow-500 rounded-full"></div>
+            <div className="w-4 h-4  bg-gray-200  rounded-full"></div>
+            <span>Assignments </span>
+         
+          </div>
+          <div className="flex items-center space-x-2">
+            <div className="w-4 h-4 bg-[#F27A66] border-gray-300 rounded-full"></div>
             <span>Assignments due in 3 days or less</span>
           </div>
           <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-white border border-gray-300 rounded-full"></div>
-            <span>Assignments </span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-4 h-4 bg-red-600 rounded-full"></div>
+            <div className="w-4 h-4 bg-[#f09636] rounded-full"></div>
             <span>exams related dates & important events</span>
           </div>
         </div>
