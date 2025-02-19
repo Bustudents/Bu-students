@@ -50,7 +50,7 @@ const Profile = () => {
       localStorage.removeItem("authToken");
       router.push("/");
     } catch (error) {
-      console.error("Sign-out error:", error) ;
+      console.error("Sign-out error:", error);
     }
   };
 
