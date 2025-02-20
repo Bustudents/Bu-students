@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { onAuthStateChanged, signOut } from "firebase/auth";
+import { onAuthStateChanged, signOut, getAuth } from "firebase/auth";
 import { auth } from "../homepage/firebase/firebase.config";
 
 const Profile = () => {
@@ -13,7 +13,14 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const authToken = localStorage.getItem("authToken");
+        const currentUser = auth.currentUser;
+        if (!currentUser) {
+          router.push("/");
+          return;
+        }
+
+        // Retrieve the current user's ID token
+        const authToken = await currentUser.getIdToken();
         if (!authToken) {
           router.push("/");
           return;
@@ -47,7 +54,6 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      localStorage.removeItem("authToken");
       router.push("/");
     } catch (error) {
       console.error("Sign-out error:", error);

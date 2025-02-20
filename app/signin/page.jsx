@@ -1,8 +1,12 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation"; // Use Next.js router for navigation
+import { useRouter } from "next/navigation";
 import { auth } from "../homepage/firebase/firebase.config";
-import { signInWithEmailAndPassword, sendEmailVerification, onAuthStateChanged } from "firebase/auth";
+import { 
+  signInWithEmailAndPassword, 
+  sendEmailVerification, 
+  onAuthStateChanged 
+} from "firebase/auth";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -10,90 +14,82 @@ const SignInPage = () => {
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
-  const router = useRouter(); // Initialize Next.js router
+  const [user, setUser] = useState(null);
+  const [verificationSent, setVerificationSent] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && user.emailVerified) {
-        const token = await user.getIdToken(true); // Refresh token
-        localStorage.setItem("authToken", token);
-        router.push("/");
+      if (user) {
+        setUser(user);
+        if (user.emailVerified) {
+          const token = await user.getIdToken(true);
+          localStorage.setItem("authToken", token);
+          router.push("/");
+        }
       }
     });
-  
     return () => unsubscribe();
   }, [router]);
-  
-  useEffect(() => {
-    const unsubscribe = auth.onIdTokenChanged(async (user) => {
-      if (user) {
-        const token = await user.getIdToken(true); // Refresh token
-        localStorage.setItem("authToken", token);
-      }
-    });
-  
-    return () => unsubscribe();
-  }, []);
-  
 
-  // Polling function to check email verification
-  const checkEmailVerification = async (user) => {
+  // Polling function to check email verification every 5 seconds
+  const checkEmailVerification = async (currentUser) => {
     const interval = setInterval(async () => {
-      await user.reload();
-      if (user.emailVerified) {
-        clearInterval(interval);
-        // Force refresh the token and store it in localStorage
-        const token = await user.getIdToken(true);
+      await currentUser.reload(); // Refresh user data
+      if (currentUser.emailVerified) {
+        clearInterval(interval); // Stop checking
+        const token = await currentUser.getIdToken(true);
         localStorage.setItem("authToken", token);
         router.push("/");
       }
-    }, 3000); // Check every 3 seconds
+    }, 3000); // Check every 5 seconds
   };
 
-  // Handle email/password sign-in
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccessMessage("");
-    setIsLoading(true); // Set loading state
+    setIsLoading(true);
 
     try {
-      // Sign in with email and password
       const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      console.log("User signed in:", user);
+      setUser(user);
 
-      // Check if email is verified
       if (!user.emailVerified) {
-        if (!emailSent) { // Prevent resending email if already sent
+        // Send email immediately if not sent before
+        if (!verificationSent) {
           await sendEmailVerification(user);
-          setEmailSent(true);
-          setSuccessMessage("We sent an email to you. Please verify your email.");
+          setVerificationSent(true);
+          setSuccessMessage("Verification email sent! Please check your inbox.");
         }
-        setIsLoading(false);
-        checkEmailVerification(user); // Start polling for email verification
-        return;
+        checkEmailVerification(user);
+      } else {
+        const token = await user.getIdToken(true);
+        localStorage.setItem("authToken", token);
+        setSuccessMessage("Signed in successfully!");
+        setEmail("");
+        setPassword("");
+        router.push("/");
       }
-
-      // Get the Firebase ID token and store it in localStorage
-      const token = await user.getIdToken(true);
-      localStorage.setItem("authToken", token);
-
-      // Set success message
-      setSuccessMessage("Signed in successfully!");
-
-      // Clear the fields
-      setEmail("");
-      setPassword("");
-      setIsLoading(false); // Stop loading
-
-      // Redirect to homepage
-      router.push("/");
     } catch (err) {
       console.error("Error signing in:", err.message);
-      setError("Email or password is incorrect");
-      setIsLoading(false); // Stop loading on error
+      setError("Incorrect email or password.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendEmail = async () => {
+    if (user && !user.emailVerified) {
+      try {
+        await sendEmailVerification(user);
+        setVerificationSent(true);
+        setSuccessMessage("Verification email resent! Check your inbox.");
+      } catch (err) {
+        console.error("Error resending email:", err.message);
+        setError("Failed to resend verification email.");
+      }
     }
   };
 
@@ -101,12 +97,9 @@ const SignInPage = () => {
     <div className={`min-h-screen flex items-center ${isLoading ? "opacity-50" : "opacity-100"} justify-center bg-gray-900 text-white`}>
       <div className="w-full max-w-md p-6 bg-gray-800 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center mb-6">Sign In</h2>
-        {error && (
-          <p className="mb-4 text-sm text-red-500 text-center">{error}</p>
-        )}
-        {successMessage && (
-          <p className="mb-4 text-sm text-green-500 text-center">{successMessage}</p>
-        )}
+        {error && <p className="mb-4 text-sm text-red-500 text-center">{error}</p>}
+        {successMessage && <p className="mb-4 text-sm text-green-500 text-center">{successMessage}</p>}
+        
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="email" className="block text-sm font-medium">
@@ -138,12 +131,26 @@ const SignInPage = () => {
           </div>
           <button
             type="submit"
-            disabled={isLoading || emailSent} // Disable button during loading or if email is sent
-            className={`w-full py-2 ${isLoading || emailSent ? "bg-gray-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500"} rounded font-semibold transition`}
+            disabled={isLoading} 
+            className={`w-full py-2 ${isLoading ? "bg-gray-500 cursor-not-allowed" : "bg-indigo-600 hover:bg-indigo-500"} rounded font-semibold transition`}
           >
-            {emailSent ? "We sent an email to you" : isLoading ? "Signing In..." : "Sign In"}
+            {isLoading ? "Signing In..." : "Sign In"}
           </button>
         </form>
+
+        {/* Resend Email Button */}
+        {user && !user.emailVerified && (
+          <div className="mt-4 text-center">
+            <button 
+              onClick={handleResendEmail} 
+              disabled={verificationSent} 
+              className={`text-indigo-500 hover:underline ${verificationSent ? "opacity-50 cursor-not-allowed" : ""}`}
+            >
+              {verificationSent ? "Verification Email Sent" : "Resend Email"}
+            </button>
+          </div>
+        )}
+
         <p className="mt-4 text-sm text-center text-gray-400">
           {`Don't have an account? `}
           <a href="/signup" className="text-indigo-500 hover:underline">

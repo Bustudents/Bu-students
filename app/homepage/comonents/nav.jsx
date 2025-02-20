@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import { onAuthStateChanged } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebase.config";
 import style from "../style";
 import ListWithOverlay from "./list";
@@ -24,7 +24,7 @@ const Nav = () => {
         // Fetch user name only if not already cached
         const cachedName = localStorage.getItem("userName");
         if (!cachedName) {
-          await fetchUserData();
+          await fetchUserData(currentUser);
         } else {
           setName(cachedName);
         }
@@ -38,16 +38,20 @@ const Nav = () => {
     return () => unsubscribe();
   }, []);
 
-  const fetchUserData = async () => {
-    const authToken = localStorage.getItem("authToken");
-    if (!authToken) return;
-
-    const headers = {
-      Authorization: `Bearer ${authToken}`,
-      "Content-Type": "application/json",
-    };
-
+  const fetchUserData = async (currentUser) => {
     try {
+      // Retrieve the current user's ID token
+      const authToken = await currentUser.getIdToken();
+      if (!authToken) {
+        router.push("/signin");
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      };
+
       const userResponse = await fetch("/api/GetSpecalization", {
         method: "GET",
         headers: headers,
