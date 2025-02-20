@@ -1,9 +1,18 @@
 "use client";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../homepage/firebase/firebase.config";
+import { auth } from "../homepage/firebase/firebase.config"; // Firebase auth import
 
-export const fetchAllEvents = async (token) => {
+export const fetchAllEvents = async () => {
   try {
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      console.error("❌ User is not authenticated");
+      return [];
+    }
+
+    // Retrieve the current user's token
+    const token = await currentUser.getIdToken();
     if (!token) {
       console.error("❌ Authentication token is missing");
       return [];
@@ -47,10 +56,9 @@ export const fetchAllEvents = async (token) => {
     
     const querySnapshot = await getDocs(q);
     console.log("✅ querySnapshot:", querySnapshot); // Debugging
+
     return querySnapshot.docs.map((doc) => {
       const eventData = doc.data();
-     
-
       let formattedDate = "";
       if (eventData.date && typeof eventData.date.toDate === "function") {
         formattedDate = eventData.date.toDate().toISOString().split("T")[0];

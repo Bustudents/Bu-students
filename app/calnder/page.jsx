@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { fetchAllEvents } from "./navig"; // Updated server-side fetch function
 import { useRouter } from "next/navigation";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../homepage/firebase/firebase.config";
 
 const Calendar = () => {
@@ -11,50 +11,42 @@ const Calendar = () => {
   const [date, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
   const [loading, setLoading] = useState(true);
   const [events, setEvents] = useState([]);
+  const [user, setUser] = useState(null);
 
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const daysInMonth = new Date(date.year, date.month + 1, 0).getDate();
   const firstDayOfMonth = new Date(date.year, date.month, 1).getDay();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const currentUser = auth.currentUser;
-        if (!currentUser) {
-          router.push("/signin");
-          return;
-        }
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (!currentUser) {
+        router.push("/signin");
+        return;
+      }
 
-        // Retrieve the current user's ID token
+      setUser(currentUser);
+
+      try {
         const authToken = await currentUser.getIdToken();
         if (!authToken) {
           router.push("/signin");
           return;
         }
 
-        const headers = {
-          Authorization: `Bearer ${authToken}`,
-          "Content-Type": "application/json",
-        };
+        // Fetch all events using the provided function
+        const allEvents = await fetchAllEvents();
+        console.log("Fetched Events:", allEvents); // Debugging
 
-        const response = await fetch("/api/GetSpecalization", {
-          method: "GET",
-          headers,
-        });
-
-        if (!response.ok) throw new Error("Failed to fetch user data");
-
-        const data = await response.json();
-        setEvents(data?.events || []);
+        setEvents(allEvents || []);
       } catch (error) {
         console.error("Error fetching events:", error);
         router.push("/signin");
       } finally {
         setLoading(false);
       }
-    };
+    });
 
-    fetchUserData();
+    return () => unsubscribe();
   }, [router]);
 
   const changeMonth = (direction) => {
