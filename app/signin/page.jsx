@@ -16,14 +16,26 @@ const SignInPage = () => {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user && user.emailVerified) {
-        // Force refresh the token and store it in localStorage
-        const token = await user.getIdToken(true);
+        const token = await user.getIdToken(true); // Refresh token
         localStorage.setItem("authToken", token);
         router.push("/");
       }
     });
+  
     return () => unsubscribe();
   }, [router]);
+  
+  useEffect(() => {
+    const unsubscribe = auth.onIdTokenChanged(async (user) => {
+      if (user) {
+        const token = await user.getIdToken(true); // Refresh token
+        localStorage.setItem("authToken", token);
+      }
+    });
+  
+    return () => unsubscribe();
+  }, []);
+  
 
   // Polling function to check email verification
   const checkEmailVerification = async (user) => {
