@@ -24,7 +24,7 @@ function Section({ id, title, text }) {
   return (
     <section
       ref={ref}
-      style={{ scrollSnapAlign: "start", scrollSnapType: "y mandatory", height: "200vh" }}
+      style={{ scrollSnapAlign: "start", scrollSnapType: "y mandatory", height: "195vh" }}
       className="flex flex-col xs:mt-[-700px] 2xl:mt-[-500px] h-min justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
     >
       <div className="flex flex-col lg:flex-row justify-center  items-center text-center lg:text-left">

@@ -20,6 +20,12 @@ const SignUpPage = () => {
     setError(null);
     setSuccessMessage("");
 
+    if (!email || !firstName || !lastName || !password || !confirmPassword || !specialization) {
+      setError("All fields are required");
+      setIsLoading(false);
+      return;
+    }
+
     if (password !== confirmPassword) {
       setError("Passwords do not match");
       setIsLoading(false);
