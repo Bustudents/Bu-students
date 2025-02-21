@@ -38,7 +38,7 @@ const Features = () => {
     <section className="py-16  text-white" id="features">
       <div className="container mx-auto text-center px-6">
         <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 mb-12">
-          Wenbite Features
+          Website Features
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
