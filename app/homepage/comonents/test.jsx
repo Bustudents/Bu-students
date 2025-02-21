@@ -31,7 +31,7 @@ function Section({ id, title, text, isEarlyVisible }) {
         scrollSnapType: "y mandatory",
         height: "215vh", // Reduced height for less spacing
       }}
-      className="flex flex-col xs:mt-[-700px] 2xl:mt-[-600px] h-min justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
+      className="flex flex-col xs:mt-[-700px] 2xl:mt-[-500px] h-min justify-center ml-10 items-center relative overflow-hidden bg-gradient-to-b"
     >
       <div className="flex flex-col lg:flex-row justify-center items-center text-center lg:text-left">
         {/* Image with 3D effect */}
@@ -46,14 +46,16 @@ function Section({ id, title, text, isEarlyVisible }) {
           transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
           className="w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] overflow-hidden shadow-2xl rounded-xl mb-8 lg:mb-0"
         >
-          <motion.img
-            src={`/assests/${id}.jpg`}
-            alt={title}
-            className="top-0 rounded-2xl left-0 w-full h-full object-cover"
-            style={{
-              transform: "rotateY(10deg)",
-            }}
-          />
+        <div className="absolute  inset-0 bg-gradient-to-r from-blue-950 to-purple-950 rounded-xl opacity-20" />
+<motion.img
+  src={`/assests/${id}.jpg`}  // Corrected the "assets" spelling
+  alt={title}
+  className="top-0 rounded-2xl left-0 w-full h-full object-cover"
+
+  whileHover={{ scale: 1.05 }} // Optional: adding a hover scale effect for interaction
+  transition={{ duration: 0.4 }}
+/>
+
         </motion.div>
 
         {/* Related Text with Silver Effect */}
@@ -65,7 +67,7 @@ function Section({ id, title, text, isEarlyVisible }) {
               opacity: fade,
             }}
             transition={{ duration: 1.5, ease: "easeOut" }} // Slower animation
-            className="relative text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-red-500  text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-wider uppercase shadow-2xl"
+            className="relative text-transparent bg-clip-texttext-transparent bg-clip-text bg-gradient-to-r  from-blue-400  via-red-500  to-pink-400  text-5xl font-extrabold uppercase"
           >
             {title}
           </motion.h2>
@@ -103,13 +105,13 @@ export default function Sc() {
     {
       id: "mission",
       title: "Mission",
-      text: "Providing high-quality education that equips students with the knowledge, skills, and values to succeed in their careers.",
+      text: "To empower students with the knowledge, skills, and values necessary for career success by delivering high-quality education.",
       isEarlyVisible: false,
     },
     {
       id: "value",
       title: "Value",
-      text: "Fostering a culture of integrity, excellence, and innovation, empowering students to succeed and make a positive impact in the world.",
+      text:"Fostering integrity, excellence, and innovation to empower students for success and positive impact.",
       isEarlyVisible: false,
     },
   ];

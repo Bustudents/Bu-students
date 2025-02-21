@@ -1,5 +1,5 @@
 "use client";
-
+import { FaInfoCircle, FaUserCircle } from "react-icons/fa"; // Importing icons
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
@@ -95,13 +95,14 @@ const Nav = () => {
         <nav className="flex">
           {/* About Us Button */}
           <button
-            onClick={scrollToFooter}
+             FaInfoCircle 
+             onClick={scrollToFooter}
             className="hover:border-red-700 2xl:flex xs:hidden hover:scale-110 sign navanime hover:bg-primary 
             2xl:text-[16px] xs:text-[12px] px-6 py-2 font-extrabold 
             border-solid border-white transition-all duration-300 ease-in-out 
             text-white border-2 rounded-full flex items-center justify-center mr-7 butto"
           >
-            about us
+            about us {    FaInfoCircle }
           </button>
 
           {/* Sign In / Logged-in Button */}

@@ -4,7 +4,7 @@ import Link from "next/link";
 // Memoize the list items to avoid unnecessary re-renders
 const ListItem = memo(({ children, ...props }) => (
   <li
-    className="listitem w-screen border solid border-white rounded-full p-5 border-l-1 border-r-0 border-t-0 rounded-r-none border-b-0 mb-5 pr-2 hover:bg-red-700 hover:bg-opacity-80"
+    className="listitem w-screen border solid border-white rounded-full p-5 border-l-1 border-r-0 border-t-0 rounded-r-none border-b-0 mb-5 pr-2 hover:bg-gradient-to-r from-blue-400  to-purple-500  hover:bg-opacity-80"
     {...props}
   >
     {children}
@@ -113,7 +113,7 @@ export default function ListWithOverlay() {
                     <li className="p-2 hover:bg-red-700 rounded">
                       <a
                         href="https://drive.google.com/drive/folders/11_fAFjM-RTU1qP5i0ZEDZx_k9P1u0v_U"
-                        target="_blank"
+                      
                         rel="noopener noreferrer"
                       >
                         AC/FI
@@ -122,7 +122,7 @@ export default function ListWithOverlay() {
                     <li className="p-2 hover:bg-red-700 rounded">
                       <a
                         href="https://drive.google.com/drive/folders/1-H9miQjKuvJ8ydr9K20Mc4fEg_6OAAmm"
-                        target="_blank"
+            
                         rel="noopener noreferrer"
                       >
                         MG/MK
@@ -131,7 +131,7 @@ export default function ListWithOverlay() {
                     <li className="p-2 hover:bg-red-700 rounded">
                       <a
                         href="https://drive.google.com/drive/folders/1-T2jpNcjPt68tMGDeagp3bBk-tFjB3R0"
-                        target="_blank"
+             
                         rel="noopener noreferrer"
                       >
                         AFGK
@@ -141,11 +141,11 @@ export default function ListWithOverlay() {
                 )}
               </ListItem>
 
-              <Link href={"/courseoutline"} target="_blank">
+              <Link href={"/courseoutline"} >
                 <ListItem>Course outline</ListItem>
               </Link>
 
-              <Link href="/calnder" target="_blank">
+              <Link href="/calnder" >
                 <ListItem>Calendar</ListItem>
               </Link>
             </ul>

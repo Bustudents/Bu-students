@@ -5,17 +5,21 @@ import { db } from "./firebase.config";
 import Hero from "../comonents/hero";
 import Nav from "../comonents/nav";
 import Page from "./fetch";
-
+import stGraduationCertifications from "../comonents/cert"
 import Mohmed from "../comonents/mohmed";
 import { Card } from "../comonents/card";
 import { Foot } from "../comonents/foot";
 import Sc from "../comonents/test"
+import PostGraduationCertifications from "../comonents/cert";
+import Features from '../comonents/featchers';
 export async function Homepage() {
   // Mock data for demonstration
   const list = [
     { img: "farj.jpg", text1: "DR. Mohamed Farag", text2: "Dean of the Faculty of Business Administration" },
     { img: "rbo.jpg", text1: "DR.Arbab Faris", text2: "associated professor,economic social and enviromental studies" }
   ];
+
+  
 
   // Fetch data from Firebase
   const dataCollection = collection(db, "homepage");
@@ -35,6 +39,10 @@ export async function Homepage() {
       
 <div className=" component-scrollbar  flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
         {/* Mohmed Component */}
+    
+
+      
+       
         <div className="scroll2   flex justify-center items-center  2xl:ml-0   2xl:mt-[-25px] xs:mt-5 xs:pt-[50px] 2xl:pt-0 ">
           <Mohmed />
         </div>

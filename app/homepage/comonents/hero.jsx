@@ -22,7 +22,7 @@ export const Hero = ({ stat }) => {
     <div className="mr-0 max-w-full">
       {is2XL && (
         <div className="2xl:flex xs:hidden mr-0 overflow-x-hidden z-5 text-white text-[64px] pt-40 font-sans font-extrabold flex-col items-center justify-center">
-          <div key={stat.id} className="flex flex-col justify-start">
+          <div key={stat.id} className="flex flex-col justify-start items-center">
             <div className="flex row">
               <h2 className="mr-5">Faculty of </h2>
               <h2 className="text-[#FA0000]">Business</h2>
@@ -34,7 +34,7 @@ export const Hero = ({ stat }) => {
 
   
         <div className="2xl:pt-44 flex flex-col xs:pt-[150px] items-center justify-center">
-        {!is2XL && (<div className="2xl:hidden xs:ml-10 lg:ml-0 items-center justify-center xs:visible flex flex-col pt-20 text-[40px] font-extrabold">
+        {!is2XL && (<div className="2xl:hidden xs:ml-10 lg:ml-0 items-center justify-center  xs:visible flex flex-col pt-20 text-[40px] font-extrabold">
             <div>Faculty of</div>
             <div className="Buss">Business</div> 
             <div>Administration</div>
