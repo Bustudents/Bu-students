@@ -111,11 +111,11 @@ export default function ListWithOverlay() {
                 {menuState.isSubMenuVisible && (
   <ul className="absolute   min-w-[157px]     top-[-7px] left-[-150px]  text-white rounded-lg p-3 shadow-lg">
     {[
-      { name: "FI", link: "/R" },
-      { name: "AC", link: "/R" },
-      { name: "FI", link: "/R" },
-      { name: "MG", link: "/R" },
-      { name: "FAM", link: "/R" }
+      { name: "FI", link: "/Resources" },
+      { name: "AC", link: "/Resources" },
+      { name: "FI", link: "/Resources" },
+      { name: "MG", link: "/Resources" },
+      { name: "FAM", link: "/Resources" }
     ].map((item, index) => (
       <li key={index} className="p-2 hover:bg-red-700 rounded">
         <a href={item.link} rel="noopener noreferrer">{item.name}</a>

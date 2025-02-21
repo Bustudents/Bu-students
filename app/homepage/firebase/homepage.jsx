@@ -37,15 +37,15 @@ export async function Homepage() {
         {/* Section Component */}
         
       
-<div className=" component-scrollbar  flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
+<div className=" component-scrollbar  flex items-center justify-center flex-col relative lg:mt-60 xs:mt-72 mb-[-300px]">  <Sc/></div>
         {/* Mohmed Component */}
 
-    <div className="flex justify-center items-center lg:scale-100 xs:scale-90 xs:ml-10 lg:ml-0"> <Features/> </div>
+    <div className="flex justify-center items-center lg:scale-90  xs:scale-90 xs:ml-10 lg:ml-0  relative  xs:bottom-64 lg:bottom-0"> <Features/> </div>
 
       
        
        <div>
-          <div className="relative xs:top-52 2xl:top-10 2xl:ml-20  h-full xs:ml-10">
+          <div className="relative mb-[-300px] xs:top-[-250px] 2xl:top-10 2xl:ml-20  h-full xs:ml-10 ">
             <Foot />
           </div>
         </div>

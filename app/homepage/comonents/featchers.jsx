@@ -14,7 +14,7 @@ const features = [
     icon: <FaBook className="text-purple-400 text-4xl" />, 
     title: "Course Materials",
     description: "Download and manage study materials for your courses.",
-        herf:"/R"
+        herf:"/Resources"
  
   },
   {
@@ -28,7 +28,7 @@ const features = [
     icon: <FaChalkboardTeacher className="text-purple-400 text-4xl" />, 
     title: "Post graduation guide",
     description: "Coming soon",
-      herf:"Coursemterial"
+      herf:"/Posgraduation"
   },
  
 ];
