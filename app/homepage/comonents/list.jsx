@@ -103,36 +103,29 @@ export default function ListWithOverlay() {
               X
             </button>
             <ul>
+            <Link href="/calnder" >
+                <ListItem>Calendar</ListItem>
+              </Link>
+           
+            <Link href={"/Resources"} >
               <ListItem
-                onMouseEnter={toggleSubMenu}
-                onMouseLeave={toggleSubMenu}
+            
               >
                 Resources
-                {menuState.isSubMenuVisible && (
-  <ul className="absolute   min-w-[157px]     top-[-7px] left-[-150px]  text-white rounded-lg p-3 shadow-lg">
-    {[
-      { name: "FI", link: "/Resources" },
-      { name: "AC", link: "/Resources" },
-      { name: "FI", link: "/Resources" },
-      { name: "MG", link: "/Resources" },
-      { name: "FAM", link: "/Resources" }
-    ].map((item, index) => (
-      <li key={index} className="p-2 hover:bg-red-700 rounded">
-        <a href={item.link} rel="noopener noreferrer">{item.name}</a>
-      </li>
-    ))}
-  </ul>
-)}
+             
 
               </ListItem>
-
+</Link>
               <Link href={"/courseoutline"} >
                 <ListItem>Course outline</ListItem>
               </Link>
 
-              <Link href="/calnder" >
-                <ListItem>Calendar</ListItem>
+              <Link href={"/Posgraduation"} >
+                <ListItem>Post graduation</ListItem>
               </Link>
+
+             
+           
             </ul>
           </div>
         </>
