@@ -1,46 +1,55 @@
 import React from 'react';
+import Link from 'next/link';
+import { FaCalendarAlt, FaClipboardList, FaBook, FaUsers, FaChalkboardTeacher, FaCloud } from 'react-icons/fa';
 
+const features = [
+  {
+    icon: <FaCalendarAlt className="text-purple-400 text-4xl" />, 
+    title: "Academic Calendar",
+    description: "Stay updated with important academic dates and events.",
+     herf:"/calnder"
+  },
+ 
+  {
+    icon: <FaBook className="text-purple-400 text-4xl" />, 
+    title: "Course Materials",
+    description: "Download and manage study materials for your courses.",
+        herf:"/R"
+ 
+  },
+  {
+    icon: <FaUsers className="text-purple-400 text-4xl" />, 
+    title: "course outline",
+    description: "Explore up coming semeters subjects",
+      herf:"/courseoutline"
+  
+  },
+  {
+    icon: <FaChalkboardTeacher className="text-purple-400 text-4xl" />, 
+    title: "Post graduation guide",
+    description: "Coming soon",
+      herf:"Coursemterial"
+  },
+ 
+];
 
 const Features = () => {
   return (
-    <section className="py-16 h-screen bg-gray-100" id="features">
-      <div className="container mx-auto text-center">
-        <h2 className="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-pink-600 mb-12">
-          Our Features
+    <section className="py-16  text-white" id="features">
+      <div className="container mx-auto text-center px-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 mb-12">
+          Wenbite Features
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Feature 1 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform transition-all hover:scale-105 hover:shadow-2xl opacity-0 animate-fadeIn">
-            <div className="text-center mb-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-2xl">
-                <i className="fas fa-cogs"></i>
-              </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {features.map((feature, index) => (
+            <Link href= {`${feature.herf}`}>
+            <div key={index} className="bg-gray-800 p-6 rounded-xl shadow-lg op  transform transition-all hover:scale-105 hover:shadow-2xl">
+              <div className="flex justify-center mb-4">{feature.icon}</div>
+              <h3 className="text-2xl font-semibold mb-2">{feature.title}</h3>
+              <p className="text-gray-400">{feature.description}</p>
             </div>
-            <h3 className="text-2xl font-semibold text-gray-800 mb-2">Customizable Dashboard</h3>
-            <p className="text-gray-600">
-              Easily personalize your workspace and get the information that matters most to you.
-            </p>
-          </div>
-          {/* Feature 2 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform transition-all hover:scale-105 hover:shadow-2xl opacity-0 animate-fadeIn">
-            <div className="text-center mb-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-2xl">
-                <i className="fas fa-users"></i>
-              </div>
-            </div>
-            <h3 className="text-2xl font-semibold text-gray-800 mb-2">Collaborative Tools</h3>
-            <p className="text-gray-600">Share and work on projects with your team in real-time.</p>
-          </div>
-          {/* Feature 3 */}
-          <div className="bg-white p-6 rounded-lg shadow-lg transform transition-all hover:scale-105 hover:shadow-2xl opacity-0 animate-fadeIn">
-            <div className="text-center mb-4">
-              <div className="w-16 h-16 bg-gradient-to-r from-red-500 to-pink-600 rounded-full flex items-center justify-center text-white text-2xl">
-                <i className="fas fa-chart-line"></i>
-              </div>
-            </div>
-            <h3 className="text-2xl font-semibold text-gray-800 mb-2">Advanced Analytics</h3>
-            <p className="text-gray-600">Gain valuable insights and make data-driven decisions.</p>
-          </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

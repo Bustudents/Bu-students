@@ -157,7 +157,7 @@ const Calendar = () => {
    
    <div className="bg-gray-900 mr-16  relative xs:bottom-14 lg:bottom-0 xs:ml-0 lg:ml-20  z-1 h-max w-full flex flex-col  items-center   justify-center 2xl:scale-[110%] xs:scale-100 xs:justify-normal 2xl:justify-center p-5 text-white">
    <div className="text-center xs:visible lg:hidden  mt-10 mb-20">
-  <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 via-red-500 to-yellow-500 shadow-lg">
+  <h1 className="text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-purple-400 to-purple-400 shadow-lg">
     Calendar Events
   </h1>
 

@@ -39,26 +39,12 @@ export async function Homepage() {
       
 <div className=" component-scrollbar  flex items-center justify-center flex-col relative mt-52 mb-[-300px]">  <Sc/></div>
         {/* Mohmed Component */}
-    
+
+    <div className="flex justify-center items-center lg:scale-100 xs:scale-90 xs:ml-10 lg:ml-0"> <Features/> </div>
 
       
        
-        <div className="scroll2   flex justify-center items-center  2xl:ml-0   2xl:mt-[-25px] xs:mt-5 xs:pt-[50px] 2xl:pt-0 ">
-          <Mohmed />
-        </div>
-
-        {/* Influencing Academia Section */}
-        <div className="scroll3 2xl:mt-0 xs:mt-32  xs:max-w-max 2xl:max-w-none   flex 2xl:ml-0 flex-col items-center justify-center">
-          <div className="flex flex-col justify-center items-center max-w-full  2xl:pt-[250px] xs:pt-[20px] h-fit w-fit 2xl:mt-7 2xl:ml-72 ">
-            <h1 className="text-white relative  xs:right-[30px]  2xl:right-[200px]   font-extrabold 2xl:text-[40px] mb-14 xs:text-[20px] 2xl:mb-20  xs:mb-52 xs:ml-24 2xl:ml-20  ">
-              Influencing Academia
-            </h1>
-            <div className=" hav  flex justify-center max-w-screen-xs 2xl:mr-28 xs:mr-0  lg:ml-0 items-center flex-nowrap mb-20 h-[300px] w-[400px]  2xl:flex-row xs:flex-col ">
-              {list.map((item, index) => (
-                <Card key={index} img={item.img} text1={item.text1} text2={item.text2} />
-              ))}
-            </div>
-          </div>
+       <div>
           <div className="relative xs:top-52 2xl:top-10 2xl:ml-20  h-full xs:ml-10">
             <Foot />
           </div>

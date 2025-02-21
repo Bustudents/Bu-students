@@ -109,36 +109,21 @@ export default function ListWithOverlay() {
               >
                 Resources
                 {menuState.isSubMenuVisible && (
-                  <ul className="absolute top-[-7px] left-[-100px]  text-white rounded-lg p-3 ">
-                    <li className="p-2 hover:bg-red-700 rounded">
-                      <a
-                        href="https://drive.google.com/drive/folders/11_fAFjM-RTU1qP5i0ZEDZx_k9P1u0v_U"
-                      
-                        rel="noopener noreferrer"
-                      >
-                        AC/FI
-                      </a>
-                    </li>
-                    <li className="p-2 hover:bg-red-700 rounded">
-                      <a
-                        href="https://drive.google.com/drive/folders/1-H9miQjKuvJ8ydr9K20Mc4fEg_6OAAmm"
-            
-                        rel="noopener noreferrer"
-                      >
-                        MG/MK
-                      </a>
-                    </li>
-                    <li className="p-2 hover:bg-red-700 rounded">
-                      <a
-                        href="https://drive.google.com/drive/folders/1-T2jpNcjPt68tMGDeagp3bBk-tFjB3R0"
-             
-                        rel="noopener noreferrer"
-                      >
-                        AFGK
-                      </a>
-                    </li>
-                  </ul>
-                )}
+  <ul className="absolute   min-w-[157px]     top-[-7px] left-[-150px]  text-white rounded-lg p-3 shadow-lg">
+    {[
+      { name: "FI", link: "/R" },
+      { name: "AC", link: "/R" },
+      { name: "FI", link: "/R" },
+      { name: "MG", link: "/R" },
+      { name: "FAM", link: "/R" }
+    ].map((item, index) => (
+      <li key={index} className="p-2 hover:bg-red-700 rounded">
+        <a href={item.link} rel="noopener noreferrer">{item.name}</a>
+      </li>
+    ))}
+  </ul>
+)}
+
               </ListItem>
 
               <Link href={"/courseoutline"} >

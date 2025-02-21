@@ -60,7 +60,7 @@ const Profile = () => {
     }
   };
 
-  if (loading) return <div className="text-center text-white mt-10">Loading...</div>;
+  if (loading) return <div className="text-center flex items-center justify-center text-white  relative xs:top-96 lg:top-72">Loading...</div>;
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center bg-gray-900 text-white p-6">
