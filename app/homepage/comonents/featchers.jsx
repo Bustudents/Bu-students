@@ -42,7 +42,7 @@ const Features = () => {
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
-            <Link href= {`${feature.herf}`}>
+            <Link key={index} href= {`${feature.herf}`}>
             <div key={index} className="bg-gray-800 p-6 rounded-xl shadow-lg op  transform transition-all hover:scale-105 hover:shadow-2xl">
               <div className="flex justify-center mb-4">{feature.icon}</div>
               <h3 className="text-2xl font-semibold mb-2">{feature.title}</h3>
