@@ -40,7 +40,7 @@ export async function Homepage() {
 <div className=" component-scrollbar  flex items-center justify-center flex-col relative lg:mt-60 xs:mt-72 mb-[-300px]">  <Sc/></div>
         {/* Mohmed Component */}
 
-    <div className="flex justify-center items-center lg:scale-90  xs:scale-90 xs:ml-10 lg:ml-0  relative  xs:bottom-64 lg:bottom-0"> <Features/> </div>
+    <div className="flex justify-center items-center lg:scale-90  xs:scale-90 xs:ml-10 lg:ml-0  relative  xs:bottom-40 lg:bottom-0"> <Features/> </div>
 
       
        
