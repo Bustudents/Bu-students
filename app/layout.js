@@ -21,8 +21,8 @@ export default function RootLayout({ children }) {
 
         {/* Favicon & Mobile Icons */}
         <link rel="icon" href="/favicon.jpg" sizes="any" />
-        <link rel="apple-touch-icon" href="/favicon.jpg" sizes="180x180" />
-        <link rel="icon" href="/favicon.jpg" sizes="192x192" type="image/png" />
+        <link rel="apple-touch-icon" href="//cropped-image.png" sizes="180x180" />
+        <link rel="icon" href="/cropped-image.png" sizes="192x192" type="image/png" />
 
         {/* Web Manifest for Progressive Web App (PWA) Support */}
         <link rel="manifest" href="/site.webmanifest" />

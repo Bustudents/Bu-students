@@ -109,7 +109,7 @@ const Calendar = () => {
 </ul>
 
              
-<div className="absolute 2xl:ml-0 xs:ml-3 top-8  left-1/2 transform -translate-x-1/2 bg-white z-30  text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
+<div className="absolute z-30 2xl:ml-0 xs:ml-3  top-8  left-1/2 transform -translate-x-1/2 bg-white text-black text-sm p-3 rounded-lg shadow-lg hidden group-hover:flex flex-col space-y-2 border border-gray-300">
   {dayEvents.map((event, index) => {
     let eventColor = "bg-gray-400"; // Default color
 
@@ -153,7 +153,7 @@ const Calendar = () => {
    
    
    
-   <div className="flex   2xl:justify-center min-h-screen   lg:items-center xs:items-stretch justify-center   bg-gray-900  2xl:flex-row  xs:flex-col">
+   <div className="flex  2xl:justify-center min-h-screen  relative  lg:items-center xs:items-stretch justify-center   bg-gray-900  2xl:flex-row  xs:flex-col">
    
    <div className="bg-gray-900 mr-16  relative xs:bottom-14 lg:bottom-0 xs:ml-0 lg:ml-20  z-1 h-max w-full flex flex-col  items-center   justify-center 2xl:scale-[110%] xs:scale-100 xs:justify-normal 2xl:justify-center p-5 text-white">
    <div className="text-center xs:visible lg:hidden  mt-10 mb-20">
@@ -177,7 +177,7 @@ const Calendar = () => {
       </div>
      
     </div>
- <div className="z-10 xs:mt-0 lg:mt-16 xs:mr-0 xs:ml-5 lg:ml-40 lg:scale-150 lg:mr-20 relative xs:right-0 lg:right-20 mt-0  bg-gray-900  ">   <EventLegend/></div>
+ <div className="z-10    xs:mt-0 lg:mt-16 xs:mr-0 xs:ml-5 lg:ml-40 lg:scale-150 lg:mr-20 relative xs:right-0 lg:right-20 mt-0  bg-gray-900  ">   <EventLegend/></div>
     </div>
 );
 };
