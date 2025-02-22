@@ -72,7 +72,7 @@ export default function Sc() {
   const opacity = useTransform(scaleX, (value) => (value === 0.8 ? 0 : 1));
 
   const sections = [
-    { id: "19p", title: "To whom", text: "Bacth 19 students who rely on organized materials, streamlined course outlines, and academic tools." },
+    { id: "19p", title: "To whom", text: "Batch 19 students who rely on organized materials, streamlined course outlines, and academic tools." },
     { id: "download", title: "Objective", text: "Providing structured educational resources, supporting academic growth, and enhancing digital accessibility for students and faculty." },
     { id: "approach", title: "Approach", text: "Utilizing modern web technologies to ensure seamless navigation, accessibility, and continuous improvement of academic resources." },
   ]; 
