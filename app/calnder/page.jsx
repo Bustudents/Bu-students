@@ -6,7 +6,41 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../homepage/firebase/firebase.config";
 import EventLegend from "./legend"
+
+
+
+import { GoogleGenerativeAI } from "@google/generative-ai";
+
+
+
 const Calendar = () => {
+  useEffect(() => {
+    const fetchAIResponse = async () => {
+      try {
+        const genAI = new GoogleGenerativeAI("AIzaSyD3N4A9Nv-2z400dZv8sAR5LPSLGs8GYyo");
+        const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash-exp" });
+  
+        const prompt = "Explain how AI works";
+        const result = await model.generateContent(prompt);
+  
+        // Extract only the AI-generated response
+        console.log(result.response.text());
+      } catch (error) {
+        console.error("Error fetching AI response:", error);
+      }
+    };
+  
+    fetchAIResponse();
+  }, []);
+  
+  
+  
+  
+  
+  
+  
+  
+  
   const router = useRouter();
   const [date, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
   const [loading, setLoading] = useState(true);

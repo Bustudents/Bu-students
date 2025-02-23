@@ -1,0 +1,95 @@
+'use client';
+
+import { useState, useEffect, useRef } from 'react';
+import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
+import ReactMarkdown from 'react-markdown';
+
+export default function Home() {
+  const [input, setInput] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [messages]);
+
+  useEffect(() => {
+    if (messages.length > 0) {
+      document.getElementById('shbkgbt-text').style.opacity = '0';
+    }
+  }, [messages]);
+
+  const handleGenerate = async () => {
+    if (!input.trim()) return;
+
+    setIsLoading(true);
+    setMessages((prev) => [...prev, { text: input, type: 'user' }]);
+    
+    try {
+      const res = await fetch('/api/gemeni', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ prompt: input }),
+      });
+      const data = await res.json();
+      setMessages((prev) => [...prev, { text: data.response, type: 'bot' }]);
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages((prev) => [...prev, { text: 'An error occurred. Please try again.', type: 'bot' }]);
+    } finally {
+      setIsLoading(false);
+    }
+    setInput('');
+  };
+
+  const renderMessage = (text) => {
+    if (!text) return null;
+    return <ReactMarkdown>{text}</ReactMarkdown>;
+  };
+
+  return (
+    <div className="bg-[#1E1E2E] max-h-screen flex flex-col items-center justify-center min-h-screen p-4">
+      <div id="shbkgbt-text" className="absolute top-20 text-gray-600 text-[4rem] font-extrabold opacity-25">
+        SHBKGBT
+      </div>
+      
+      <div className="w-full max-w-md min-h-screen bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4">
+          {messages.map((message, index) => (
+            <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
+              <div className={`max-w-[75%] p-4 rounded-xl shadow-md ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}`}>
+                {renderMessage(message.text)}
+              </div>
+            </div>
+          ))}
+          {isLoading && (
+            <div className="flex justify-start">
+              <div className="max-w-[75%] p-4 rounded-xl shadow-md bg-gray-700 text-gray-200">
+                <div className="animate-pulse">Loading...</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        <div className="p-4 mb-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3">
+          <input
+            ref={inputRef}
+            className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            placeholder="Type a message..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+          />
+          <button
+            onClick={handleGenerate}
+            disabled={isLoading || !input.trim()}
+            className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition disabled:opacity-50"
+          >
+            <PaperAirplaneIcon className="h-6 w-6" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
