@@ -12,21 +12,28 @@ export default function Home() {
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
 
+  // Focus the input when messages change
   useEffect(() => {
     inputRef.current?.focus();
   }, [messages]);
 
+  // Scroll to bottom when messages change
   useEffect(() => {
-    scrollToBottom();
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    }, 100); // Delay to allow the keyboard to open
   }, [messages]);
 
+  // Handle viewport resizing (keyboard opening/closing)
   useEffect(() => {
     const handleResize = () => {
       if (chatContainerRef.current) {
         const viewportHeight = window.visualViewport?.height || window.innerHeight;
         chatContainerRef.current.style.height = `${viewportHeight}px`;
       }
-      setTimeout(scrollToBottom, 100);
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+      }, 100); // Delay to allow the keyboard to open
     };
 
     const handleScroll = () => {
@@ -46,10 +53,6 @@ export default function Home() {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
-  };
 
   const handleGenerate = async () => {
     if (!input.trim()) return;
