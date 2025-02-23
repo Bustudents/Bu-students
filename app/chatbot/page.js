@@ -77,7 +77,7 @@ export default function Home() {
       )}
 
       <div ref={chatContainerRef} className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden h-screen pb-16">
-        <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-20">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-20" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 60px)' }}>
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[75%] p-4 rounded-xl shadow-md ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}`}>
@@ -95,7 +95,8 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md pb-safe">
+        <div className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md pb-safe"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
           <input
             ref={inputRef}
             className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
