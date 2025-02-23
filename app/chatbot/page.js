@@ -26,7 +26,7 @@ export default function Home() {
         const viewportHeight = window.visualViewport?.height || window.innerHeight;
         chatContainerRef.current.style.height = `${viewportHeight}px`;
       }
-      scrollToBottom();
+      setTimeout(scrollToBottom, 100);
     };
 
     window.visualViewport?.addEventListener('resize', handleResize);
@@ -40,9 +40,7 @@ export default function Home() {
   }, []);
 
   const scrollToBottom = () => {
-    setTimeout(() => {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
 
   const handleGenerate = async () => {
@@ -104,6 +102,7 @@ export default function Home() {
             placeholder="Type a message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onFocus={scrollToBottom}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
           />
           <button
