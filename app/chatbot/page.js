@@ -106,7 +106,9 @@ export default function Home() {
             onChange={(e) => setInput(e.target.value)}
             onFocus={() => setTimeout(scrollToBottom, 300)}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-          />
+            autoComplete="off" // Disable autofill
+            inputMode="text" // Prevent unwanted 
+         />
           <button
             onClick={handleGenerate}
             disabled={isLoading || !input.trim()}
