@@ -45,11 +45,12 @@ export default function Home() {
 
   const handleGenerate = async () => {
     if (!input.trim()) return;
-
+  
     setIsLoading(true);
     setMessages((prev) => [...prev, { text: input, type: 'user' }]);
     setInput('');
-
+    inputRef.current?.blur(); // Close the keyboard
+  
     try {
       const res = await fetch('/api/gemeni', {
         method: 'POST',
@@ -65,6 +66,7 @@ export default function Home() {
       setIsLoading(false);
     }
   };
+  
 
   const renderMessage = (text) => text && <ReactMarkdown>{text}</ReactMarkdown>;
 
