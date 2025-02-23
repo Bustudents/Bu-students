@@ -111,7 +111,6 @@ export default function Home() {
             placeholder="Type a message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onFocus={() => setTimeout(scrollToBottom, 300)}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
           />
           <button
