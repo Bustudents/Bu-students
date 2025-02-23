@@ -11,6 +11,7 @@ export default function Home() {
   const inputRef = useRef(null);
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
+  const isUserScrolling = useRef(false);
 
   useEffect(() => {
     scrollToBottom();
@@ -37,12 +38,20 @@ export default function Home() {
 
   const handleScroll = () => {
     if (document.activeElement === inputRef.current) {
-      inputRef.current.blur(); // Close the keyboard when scrolling
+      inputRef.current.blur(); // Close keyboard when scrolling
     }
+    isUserScrolling.current = true;
+    setTimeout(() => {
+      isUserScrolling.current = false;
+    }, 1000);
   };
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    if (!isUserScrolling.current) {
+      setTimeout(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 300); // Slight delay to prevent focus loss
+    }
   };
 
   const handleGenerate = async () => {
@@ -114,7 +123,9 @@ export default function Home() {
             placeholder="Type a message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onFocus={() => setTimeout(scrollToBottom, 300)}
+            onFocus={() => {
+              setTimeout(scrollToBottom, 500); // Ensures messages are still visible while typing
+            }}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
           />
           <button
