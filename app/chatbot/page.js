@@ -11,7 +11,10 @@ export default function Home() {
   const inputRef = useRef(null);
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
-  const isUserScrolling = useRef(false);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, [messages]);
 
   useEffect(() => {
     scrollToBottom();
@@ -19,39 +22,34 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (chatContainerRef.current) {
-        const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        chatContainerRef.current.style.height = `${viewportHeight}px`;
+      if (window.innerHeight < 500) {  // Adjust this threshold based on your layout
+        chatContainerRef.current.style.height = `${window.innerHeight - 100}px`;  // Adjust height
+      } else {
+        chatContainerRef.current.style.height = '100%';  // Reset height when keyboard is not visible
       }
       setTimeout(scrollToBottom, 100);
     };
 
+    const handleScroll = () => {
+      if (document.activeElement === inputRef.current) {
+        inputRef.current.blur();
+      }
+    };
+
     window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleResize);
+    window.addEventListener('scroll', handleScroll);
     handleResize();
 
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
-  const handleScroll = () => {
-    if (document.activeElement === inputRef.current) {
-      inputRef.current.blur(); // Close keyboard when scrolling
-    }
-    isUserScrolling.current = true;
-    setTimeout(() => {
-      isUserScrolling.current = false;
-    }, 1000);
-  };
-
   const scrollToBottom = () => {
-    if (!isUserScrolling.current) {
-      setTimeout(() => {
-        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      }, 300); // Slight delay to prevent focus loss
-    }
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
 
   const handleGenerate = async () => {
@@ -87,15 +85,8 @@ export default function Home() {
         </div>
       )}
 
-      <div
-        ref={chatContainerRef}
-        className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden h-screen pb-16"
-      >
-        <div
-          className="flex-1 overflow-y-auto p-6 space-y-4 pb-20"
-          style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 60px)' }}
-          onScroll={handleScroll} // Close keyboard when user scrolls
-        >
+      <div ref={chatContainerRef} className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden h-screen pb-16">
+        <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-20" style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 60px)' }}>
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`max-w-[75%] p-4 rounded-xl shadow-md ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}`}>
@@ -113,19 +104,15 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div
-          className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md pb-safe"
-          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
-        >
+        <div className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md pb-safe"
+          style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
           <input
             ref={inputRef}
             className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Type a message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            onFocus={() => {
-              setTimeout(scrollToBottom, 500); // Ensures messages are still visible while typing
-            }}
+            onFocus={() => setTimeout(scrollToBottom, 300)}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
           />
           <button
