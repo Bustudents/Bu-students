@@ -117,6 +117,12 @@ export default function Home() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+            onFocus={() => {
+              // Scroll to the input field when focused
+              setTimeout(() => {
+                inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 100);
+            }}
           />
           <button
             onClick={handleGenerate}
