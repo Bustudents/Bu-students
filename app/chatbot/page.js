@@ -97,7 +97,7 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 bg-[#1E1E2E]  border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md pb-safe">
+        <div className="p-4 bg-[#1E1E2E] pb-7 border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md pb-safe">
           <input
             ref={inputRef}
             className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
