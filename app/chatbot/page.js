@@ -10,6 +10,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
   const messagesEndRef = useRef(null);
+  const chatContainerRef = useRef(null);
 
   // Focus on input when messages change
   useEffect(() => {
@@ -24,12 +25,23 @@ export default function Home() {
   // Handle viewport changes (e.g., virtual keyboard opening/closing)
   useEffect(() => {
     const handleResize = () => {
+      // Adjust the chat container height dynamically
+      if (chatContainerRef.current) {
+        const viewportHeight = window.visualViewport?.height || window.innerHeight;
+        chatContainerRef.current.style.height = `${viewportHeight - 100}px`; // Adjust 100px for header/input
+      }
       scrollToBottom();
     };
 
-    window.visualViewport?.addEventListener('resize', handleResize);
+    const visualViewport = window.visualViewport;
+    if (visualViewport) {
+      visualViewport.addEventListener('resize', handleResize);
+    }
+
     return () => {
-      window.visualViewport?.removeEventListener('resize', handleResize);
+      if (visualViewport) {
+        visualViewport.removeEventListener('resize', handleResize);
+      }
     };
   }, []);
 
@@ -67,11 +79,18 @@ export default function Home() {
 
   return (
     <div className="bg-[#1E1E2E] min-h-screen flex flex-col items-center justify-center p-4">
-      <div id="shbkgbt-text" className="absolute top-20 text-gray-600 text-[4rem] font-extrabold opacity-90 pt-52">
-        SHBKGBT
-      </div>
+      {/* Conditionally render SHBKGBT text */}
+      {messages.length === 0 && (
+        <div id="shbkgbt-text" className="absolute top-20 text-gray-600 text-[4rem] font-extrabold opacity-25">
+          SHBKGBT
+        </div>
+      )}
 
-      <div className="w-full max-w-md h-[80vh] bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+      <div
+        ref={chatContainerRef}
+        className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+        style={{ height: 'calc(100vh - 100px)' }} // Initial height
+      >
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -83,7 +102,7 @@ export default function Home() {
           {isLoading && (
             <div className="flex justify-start">
               <div className="max-w-[75%] p-4 rounded-xl shadow-md bg-gray-700 text-gray-200">
-                <div className="animate-pulse">Generating...</div>
+                <div className="animate-pulse">Loading...</div>
               </div>
             </div>
           )}
