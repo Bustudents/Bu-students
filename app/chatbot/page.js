@@ -22,14 +22,14 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      // Prevent changing the layout size, just keep the container fixed
-      chatContainerRef.current.style.height = '100%';
+      // Fix the layout, keeping it the same even when the keyboard opens
+      chatContainerRef.current.style.height = '100%';  // Prevent layout changes
       setTimeout(scrollToBottom, 100);
     };
 
     const handleScroll = () => {
       if (document.activeElement === inputRef.current) {
-        inputRef.current.blur();  // Close the keyboard when scrolling
+        inputRef.current.scrollIntoView({ behavior: 'smooth' }); // Keep the input visible on screen
       }
     };
 
