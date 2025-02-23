@@ -22,26 +22,25 @@ export default function Home() {
 
   useEffect(() => {
     const handleResize = () => {
-      if (chatContainerRef.current) {
-        const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        chatContainerRef.current.style.height = `${viewportHeight}px`;
-      }
+      // Prevent changing the layout size, just keep the container fixed
+      chatContainerRef.current.style.height = '100%';
       setTimeout(scrollToBottom, 100);
     };
 
     const handleScroll = () => {
       if (document.activeElement === inputRef.current) {
-        inputRef.current.blur();
+        inputRef.current.blur();  // Close the keyboard when scrolling
       }
     };
 
-    window.visualViewport?.addEventListener('resize', handleResize);
+    window.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleResize);
     window.addEventListener('scroll', handleScroll);
+
     handleResize();
 
     return () => {
-      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
       window.removeEventListener('scroll', handleScroll);
     };
