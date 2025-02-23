@@ -24,13 +24,14 @@ export default function Home() {
     const handleResize = () => {
       if (chatContainerRef.current) {
         const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        chatContainerRef.current.style.height = `${viewportHeight - 120}px`;
+        chatContainerRef.current.style.height = `${viewportHeight}px`;
       }
       scrollToBottom();
     };
 
     window.visualViewport?.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleResize);
+    handleResize();
 
     return () => {
       window.visualViewport?.removeEventListener('resize', handleResize);
@@ -77,7 +78,7 @@ export default function Home() {
         </div>
       )}
 
-      <div ref={chatContainerRef} className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
+      <div ref={chatContainerRef} className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -96,7 +97,7 @@ export default function Home() {
           <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3">
+        <div className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md">
           <input
             ref={inputRef}
             className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
