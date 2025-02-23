@@ -1,3 +1,4 @@
+"use client"
 import { useState, useEffect, useRef } from 'react';
 import { PaperAirplaneIcon } from '@heroicons/react/24/solid';
 import ReactMarkdown from 'react-markdown';
