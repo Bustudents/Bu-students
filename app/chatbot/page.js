@@ -9,23 +9,40 @@ export default function Home() {
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef(null);
+  const messagesEndRef = useRef(null);
 
+  // Focus on input when messages change
   useEffect(() => {
     inputRef.current?.focus();
   }, [messages]);
 
+  // Scroll to the bottom of the chat when messages change
   useEffect(() => {
-    if (messages.length > 0) {
-      document.getElementById('shbkgbt-text').style.opacity = '0';
-    }
+    scrollToBottom();
   }, [messages]);
+
+  // Handle viewport changes (e.g., virtual keyboard opening/closing)
+  useEffect(() => {
+    const handleResize = () => {
+      scrollToBottom();
+    };
+
+    window.visualViewport?.addEventListener('resize', handleResize);
+    return () => {
+      window.visualViewport?.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   const handleGenerate = async () => {
     if (!input.trim()) return;
 
     setIsLoading(true);
     setMessages((prev) => [...prev, { text: input, type: 'user' }]);
-    
+
     try {
       const res = await fetch('/api/gemeni', {
         method: 'POST',
@@ -49,12 +66,12 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-[#1E1E2E] max-h-screen flex flex-col items-center justify-center min-h-screen p-4">
-      <div id="shbkgbt-text" className="absolute top-20 text-gray-600 text-[4rem] font-extrabold opacity-25">
+    <div className="bg-[#1E1E2E] min-h-screen flex flex-col items-center justify-center p-4">
+      <div id="shbkgbt-text" className="absolute top-20 text-gray-600 text-[4rem] font-extrabold opacity-90 pt-52">
         SHBKGBT
       </div>
-      
-      <div className="w-full max-w-md min-h-screen bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+
+      <div className="w-full max-w-md h-[80vh] bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -66,13 +83,14 @@ export default function Home() {
           {isLoading && (
             <div className="flex justify-start">
               <div className="max-w-[75%] p-4 rounded-xl shadow-md bg-gray-700 text-gray-200">
-                <div className="animate-pulse">Loading...</div>
+                <div className="animate-pulse">Generating...</div>
               </div>
             </div>
           )}
+          <div ref={messagesEndRef} />
         </div>
 
-        <div className="p-4 mb-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3">
+        <div className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3">
           <input
             ref={inputRef}
             className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
