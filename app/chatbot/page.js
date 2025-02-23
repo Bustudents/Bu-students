@@ -29,13 +29,21 @@ export default function Home() {
       setTimeout(scrollToBottom, 100);
     };
 
+    const handleScroll = () => {
+      if (document.activeElement === inputRef.current) {
+        inputRef.current.blur();
+      }
+    };
+
     window.visualViewport?.addEventListener('resize', handleResize);
     window.addEventListener('orientationchange', handleResize);
+    window.addEventListener('scroll', handleScroll);
     handleResize();
 
     return () => {
       window.visualViewport?.removeEventListener('resize', handleResize);
       window.removeEventListener('orientationchange', handleResize);
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
