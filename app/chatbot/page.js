@@ -12,41 +12,36 @@ export default function Home() {
   const messagesEndRef = useRef(null);
   const chatContainerRef = useRef(null);
 
-  // Focus on input when messages change
   useEffect(() => {
     inputRef.current?.focus();
   }, [messages]);
 
-  // Scroll to the bottom of the chat when messages change
   useEffect(() => {
     scrollToBottom();
   }, [messages]);
 
-  // Handle viewport changes (e.g., virtual keyboard opening/closing)
   useEffect(() => {
     const handleResize = () => {
-      // Adjust the chat container height dynamically
       if (chatContainerRef.current) {
         const viewportHeight = window.visualViewport?.height || window.innerHeight;
-        chatContainerRef.current.style.height = `${viewportHeight - 100}px`; // Adjust 100px for header/input
+        chatContainerRef.current.style.height = `${viewportHeight - 120}px`;
       }
       scrollToBottom();
     };
 
-    const visualViewport = window.visualViewport;
-    if (visualViewport) {
-      visualViewport.addEventListener('resize', handleResize);
-    }
+    window.visualViewport?.addEventListener('resize', handleResize);
+    window.addEventListener('orientationchange', handleResize);
 
     return () => {
-      if (visualViewport) {
-        visualViewport.removeEventListener('resize', handleResize);
-      }
+      window.visualViewport?.removeEventListener('resize', handleResize);
+      window.removeEventListener('orientationchange', handleResize);
     };
   }, []);
 
   const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 100);
   };
 
   const handleGenerate = async () => {
@@ -54,6 +49,7 @@ export default function Home() {
 
     setIsLoading(true);
     setMessages((prev) => [...prev, { text: input, type: 'user' }]);
+    setInput('');
 
     try {
       const res = await fetch('/api/gemeni', {
@@ -69,28 +65,19 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-    setInput('');
   };
 
-  const renderMessage = (text) => {
-    if (!text) return null;
-    return <ReactMarkdown>{text}</ReactMarkdown>;
-  };
+  const renderMessage = (text) => text && <ReactMarkdown>{text}</ReactMarkdown>;
 
   return (
     <div className="bg-[#1E1E2E] min-h-screen flex flex-col items-center justify-center p-4">
-      {/* Conditionally render SHBKGBT text */}
       {messages.length === 0 && (
         <div id="shbkgbt-text" className="absolute top-20 text-gray-600 text-[4rem] font-extrabold opacity-25">
           SHBKGBT
         </div>
       )}
 
-      <div
-        ref={chatContainerRef}
-        className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden"
-        style={{ height: 'calc(100vh - 100px)' }} // Initial height
-      >
+      <div ref={chatContainerRef} className="w-full max-w-md bg-[#282A36] rounded-2xl shadow-2xl flex flex-col overflow-hidden" style={{ height: 'calc(100vh - 120px)' }}>
         <div className="flex-1 overflow-y-auto p-6 space-y-4">
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
@@ -117,12 +104,6 @@ export default function Home() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
-            onFocus={() => {
-              // Scroll to the input field when focused
-              setTimeout(() => {
-                inputRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-              }, 100);
-            }}
           />
           <button
             onClick={handleGenerate}
