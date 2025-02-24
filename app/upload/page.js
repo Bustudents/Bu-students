@@ -21,7 +21,7 @@ export default function UploadEventForm() {
   
  const subjectsBySpecialization = {
     Common: ["Entrepreneurship", "Insurance", "Management Accounting 1", "Risk Management"],
-    "Accounting and Finance": ["Financial Reporting", "Insurance", "Management Accounting 1", "Risk Management"],
+    "Accounting and Finance": ["financial reporting"],
     Accounting: ["Auditing"],
     Finance: ["E-Business", "International Finance"],
     Management: ["Management Information System", "Supply Chain Management"],
