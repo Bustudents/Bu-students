@@ -21,7 +21,7 @@ export default function UploadEventForm() {
   
  const subjectsBySpecialization = {
     Common: ["Entrepreneurship", "Insurance", "Management Accounting 1", "Risk Management"],
-    "Accounting and Finance": ["financial reporting"],
+    "Accounting and Finance": ["Financial reporting"],
     Accounting: ["Auditing"],
     Finance: ["E-Business", "International Finance"],
     Management: ["Management Information System", "Supply Chain Management"],
@@ -29,7 +29,7 @@ export default function UploadEventForm() {
 
   // Options for react-select
   const specializationOptions = [
-    { value: "Common", label: "Common" },
+    { value: "common", label: "Common" },
     { value: "Accounting and Finance", label: "Accounting and Finance" },
     { value: "Accounting", label: "Accounting" },
     { value: "Finance", label: "Finance" },
@@ -77,20 +77,15 @@ export default function UploadEventForm() {
     });
     return () => unsubscribe();
   }, [router]);
-
   useEffect(() => {
-    if (Specialization.includes("Common")) {
-      setSubjects(subjectsBySpecialization.Common);
-    } else {
-      const selectedSubjects = new Set();
-      Specialization.forEach((spec) => {
-        if (subjectsBySpecialization[spec]) {
-          subjectsBySpecialization[spec].forEach((subject) => selectedSubjects.add(subject));
-        }
-      });
-      setSubjects(Array.from(selectedSubjects));
-    }
-  }, [Specialization]);
+    // Combine all subjects from every specialization to allow full selection
+    const allSubjects = new Set();
+    Object.values(subjectsBySpecialization).forEach((subjectList) => {
+      subjectList.forEach((subject) => allSubjects.add(subject));
+    });
+    setSubjects(Array.from(allSubjects));
+  }, []);
+  
 
   const handleSpecializationChange = (selectedOptions) => {
     const selectedValues = selectedOptions.map((option) => option.value);
@@ -154,8 +149,8 @@ export default function UploadEventForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50 p-4">
       <div className="w-full max-w-md bg-[#98FF98] rounded-2xl shadow-xl p-6">
-      <h1 className="text-3xl flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide ">
-<p>  Welcome {firstName} </p> <img src="/assests/budget.png" className=" h-9 w-9 ml-3"/>
+      <h1 className="lg:text-2xl  flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide ">
+<p className="z-20">  Welcome {firstName} </p> <img src="/assests/budget.png" className=" z-10 h-9 w-9 ml-3"/>
 </h1>
 
   
