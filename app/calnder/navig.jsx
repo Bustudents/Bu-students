@@ -1,18 +1,8 @@
-"use client";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../homepage/firebase/firebase.config";
-import { auth } from "../homepage/firebase/firebase.config"; // Firebase auth import
 
-export const fetchAllEvents = async () => {
+export const fetchAllEvents = async (token) => {
   try {
-    const currentUser = auth.currentUser;
-    if (!currentUser) {
-      console.error("❌ User is not authenticated");
-      return [];
-    }
-
-    // Retrieve the current user's token
-    const token = await currentUser.getIdToken();
     if (!token) {
       console.error("❌ Authentication token is missing");
       return [];
@@ -25,8 +15,7 @@ export const fetchAllEvents = async () => {
       "Content-Type": "application/json",
     };
 
-    console.log("🔍 Headers:", headers); // Debugging
-
+    // Fetch user specialization
     const userResponse = await fetch("/api/GetSpecalization", {
       method: "GET",
       headers: headers,
@@ -48,20 +37,21 @@ export const fetchAllEvents = async () => {
     }
 
     // Fetch Firestore events
-    const eventsRef = collection(db, "events");
+    const eventsRef = collection(db, "calnder");
     const q = query(
       eventsRef,
       where("Specialization", "array-contains-any", [specialization, "common"])
     );
-    
+
     const querySnapshot = await getDocs(q);
     console.log("✅ querySnapshot:", querySnapshot); // Debugging
 
     return querySnapshot.docs.map((doc) => {
       const eventData = doc.data();
+      
       let formattedDate = "";
-      if (eventData.date && typeof eventData.date.toDate === "function") {
-        formattedDate = eventData.date.toDate().toISOString().split("T")[0];
+      if (eventData.date && typeof eventData.date === "string") {
+        formattedDate = eventData.date.split("T")[0]; // Extract YYYY-MM-DD
       }
 
       return { id: doc.id, ...eventData, date: formattedDate };
