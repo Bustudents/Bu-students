@@ -87,7 +87,7 @@ export default function Home() {
 
         {/* ✅ Dynamic keyboard margin applied */}
         <div
-          className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center  mb-3 h-[60px] space-x-3 fixed bottom-0 w-full max-w-md transition-all duration-300"
+          className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center   space-x-3 fixed bottom-0 w-full max-w-md transition-all duration-300"
           style={{ paddingBottom: `${keyboardHeight}px` }}
         >
           <input
