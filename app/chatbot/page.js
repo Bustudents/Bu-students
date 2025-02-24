@@ -70,7 +70,7 @@ export default function Home() {
         <div className="flex-1 overflow-y-auto p-6 space-y-4 pb-20">
           {messages.map((message, index) => (
             <div key={index} className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-[75%] p-4 rounded-xl shadow-md ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}`}>
+              <div className={`max-w-[95%] p-4 rounded-xl shadow-md ${message.type === 'user' ? 'bg-blue-600 text-white' : 'bg-gray-700 text-gray-200'}`}>
                 <ReactMarkdown>{message.text}</ReactMarkdown>
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function Home() {
           {isLoading && (
             <div className="flex justify-start">
               <div className="max-w-[75%] p-4 rounded-xl shadow-md bg-gray-700 text-gray-200">
-                <div className="animate-pulse">Loading...</div>
+                <div className="animate-pulse">Generating...</div>
               </div>
             </div>
           )}
@@ -92,7 +92,7 @@ export default function Home() {
         >
           <input
             ref={inputRef}
-            className="flex-1 p-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="flex-1 p-3   mb-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Type a message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
@@ -105,7 +105,7 @@ export default function Home() {
           <button
             onClick={handleGenerate}
             disabled={isLoading || !input.trim()}
-            className="p-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition disabled:opacity-50"
+            className="p-3 bg-blue-600  text-white rounded-full hover:bg-blue-700 transition disabled:opacity-50"
           >
             <PaperAirplaneIcon className="h-6 w-6" />
           </button>
