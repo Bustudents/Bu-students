@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../homepage/firebase/firebase.config";
 import EventLegend from "./legend";
-
+import Link from "next/link";
 const Calendar = () => {
   const router = useRouter();
   const [date, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
@@ -14,7 +14,7 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [user, setUser] = useState(null);
   const [authToken, setAuthToken] = useState(null);
-
+  const [acess,setAcess] =useState()
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
   const daysInMonth = new Date(date.year, date.month + 1, 0).getDate();
   const firstDayOfMonth = new Date(date.year, date.month, 1).getDay();
@@ -44,6 +44,42 @@ const Calendar = () => {
     return () => unsubscribe();
   }, [router]);
 
+ 
+   useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+        if (!currentUser) {
+          router.push("/signin");
+          return;
+        }
+        setUser(currentUser);
+        try {
+          const token = await currentUser.getIdToken();
+          setAuthToken(token);
+  
+          const userResponse = await fetch("/api/GetSpecalization", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          });
+  
+          if (userResponse.ok) {
+            const userData = await userResponse.json();
+         setAcess(userData?.userData?.access)
+          } else {
+            alert("Failed to fetch user specialization.");
+            router.push("/signin");
+          }
+        } catch (error) {
+          console.error("Error fetching token:", error);
+          router.push("/signin");
+        }
+      });
+      return () => unsubscribe();
+    }, [router]);
+  
+  
   const changeMonth = (direction) => {
     setDate((prev) => {
       const newMonth = prev.month + direction;
@@ -155,6 +191,14 @@ const Calendar = () => {
           {renderDays()}
         </div>
       </div>
+      <Link
+  href="/upload"
+  className={`px-4 butto py-2 h-14 flex items-center justify-center  rounded-lg bg-gradient-to-r w-40 m-4 from-purple-500 to-indigo-500 text-white font-semibold shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg active:scale-95 ${
+    acess ? "visible" : "hidden"
+  }`}
+>
+  Upload
+</Link>
 
       <div className="z-10 xs:mt-0 lg:mt-16 xs:mr-0 xs:ml-5 lg:ml-40 lg:scale-150 lg:mr-20 relative xs:right-0 lg:right-20 bg-gray-900">
         <EventLegend />

@@ -18,7 +18,8 @@ export default function UploadEventForm() {
   const [canUpload, setCanUpload] = useState(false);
   const [title, setTitle] = useState(""); // Added title state
  const [firstName,setfirstName] = useState()
-  const subjectsBySpecialization = {
+  
+ const subjectsBySpecialization = {
     Common: ["Entrepreneurship", "Insurance", "Management Accounting 1", "Risk Management"],
     "Accounting and Finance": ["Financial Reporting", "Insurance", "Management Accounting 1", "Risk Management"],
     Accounting: ["Auditing"],
@@ -50,23 +51,34 @@ export default function UploadEventForm() {
       try {
         const token = await currentUser.getIdToken();
         setAuthToken(token);
-
-        const userResponse = await fetch("/api/GetSpecalization", {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (userResponse.ok) {
-          const userData = await userResponse.json();
-          setSpecialization([...userData?.userData?.specialization || []]);
-        setfirstName(userData?.userData?.firstName)
-          setCanUpload(userData?.userData?.access);
+  
+        // Check if first name is already cached
+        const cachedFirstName = localStorage.getItem("firstName");
+        if (cachedFirstName) {
+          setfirstName(cachedFirstName); // Use cached first name
         } else {
-          alert("Failed to fetch user specialization.");
-          router.push("/signin");
+          const userResponse = await fetch("/api/GetSpecalization", {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json",
+            },
+          });
+  
+          if (userResponse.ok) {
+            const userData = await userResponse.json();
+            const firstName = userData?.userData?.firstName;
+            setfirstName(firstName);
+  
+            // Cache the first name
+            localStorage.setItem("firstName", firstName);
+  
+            setSpecialization([...userData?.userData?.specialization || []]);
+            setCanUpload(userData?.userData?.access);
+          } else {
+            alert("Failed to fetch user specialization.");
+            router.push("/signin");
+          }
         }
       } catch (error) {
         console.error("Error fetching token:", error);
@@ -139,6 +151,7 @@ export default function UploadEventForm() {
       if (result.success) {
         alert("Event uploaded successfully!");
         setPreview(false); // Reset preview after successful submission
+        router.push("/calnder");
       } else {
         alert("Error: " + result.error);
       }
