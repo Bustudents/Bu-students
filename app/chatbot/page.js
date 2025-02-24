@@ -87,12 +87,12 @@ export default function Home() {
 
         {/* ✅ Dynamic keyboard margin applied */}
         <div
-          className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center space-x-3 fixed bottom-0 w-full max-w-md transition-all duration-300"
+          className="p-4 bg-[#1E1E2E] border-t border-gray-700 flex items-center  mb-3 h-[60px] space-x-3 fixed bottom-0 w-full max-w-md transition-all duration-300"
           style={{ paddingBottom: `${keyboardHeight}px` }}
         >
           <input
             ref={inputRef}
-            className="flex-1 p-3   mb-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+            className="flex-1 p-3    mb-3 bg-gray-800 text-white border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
             placeholder="Type a message..."
             value={input}
             onChange={(e) => setInput(e.target.value)}
