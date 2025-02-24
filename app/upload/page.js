@@ -51,34 +51,28 @@ export default function UploadEventForm() {
       try {
         const token = await currentUser.getIdToken();
         setAuthToken(token);
-  
-        // Check if first name is already cached
-        const cachedFirstName = localStorage.getItem("firstName");
-        if (cachedFirstName) {
-          setfirstName(cachedFirstName); // Use cached first name
+
+        const userResponse = await fetch("/api/GetSpecalization", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (userResponse.ok) {
+          const userData = await userResponse.json();
+          setSpecialization([...userData?.userData?.specialization || []]);
+       
+          const firstName = userData?.userData?.firstName; // Get the first name
+          setfirstName(firstName); // Update React state
+          localStorage.setItem("firstName", firstName); // Store in localStorage
+          
+   
+        setCanUpload(userData?.userData?.access);
         } else {
-          const userResponse = await fetch("/api/GetSpecalization", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          });
-  
-          if (userResponse.ok) {
-            const userData = await userResponse.json();
-            const firstName = userData?.userData?.firstName;
-            setfirstName(firstName);
-  
-            // Cache the first name
-            localStorage.setItem("firstName", firstName);
-  
-            setSpecialization([...userData?.userData?.specialization || []]);
-            setCanUpload(userData?.userData?.access);
-          } else {
-            alert("Failed to fetch user specialization.");
-            router.push("/signin");
-          }
+          alert("Failed to fetch user specialization.");
+          router.push("/signin");
         }
       } catch (error) {
         console.error("Error fetching token:", error);
@@ -165,7 +159,7 @@ export default function UploadEventForm() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50 p-4">
       <div className="w-full max-w-md bg-[#98FF98] rounded-2xl shadow-xl p-6">
       <h1 className="text-3xl flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide ">
-<p>  Welcome {firstName} </p> <img src="/assests/budget.png" className=" h-9 w-9 ml-3"/>
+<p>  Welcome {localStorage.getItem("firstName")} </p> <img src="/assests/budget.png" className=" h-9 w-9 ml-3"/>
 </h1>
 
   
