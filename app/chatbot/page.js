@@ -17,7 +17,7 @@ export default function Home() {
     const handleResize = () => {
       const viewportHeight = window.visualViewport?.height || window.innerHeight;
       const keyboardVisible = window.innerHeight - viewportHeight > 100; // Detect keyboard state
-      setKeyboardHeight(keyboardVisible ? window.innerHeight - viewportHeight + 4 : 0); // Add 4px margin
+      setKeyboardHeight(keyboardVisible ? window.innerHeight - viewportHeight + 0 : 0); // Add 4px margin
     };
 
     window.visualViewport?.addEventListener('resize', handleResize);
