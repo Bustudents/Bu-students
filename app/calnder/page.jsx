@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../homepage/firebase/firebase.config";
 import EventLegend from "./legend";
 import Link from "next/link";
+import { title } from "process";
 const Calendar = () => {
   const router = useRouter();
   const [date, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
@@ -126,9 +127,13 @@ const Calendar = () => {
 
                   if (event.important) {
                     eventColor = "bg-[#f09636]";
-                  } else if (event.type) {
+                  } else if (event.type == "assignment" || event.type =="presentation") {
                     eventColor = dayDifference <= 3 ? "bg-red-500" : "bg-blue-500";
                   }
+                  else if (event.type == "general") {
+                    eventColor ="bg-gray-400"
+                  }
+   
 
                   return <li key={index} className={`w-3 h-3 rounded-full ${eventColor}`}></li>;
                 })}
@@ -144,10 +149,13 @@ const Calendar = () => {
 
                   if (event.important) {
                     eventColor = "bg-[#f09636]";
-                  } else if (event.type) {
+                  } else if (event.type == "assignment" || event.type =="presentation") {
                     eventColor = dayDifference <= 3 ? "bg-red-500" : "bg-blue-500";
                   }
-
+                  else if (event.type == "general") {
+                    eventColor ="bg-gray-400"
+                  }
+   
                   return (
                     <div key={index} className="flex items-center space-x-2 border-b border-gray-200 pb-1 last:border-b-0 last:pb-0">
                       <span className={`w-3 h-3 rounded-full ${eventColor}`}></span>

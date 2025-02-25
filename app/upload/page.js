@@ -39,6 +39,7 @@ export default function UploadEventForm() {
   const typeOptions = [
     { value: "assignment", label: "Assignment" },
     { value: "presentation", label: "Presentation" },
+    { value: "general", label: "General" },
   ];
 
   useEffect(() => {
