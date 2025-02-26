@@ -1,4 +1,4 @@
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs, doc, deleteDoc } from "firebase/firestore";
 import { db } from "../homepage/firebase/firebase.config";
 
 export const fetchAllEvents = async (token) => {
@@ -59,5 +59,23 @@ export const fetchAllEvents = async (token) => {
   } catch (error) {
     console.error("🔥 Error fetching filtered events:", error.message);
     return [];
+  }
+};
+
+// Function to delete an event by its ID
+export const deleteEvent = async (eventId) => {
+  try {
+    if (!eventId) {
+      console.error("❌ Event ID is missing");
+      return false;
+    }
+
+    const eventRef = doc(db, "calnder", eventId);
+    await deleteDoc(eventRef);
+    console.log("✅ Event deleted successfully:", eventId);
+    return true;
+  } catch (error) {
+    console.error("🔥 Error deleting event:", error.message);
+    return false;
   }
 };
