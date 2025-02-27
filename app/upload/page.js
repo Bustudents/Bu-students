@@ -1,48 +1,54 @@
 "use client";
-import { Timestamp } from "firebase/firestore"; // Import Firestore Timestamp
-import React, { useState, useEffect, use } from "react";
+import { Timestamp } from "firebase/firestore";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { auth } from "../homepage/firebase/firebase.config";
 import { onAuthStateChanged } from "firebase/auth";
-import Select from "react-select"; // Import react-select
+import Select from "react-select";
+import exp from "constants";
+import { Calendar } from "lucide-react";
+
+const subjectsBySpecialization = {
+  Common: ["Entrepreneurship", "Insurance", "Management Accounting 1", "Risk Management"],
+  "Accounting and Finance": ["Financial reporting"],
+  Accounting: ["Auditing"],
+  Finance: ["E-Business", "International Finance"],
+  Management: ["Management Information System", "Supply Chain Management"],
+};
+
+const specializationOptions = [
+  { value: "common", label: "Common" },
+  { value: "Accounting and Finance", label: "Accounting and Finance" },
+  { value: "Accounting", label: "Accounting" },
+  { value: "Finance", label: "Finance" },
+  { value: "Management", label: "Management" },
+];
+
+const typeOptions = [
+  { value: "assignment", label: "Assignment" },
+  { value: "presentation", label: "Presentation" },
+  { value: "general", label: "General" },
+];
 
 export default function UploadEventForm() {
   const router = useRouter();
   const [date, setDate] = useState(Date.now());
-  const [Specialization, setSpecialization] = useState([]);
+  const [specialization, setSpecialization] = useState([]);
   const [type, setType] = useState("assignment");
   const [preview, setPreview] = useState(false);
   const [authToken, setAuthToken] = useState(null);
   const [user, setUser] = useState(null);
   const [subjects, setSubjects] = useState([]);
   const [canUpload, setCanUpload] = useState(false);
-  const [title, setTitle] = useState(""); // Added title state
- const [firstName,setfirstName] = useState()
-  
- const subjectsBySpecialization = {
-    Common: ["Entrepreneurship", "Insurance", "Management Accounting 1", "Risk Management"],
-    "Accounting and Finance": ["Financial reporting"],
-    Accounting: ["Auditing"],
-    Finance: ["E-Business", "International Finance"],
-    Management: ["Management Information System", "Supply Chain Management"],
-  };
-
-  // Options for react-select
-  const specializationOptions = [
-    { value: "common", label: "Common" },
-    { value: "Accounting and Finance", label: "Accounting and Finance" },
-    { value: "Accounting", label: "Accounting" },
-    { value: "Finance", label: "Finance" },
-    { value: "Management", label: "Management" },
-  ];
-
-  const typeOptions = [
-    { value: "assignment", label: "Assignment" },
-    { value: "presentation", label: "Presentation" },
-    { value: "general", label: "General" },
-  ];
+  const [title, setTitle] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [general, setGeneral] = useState(false);
 
   useEffect(() => {
+    const cachedGeneral = localStorage.getItem("general") === "true";
+  
+    setGeneral(cachedGeneral); // Set initial value from cache
+  
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         router.push("/signin");
@@ -52,7 +58,7 @@ export default function UploadEventForm() {
       try {
         const token = await currentUser.getIdToken();
         setAuthToken(token);
-
+  
         const userResponse = await fetch("/api/GetSpecalization", {
           method: "GET",
           headers: {
@@ -60,13 +66,18 @@ export default function UploadEventForm() {
             "Content-Type": "application/json",
           },
         });
-
+  
         if (userResponse.ok) {
           const userData = await userResponse.json();
+          const isGeneral = userData?.userData?.general;
+  
           setSpecialization([...userData?.userData?.specialization || []]);
-        setfirstName(userData?.userData?.firstName)
-       
-        setCanUpload(userData?.userData?.access);
+          setFirstName(userData?.userData?.firstName);
+          setGeneral(isGeneral);
+          setCanUpload(userData?.userData?.access);
+  
+          // Cache the general value for future use
+          localStorage.setItem("general", isGeneral);
         } else {
           alert("Failed to fetch user specialization.");
           router.push("/signin");
@@ -76,29 +87,25 @@ export default function UploadEventForm() {
         router.push("/signin");
       }
     });
+  
     return () => unsubscribe();
   }, [router]);
+  
   useEffect(() => {
-    // Combine all subjects from every specialization to allow full selection
     const allSubjects = new Set();
     Object.values(subjectsBySpecialization).forEach((subjectList) => {
       subjectList.forEach((subject) => allSubjects.add(subject));
     });
     setSubjects(Array.from(allSubjects));
   }, []);
-  
 
   const handleSpecializationChange = (selectedOptions) => {
     const selectedValues = selectedOptions.map((option) => option.value);
-  
-    // Ensure "Accounting and Finance" is correctly split
-    let updatedSpecialization = selectedValues.includes("Accounting and Finance")
+    const updatedSpecialization = selectedValues.includes("Accounting and Finance")
       ? ["Accounting", "Finance"]
       : selectedValues;
-  
     setSpecialization(updatedSpecialization);
   };
-  
 
   const handleSubmit = async () => {
     if (!authToken || !canUpload) {
@@ -112,16 +119,11 @@ export default function UploadEventForm() {
     }
 
     try {
-      // Convert the date to a Firestore Timestamp
-      const firestoreDate = Timestamp.fromMillis(date);
-
-
       const eventData = {
-        date:  new Date(date), // Use the Firestore Timestamp
-        Specialization, // This will store multiple specializations as separate items
+        date: new Date(date),
+        specialization,
         type,
-        title, // Include the title in the event data
-        // Add other fields here
+        title,
       };
 
       const response = await fetch("/api/events", {
@@ -136,7 +138,7 @@ export default function UploadEventForm() {
       const result = await response.json();
       if (result.success) {
         alert("Event uploaded successfully!");
-        setPreview(false); // Reset preview after successful submission
+        setPreview(false);
         router.push("/calnder");
       } else {
         alert("Error: " + result.error);
@@ -146,22 +148,17 @@ export default function UploadEventForm() {
       alert("Failed to upload event. Please try again.");
     }
   };
- 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50 p-4">
-      <div className="w-full max-w-md bg-[#98FF98] rounded-2xl shadow-xl p-6">
-      <h1 className="lg:text-2xl  flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide ">
-<p className="z-20">  Welcome {firstName} </p> <img src="/assests/budget.png" className=" z-10 h-9 w-9 ml-3"/>
-</h1>
-
-  
+      <div className={`w-full max-w-md ${general ? "bg-purple-500" : "bg-[#98FF98]"} rounded-2xl shadow-xl p-6`}>
+        <h1 className="lg:text-2xl flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide">
+          <p className="z-20">Welcome {firstName}</p>
+          <img src={general ? "/assests/killua.png" : "/assests/budget.png"} className={`${general ? "z-10 h-[80px] w-[80px]" : "z-10 h-10 w-10 ml-3"}`} />
+        </h1>
 
         {!preview ? (
           <>
-            {/* Title Input */}
-            
-
-            {/* Date Input */}
             <div className="mb-4">
               <label className="block text-sm font-medium text-gray-700 mb-1">Date & Time</label>
               <input
@@ -172,33 +169,46 @@ export default function UploadEventForm() {
               />
             </div>
 
-            {/* Specialization Multi-Select */}
             <div className="mb-4">
-              <label className="block text-sm font-medium text-gray-700 mb-1">Specialization</label>
-              <Select
-                isMulti
-                options={specializationOptions}
-                value={specializationOptions.filter((option) =>
-                  Specialization.includes(option.value)
-                )}
-                onChange={handleSpecializationChange}
-                className="react-select-container"
-                classNamePrefix="react-select"
-              />
-            </div>
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    Specialization
+  </label>
+  <Select
+    isMulti
+    options={specializationOptions}
+    value={specializationOptions.filter((option) =>
+      specialization.includes(option.value)
+    )}
+    onChange={handleSpecializationChange}
+    className="react-select-container"
+    classNamePrefix="react-select"
+  />
+</div>
 
-            {/* Subject Dropdown */}
-            <Select
-  options={subjects.map((subject) => ({ value: subject, label: subject }))}
-  isDisabled={!subjects.length}
-  placeholder="Select Subject"
-  className="react-select-container"
-  classNamePrefix="react-select"
-  onChange={(selectedOption) => setTitle(selectedOption.value)}
-/>
+<div className="mb-4">
+  <label className="block text-sm font-medium text-gray-700 mb-1">
+    {general ? "Enter Title" : "Select Subject"}
+  </label>
+  {general ? (
+    <input
+      type="text"
+      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      placeholder="Enter a title"
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
+    />
+  ) : (
+    <Select
+      options={subjects.map((subject) => ({ value: subject, label: subject }))}
+      isDisabled={!subjects.length}
+      placeholder="Select Subject"
+      className="react-select-container"
+      classNamePrefix="react-select"
+      onChange={(selectedOption) => setTitle(selectedOption.value)}
+    />
+  )}
+</div>
 
-
-            {/* Type Dropdown */}
             <div className="mb-6">
               <label className="block mt-3 text-sm font-medium text-gray-700 mb-1">Type</label>
               <Select
@@ -210,10 +220,9 @@ export default function UploadEventForm() {
               />
             </div>
 
-            {/* Preview Button */}
             <button
               onClick={() => setPreview(true)}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+              className={`w-full ${general? "bg-pink-800":"bg-blue-600"} text-white py-3 rounded-lg hover:bg-blue-700 transition duration-300`}
             >
               Preview
             </button>
@@ -224,7 +233,7 @@ export default function UploadEventForm() {
             <div className="space-y-3">
               <p><strong>Title:</strong> {title}</p>
               <p><strong>Date:</strong> {new Date(date).toLocaleString()}</p>
-              <p><strong>Specialization:</strong> {Specialization.join(", ")}</p>
+              <p><strong>Specialization:</strong> {specialization.join(", ")}</p>
               <p><strong>Type:</strong> {type}</p>
             </div>
             <div className="flex justify-between mt-6">
@@ -247,3 +256,4 @@ export default function UploadEventForm() {
     </div>
   );
 }
+
