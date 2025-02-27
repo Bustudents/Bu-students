@@ -33,7 +33,7 @@ const typeOptions = [
 export default function UploadEventForm() {
   const router = useRouter();
   const [date, setDate] = useState(Date.now());
-  const [specialization, setSpecialization] = useState([]);
+  const [Specialization, setSpecialization] = useState([]);
   const [type, setType] = useState("assignment");
   const [preview, setPreview] = useState(false);
   const [authToken, setAuthToken] = useState(null);
@@ -122,7 +122,7 @@ export default function UploadEventForm() {
     try {
       const eventData = {
         date: new Date(date),
-        specialization,
+        Specialization,
         type,
         title,
       };
@@ -153,7 +153,7 @@ export default function UploadEventForm() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-50 to-purple-50 p-4">
       <div className={`w-full max-w-md ${general ? "bg-purple-500" : "bg-[#98FF98]"} rounded-2xl shadow-xl p-6`}>
-        <h1 className="lg:text-2xl flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide">
+        <h1 className="lg:text-xl flex justify-center items-center font-extrabold text-center text-[#0c0c41] mb-6 tracking-wide">
           <p className="z-20">Welcome {firstName}</p>
           <img src={general ? "/assests/killua.png" : "/assests/budget.png"} className={`${general ? "z-10 h-[80px] w-[80px]" : "z-10 h-10 w-10 ml-3"}`} />
         </h1>
@@ -178,7 +178,7 @@ export default function UploadEventForm() {
     isMulti
     options={specializationOptions}
     value={specializationOptions.filter((option) =>
-      specialization.includes(option.value)
+      Specialization.includes(option.value)
     )}
     onChange={handleSpecializationChange}
     className="react-select-container"
@@ -234,7 +234,7 @@ export default function UploadEventForm() {
             <div className="space-y-3">
               <p><strong>Title:</strong> {title}</p>
               <p><strong>Date:</strong> {new Date(date).toLocaleString()}</p>
-              <p><strong>Specialization:</strong> {specialization.join(", ")}</p>
+              <p><strong>Specialization:</strong> {Specialization.join(", ")}</p>
               <p><strong>Type:</strong> {type}</p>
             </div>
             <div className="flex justify-between mt-6">
