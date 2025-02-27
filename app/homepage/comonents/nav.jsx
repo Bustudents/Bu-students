@@ -11,43 +11,45 @@ import { LogIn } from "lucide-react";
 
 const Nav = () => {
   const [user, setUser] = useState(null);
-  const [name, setName] = useState("User"); // Initialize with a default value
+  const [name, setName] = useState(() => {
+    return typeof window !== "undefined" ? localStorage.getItem("userName") || "User" : "User";
+  });
+
   const router = useRouter();
 
   useEffect(() => {
-    // Access localStorage inside useEffect to avoid SSR issues
-    const storedName = localStorage.getItem("userName");
-    if (storedName) {
-      setName(storedName);
-    }
+    const fetchUserData = async (currentUser) => {
+      try {
+        const authToken = await currentUser.getIdToken();
+        if (!authToken) return router.push("/signin");
 
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if (!currentUser) {
-        setUser(null);
-        localStorage.removeItem("userName");
-        return;
-      }
+        const response = await fetch("/api/GetSpecalization", {
+          headers: { Authorization: `Bearer ${authToken}` },
+        });
 
-      setUser(currentUser);
-
-      if (!storedName) {
-        try {
-          const authToken = await currentUser.getIdToken();
-          if (!authToken) return router.push("/signin");
-
-          const response = await fetch("/api/GetSpecalization", {
-            headers: { Authorization: `Bearer ${authToken}` },
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            const userName = data?.userData?.firstName || "User";
+        if (response.ok) {
+          const data = await response.json();
+          const userName = data?.userData?.firstName || "User";
+          
+          // Only update state & localStorage if the name is different
+          if (userName !== name) {
             setName(userName);
             localStorage.setItem("userName", userName);
           }
-        } catch (error) {
-          console.error("Failed to fetch user data:", error);
         }
+      } catch (error) {
+        console.error("Failed to fetch user data:", error);
+      }
+    };
+
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (!currentUser) {
+        setUser(null);
+        setName("User");
+        localStorage.removeItem("userName");
+      } else {
+        setUser(currentUser);
+        fetchUserData(currentUser);
       }
     });
 
