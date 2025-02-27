@@ -8,7 +8,7 @@ import { auth } from "../homepage/firebase/firebase.config";
 import EventLegend from "./legend";
 import Link from "next/link";
 import Image from "next/image"; // Import Next.js Image component
-
+export const dynamic = 'force-dynamic';
 const Calendar = () => {
   const router = useRouter();
   const [date, setDate] = useState({ month: new Date().getMonth(), year: new Date().getFullYear() });
