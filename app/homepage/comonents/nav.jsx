@@ -7,13 +7,20 @@ import { auth } from "../firebase/firebase.config";
 import style from "../style";
 import ListWithOverlay from "./list";
 import { useRouter } from "next/navigation";
-import { LogIn } from "lucide-react"
+import { LogIn } from "lucide-react";
+
 const Nav = () => {
   const [user, setUser] = useState(null);
-  const [name, setName] = useState(localStorage.getItem("userName") || "User");
+  const [name, setName] = useState("User"); // Initialize with a default value
   const router = useRouter();
 
   useEffect(() => {
+    // Access localStorage inside useEffect to avoid SSR issues
+    const storedName = localStorage.getItem("userName");
+    if (storedName) {
+      setName(storedName);
+    }
+
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (!currentUser) {
         setUser(null);
@@ -23,7 +30,7 @@ const Nav = () => {
 
       setUser(currentUser);
 
-      if (!localStorage.getItem("userName")) {
+      if (!storedName) {
         try {
           const authToken = await currentUser.getIdToken();
           if (!authToken) return router.push("/signin");
@@ -61,8 +68,10 @@ const Nav = () => {
         <nav className="flex">
           {/* About Us Button */}
           <button
-            onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
-            className="hover:hover:bg-red-700 2xl:flex xs:hidden hover:scale-110 sign navanime hover:bg-primary 
+            onClick={() =>
+              document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })
+            }
+            className="hover:bg-red-700 2xl:flex xs:hidden hover:scale-110 sign navanime hover:bg-primary 
             2xl:text-[16px] xs:text-[12px] px-6 py-2 font-extrabold 
             border-solid border-white transition-all duration-300 ease-in-out 
             text-white border-2 rounded-full flex items-center justify-center mr-7 butto"
@@ -89,16 +98,15 @@ const Nav = () => {
             </Link>
           ) : (
             <Link href="/signin">
-          
-<button
-  className={`hover:bg-red-700 hover:scale-110  butto transition-all duration-300 
-              flex items-center border-solid border-white text-white border-2 
-              rounded-full px-4 py-2 relative 2xl:left-0 xs:left-11 
-              2xl:mr-24 xs:mr-6 2xl:p-3 xs:p-2`}
->
-  <LogIn className="w-5 h-5 text-white  " /> {/* Icon Added */}
-  <h3 className="text-[14px] font-extrabold p-2 text-white">Sign In</h3>
-</button>
+              <button
+                className={`hover:bg-red-700 hover:scale-110 butto transition-all duration-300 
+                flex items-center border-solid border-white text-white border-2 
+                rounded-full px-4 py-2 relative 2xl:left-0 xs:left-11 
+                2xl:mr-24 xs:mr-6 2xl:p-3 xs:p-2`}
+              >
+                <LogIn className="w-5 h-5 text-white" />
+                <h3 className="text-[14px] font-extrabold p-2 text-white">Sign In</h3>
+              </button>
             </Link>
           )}
 
