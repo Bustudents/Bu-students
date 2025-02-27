@@ -7,6 +7,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../homepage/firebase/firebase.config";
 import EventLegend from "./legend";
 import Link from "next/link";
+import Image from "next/image"; // Import Next.js Image component
 
 const Calendar = () => {
   const router = useRouter();

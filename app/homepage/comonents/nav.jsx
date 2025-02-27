@@ -7,7 +7,7 @@ import { auth } from "../firebase/firebase.config";
 import style from "../style";
 import ListWithOverlay from "./list";
 import { useRouter } from "next/navigation";
-
+import { LogIn } from "lucide-react"
 const Nav = () => {
   const [user, setUser] = useState(null);
   const [name, setName] = useState(localStorage.getItem("userName") || "User");
@@ -62,7 +62,7 @@ const Nav = () => {
           {/* About Us Button */}
           <button
             onClick={() => document.getElementById("footer")?.scrollIntoView({ behavior: "smooth" })}
-            className="hover:border-red-700 2xl:flex xs:hidden hover:scale-110 sign navanime hover:bg-primary 
+            className="hover:hover:bg-red-700 2xl:flex xs:hidden hover:scale-110 sign navanime hover:bg-primary 
             2xl:text-[16px] xs:text-[12px] px-6 py-2 font-extrabold 
             border-solid border-white transition-all duration-300 ease-in-out 
             text-white border-2 rounded-full flex items-center justify-center mr-7 butto"
@@ -89,21 +89,21 @@ const Nav = () => {
             </Link>
           ) : (
             <Link href="/signin">
-              <button
-                className={`hover:border-red-700 2xl:flex hover:scale-110 butto px-0 
-                ${style.row} border-solid p-3 border-white 
-                text-white border-2 rounded-full relative 2xl:left-0 xs:left-11
-                items-center 2xl:mr-24 xs:mr-0 2xl:pl-4 xs:pl-2 xs:p-3 2xl:p-3`}
-              >
-                <h3 className="2xl:text-[16px] xs:text-[12px] xs:w-full 2xl:w-full font-extrabold text-white xs:mr-1 2xl:mr-3 pl-2">
-                  Sign In
-                </h3>
-              </button>
+          
+<button
+  className={`hover:bg-red-700 hover:scale-110  butto transition-all duration-300 
+              flex items-center border-solid border-white text-white border-2 
+              rounded-full px-4 py-2 relative 2xl:left-0 xs:left-11 
+              2xl:mr-24 xs:mr-6 2xl:p-3 xs:p-2`}
+>
+  <LogIn className="w-5 h-5 text-white  " /> {/* Icon Added */}
+  <h3 className="text-[14px] font-extrabold p-2 text-white">Sign In</h3>
+</button>
             </Link>
           )}
 
           {/* Overlay List Component */}
-          <div className="relative 2xl:left-0 xs:left-16">
+          <div className="relative 2xl:left-0 xs:left-16 top-0">
             <ListWithOverlay />
           </div>
         </nav>
