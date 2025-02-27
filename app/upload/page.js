@@ -70,12 +70,13 @@ export default function UploadEventForm() {
         if (userResponse.ok) {
           const userData = await userResponse.json();
           const isGeneral = userData?.userData?.general;
-  
-          setSpecialization([...userData?.userData?.specialization || []]);
-          setFirstName(userData?.userData?.firstName);
+         const isFirstname=userData?.userData?.firstName
+          
+         setSpecialization([...userData?.userData?.specialization || []]);
+          setFirstName(isFirstname);
           setGeneral(isGeneral);
           setCanUpload(userData?.userData?.access);
-  
+          localStorage.setItem("firstName", isFirstname);
           // Cache the general value for future use
           localStorage.setItem("general", isGeneral);
         } else {

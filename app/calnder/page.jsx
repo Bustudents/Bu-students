@@ -52,7 +52,11 @@ const Calendar = () => {
 
         if (userResponse.ok) {
           const userData = await userResponse.json();
-          setAcess(userData?.userData?.access);
+          const isAccess = userData?.userData?.access;
+       
+          
+          setAcess(isAccess);
+          localStorage.setItem("acess", isAccess);
         } else {
           alert("Failed to fetch user specialization.");
           router.push("/signin");

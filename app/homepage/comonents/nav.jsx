@@ -11,6 +11,7 @@ import { LogIn } from "lucide-react";
 
 const Nav = () => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // ✅ Added loading state
   const [name, setName] = useState(() => {
     return typeof window !== "undefined" ? localStorage.getItem("userName") || "User" : "User";
   });
@@ -30,8 +31,7 @@ const Nav = () => {
         if (response.ok) {
           const data = await response.json();
           const userName = data?.userData?.firstName || "User";
-          
-          // Only update state & localStorage if the name is different
+
           if (userName !== name) {
             setName(userName);
             localStorage.setItem("userName", userName);
@@ -51,6 +51,7 @@ const Nav = () => {
         setUser(currentUser);
         fetchUserData(currentUser);
       }
+      setLoading(false); // ✅ Set loading to false once auth state is resolved
     });
 
     return () => unsubscribe();
@@ -82,7 +83,9 @@ const Nav = () => {
           </button>
 
           {/* Sign In / Logged-in Button */}
-          {user ? (
+          {loading ? (
+            <div className="w-32 h-15 ml-10 lg:mr-14 xs:mr-[-87px] bg-gray-300 rounded-full lg:scale-100 xs:scale-90  relative right-10 animate-pulse"></div> // ✅ Placeholder while loading
+          ) : user ? (
             <Link href="/userinfo">
               <button
                 className={`hover:bg-none 2xl:flex hover:scale-110 butto px-0  
